@@ -14,4 +14,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>dv8tion</id>
+            <url>https://m2.dv8tion.net/releases</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>6.3.1</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
 </project>
