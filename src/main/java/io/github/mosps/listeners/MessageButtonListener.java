@@ -1,4 +1,6 @@
 package io.github.mosps.listeners;
 
-public class MessageButtonListener {
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+public class MessageButtonListener extends ListenerAdapter {
 }
