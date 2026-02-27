@@ -1,7 +1,28 @@
 package io.github.mosps.listeners;
 
+import io.github.mosps.session.SessionData;
+import io.github.mosps.session.SessionManager;
+import net.dv8tion.jda.api.components.actionrow.ActionRow;
+import net.dv8tion.jda.api.components.buttons.Button;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class SlashCommandListener extends ListenerAdapter {
 
+    @Override
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        if (event.getName().equalsIgnoreCase("party")) {
+            event.reply("パーティ募集を作成しました。")
+                    .addComponents(ActionRow.of(
+                            Button.success("party_join", "参加"),
+                            Button.danger("party_leave", "退出"))
+                    ).queue(interactionHook -> {
+                        interactionHook.retrieveOriginal().queue(message -> {
+                            SessionData session = new SessionData(event.getUser().getIdLong());
+
+                            SessionManager.register(message.getIdLong(), session);
+                        });
+                    });
+        }
+    }
 }
