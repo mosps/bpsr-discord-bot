@@ -20,6 +20,7 @@ public class SessionManager {
     }
 
     public static void removeSession(long messageId) {
+        sessions.remove(messageId);
     }
 
     public static synchronized void startCleaner() {
