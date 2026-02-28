@@ -11,6 +11,9 @@ public class SessionData {
 
     private final long createdTime = System.currentTimeMillis();
 
+    private int maxMembers = 5;
+    private boolean closed = false;
+
     public SessionData(long ownerId) {
         this.ownerId = ownerId;
         this.addMembers(ownerId);
@@ -28,8 +31,9 @@ public class SessionData {
         members.remove(member.getIdLong());
     }
 
-    public void addMembers(long memberId) {
-        members.add(memberId);
+    public boolean addMembers(long memberId) {
+        if (members.size() >= maxMembers) return false;
+        return members.add(memberId);
     }
 
     public void removeMembers(long memberId) {
@@ -42,6 +46,14 @@ public class SessionData {
 
     public long getOwnerId() {
         return ownerId;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void close() {
+        closed = true;
     }
 }
 
