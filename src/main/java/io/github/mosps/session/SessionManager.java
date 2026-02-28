@@ -4,23 +4,23 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 public class SessionManager {
-    private static final Map<Long, SessionData> sessions = new ConcurrentHashMap<>();
+    private static final Map<String, SessionData> sessions = new ConcurrentHashMap<>();
 
     private static final ScheduledExecutorService cleaner = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> cleanerTask;
 
     private static final long TIMEOUT = TimeUnit.DAYS.toMillis(1);
 
-    public static void register (long messageId, SessionData sessionData) {
-        sessions.put(messageId, sessionData);
+    public static void register (String sessionId, SessionData sessionData) {
+        sessions.put(sessionId, sessionData);
     }
 
-    public static SessionData getSession(long messageId) {
-        return sessions.get(messageId);
+    public static SessionData getSession(String sessionId) {
+        return sessions.get(sessionId);
     }
 
-    public static void removeSession(long messageId) {
-        sessions.remove(messageId);
+    public static void removeSession(String sessionId) {
+        sessions.remove(sessionId);
     }
 
     public static synchronized void startCleaner() {
