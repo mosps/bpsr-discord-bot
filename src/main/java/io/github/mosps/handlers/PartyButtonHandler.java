@@ -7,37 +7,33 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 public class PartyButtonHandler implements ButtonHandler {
 
-    public boolean handle(ButtonInteractionEvent event) {
-        if (!event.getComponentId().startsWith("party")) return false;
+    public void handle(ButtonInteractionEvent event, String[] customId) {
+        String action = customId[1];
+        String sessionId = customId[2];
 
-        long messageId = event.getMessageIdLong();
-        SessionData session = SessionManager.getSession(messageId);
+        SessionData session = SessionManager.getSession(sessionId);
 
         if (session == null) {
             event.reply("期限切れの募集です。").setEphemeral(true).queue();
-            return true;
+            return;
         }
         if (session.isClosed()) {
             event.reply("締め切られた募集です。").setEphemeral(true).queue();
-            return true;
+            return;
         }
 
         long userId = event.getUser().getIdLong();
 
-        switch (event.getComponentId()) {
-            case "party_join":
-                session.addMembers(userId);
-                break;
-            case "party_leave":
-                session.removeMembers(userId);
-                break;
-            case "party_close":
+        switch (action) {
+            case "join" -> session.addMembers(userId);
+            case "leave" -> session.removeMembers(userId);
+            case "close"  -> {
                 if (userId != session.getOwnerId()) {
                     event.reply("募集作成者ではありません").setEphemeral(true).queue();
-                    return true;
+                    return;
                 }
                 session.close();
-                break;
+            }
         }
 
         event.editMessageEmbeds(
@@ -45,7 +41,5 @@ public class PartyButtonHandler implements ButtonHandler {
         ).setComponents(
                 MessageRenderer.buttons(session)
         ).queue();
-
-        return true;
     }
 }
