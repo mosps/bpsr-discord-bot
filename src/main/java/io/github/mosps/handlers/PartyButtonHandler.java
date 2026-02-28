@@ -36,7 +36,7 @@ public class PartyButtonHandler implements ButtonHandler {
                     event.reply("募集作成者ではありません").setEphemeral(true).queue();
                     return true;
                 }
-                SessionManager.removeSession(messageId);
+                session.close();
                 break;
         }
 
