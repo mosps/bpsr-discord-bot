@@ -18,12 +18,12 @@ public class ButtonHandlerManager {
     }
 
     public static void handle(ButtonInteractionEvent event) {
-        String[] parts = event.getComponentId().split(":");
+        String[] customId = event.getComponentId().split(":");
 
-        ButtonHandler handler = handlers.get(parts[0]);
+        ButtonHandler handler = handlers.get(customId[0]);
 
         if (handler != null) {
-            handler.handle(event, parts);
+            handler.handle(event, customId);
         }
     }
 }
