@@ -18,9 +18,9 @@ public class SlashCommandListener extends ListenerAdapter {
                             Button.danger("party_leave", "退出"))
                     ).queue(interactionHook -> {
                         interactionHook.retrieveOriginal().queue(message -> {
-                            SessionData session = new SessionData(event.getUser().getIdLong());
+                            SessionData session = new SessionData(event.getUser().getIdLong(), message.getIdLong());
 
-                            SessionManager.register(message.getIdLong(), session);
+                            SessionManager.register(session.getSessionId(), session);
                         });
                     });
         }
