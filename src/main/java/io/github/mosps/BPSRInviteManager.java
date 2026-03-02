@@ -1,7 +1,7 @@
 package io.github.mosps;
 
-import io.github.mosps.listeners.MessageButtonListener;
-import io.github.mosps.listeners.SlashCommandListener;
+import io.github.mosps.handlers.listener.MessageButtonListener;
+import io.github.mosps.handlers.listener.SlashCommandListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -30,3 +30,11 @@ public class BPSRInviteManager {
         jda.upsertCommand("party", "パーティ募集を作成").queue();
     }
 }
+
+/*TODO
+createView作成
+PartyRenderer中身調整
+必要に応じてPartyView調整
+session/内名前変更
+↓新機能追加...
+*/
