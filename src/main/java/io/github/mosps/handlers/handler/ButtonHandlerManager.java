@@ -1,4 +1,4 @@
-package io.github.mosps.handlers;
+package io.github.mosps.handlers.handler;
 
 import io.github.mosps.handlers.actions.party.PartyCloseAction;
 import io.github.mosps.handlers.actions.party.PartyJoinAction;

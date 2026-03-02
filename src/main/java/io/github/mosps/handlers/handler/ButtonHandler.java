@@ -1,4 +1,4 @@
-package io.github.mosps.handlers;
+package io.github.mosps.handlers.handler;
 
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 

@@ -1,4 +1,4 @@
-package io.github.mosps.listeners;
+package io.github.mosps.handlers.listener;
 
 import io.github.mosps.session.SessionData;
 import io.github.mosps.session.SessionManager;
@@ -14,8 +14,9 @@ public class SlashCommandListener extends ListenerAdapter {
         if (event.getName().equalsIgnoreCase("party")) {
             event.reply("パーティ募集を作成しました。")
                     .addComponents(ActionRow.of(
-                            Button.success("party_join", "参加"),
-                            Button.danger("party_leave", "退出"))
+                            Button.success("party:join", "参加"),
+                            Button.danger("party:leave", "退出"),
+                            Button.secondary("party:close", "終了"))
                     ).queue(interactionHook -> {
                         interactionHook.retrieveOriginal().queue(message -> {
                             SessionData session = new SessionData(event.getUser().getIdLong(), message.getIdLong());

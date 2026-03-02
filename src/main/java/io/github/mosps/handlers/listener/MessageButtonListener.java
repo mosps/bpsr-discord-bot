@@ -1,6 +1,6 @@
-package io.github.mosps.listeners;
+package io.github.mosps.handlers.listener;
 
-import io.github.mosps.handlers.ButtonHandlerManager;
+import io.github.mosps.handlers.handler.ButtonHandlerManager;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
