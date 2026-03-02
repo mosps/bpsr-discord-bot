@@ -1,7 +1,8 @@
 package io.github.mosps.handlers.actions.party;
 
-import io.github.mosps.handlers.ButtonHandler;
+import io.github.mosps.handlers.handler.ButtonHandler;
 import io.github.mosps.render.MessageRenderer;
+import io.github.mosps.render.RenderResult;
 import io.github.mosps.session.SessionData;
 import io.github.mosps.session.SessionManager;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -26,10 +27,12 @@ public abstract class PartyActionBase implements ButtonHandler {
     }
 
     protected void updateMessage(ButtonInteractionEvent event, SessionData session) {
+        RenderResult renderResult = MessageRenderer.render(session);
+
         event.editMessageEmbeds(
-                MessageRenderer.render(session)
+                renderResult.getEmbed()
         ).setComponents(
-                MessageRenderer.buttons(session)
+                renderResult.getComponents()
         ).queue();
     }
 }
