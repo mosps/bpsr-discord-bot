@@ -1,8 +1,10 @@
 package io.github.mosps.render;
 
-import net.dv8tion.jda.api.utils.messages.MessageEditData;
-
 public class MessageRenderer {
 
+    public static <T> RenderResult render(T view) {
+        Renderer<T> renderer = RendererRegistry.getRenderer(view);
 
+        return renderer.render(view);
+    }
 }
