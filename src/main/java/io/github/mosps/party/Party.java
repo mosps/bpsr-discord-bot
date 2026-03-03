@@ -1,4 +1,4 @@
-package io.github.mosps.session;
+package io.github.mosps.party;
 
 import net.dv8tion.jda.api.entities.Member;
 
@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class SessionData {
+public class Party {
     private final long ownerId;
     private final String sessionId = UUID.randomUUID().toString();
     private final long messageId;
@@ -17,7 +17,7 @@ public class SessionData {
     private int maxMembers = 5;
     private boolean closed = false;
 
-    public SessionData(long ownerId, long messageId) {
+    public Party(long ownerId, long messageId) {
         this.ownerId = ownerId;
         this.messageId = messageId;
         this.addMembers(ownerId);

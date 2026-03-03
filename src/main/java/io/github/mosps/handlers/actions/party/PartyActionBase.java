@@ -3,16 +3,16 @@ package io.github.mosps.handlers.actions.party;
 import io.github.mosps.handlers.handler.ButtonHandler;
 import io.github.mosps.render.MessageRenderer;
 import io.github.mosps.render.RenderResult;
-import io.github.mosps.session.SessionData;
-import io.github.mosps.session.SessionManager;
+import io.github.mosps.party.Party;
+import io.github.mosps.party.PartyManager;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 public abstract class PartyActionBase implements ButtonHandler {
 
-    protected SessionData getSession(ButtonInteractionEvent event, String[] customId) {
+    protected Party getSession(ButtonInteractionEvent event, String[] customId) {
         String sessionId = customId[2];
 
-        SessionData session = SessionManager.getSession(sessionId);
+        Party session = PartyManager.getSession(sessionId);
 
         if (session == null) {
             event.reply("期限切れの募集です。").setEphemeral(true).queue();
@@ -26,7 +26,7 @@ public abstract class PartyActionBase implements ButtonHandler {
         return session;
     }
 
-    protected void updateMessage(ButtonInteractionEvent event, SessionData session) {
+    protected void updateMessage(ButtonInteractionEvent event, Party session) {
         RenderResult renderResult = MessageRenderer.render(session);
 
         event.editMessageEmbeds(

@@ -1,7 +1,7 @@
 package io.github.mosps.handlers.listener;
 
-import io.github.mosps.session.SessionData;
-import io.github.mosps.session.SessionManager;
+import io.github.mosps.party.Party;
+import io.github.mosps.party.PartyManager;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -19,9 +19,9 @@ public class SlashCommandListener extends ListenerAdapter {
                             Button.secondary("party:close", "終了"))
                     ).queue(interactionHook -> {
                         interactionHook.retrieveOriginal().queue(message -> {
-                            SessionData session = new SessionData(event.getUser().getIdLong(), message.getIdLong());
+                            Party session = new Party(event.getUser().getIdLong(), message.getIdLong());
 
-                            SessionManager.register(session.getSessionId(), session);
+                            PartyManager.register(session.getSessionId(), session);
                         });
                     });
         }

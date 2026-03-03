@@ -1,21 +1,21 @@
-package io.github.mosps.session;
+package io.github.mosps.party;
 
 import java.util.Map;
 import java.util.concurrent.*;
 
-public class SessionManager {
-    private static final Map<String, SessionData> sessions = new ConcurrentHashMap<>();
+public class PartyManager {
+    private static final Map<String, Party> sessions = new ConcurrentHashMap<>();
 
     private static final ScheduledExecutorService cleaner = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> cleanerTask;
 
-    private static final long TIMEOUT = TimeUnit.DAYS.toMillis(1);
+    private static final long TIMEOUT = TimeUnit.MINUTES.toMillis(5);
 
-    public static void register (String sessionId, SessionData sessionData) {
-        sessions.put(sessionId, sessionData);
+    public static void register (String sessionId, Party party) {
+        sessions.put(sessionId, party);
     }
 
-    public static SessionData getSession(String sessionId) {
+    public static Party getSession(String sessionId) {
         return sessions.get(sessionId);
     }
 
@@ -30,7 +30,7 @@ public class SessionManager {
             long currentTime = System.currentTimeMillis();
 
             sessions.entrySet().removeIf(entry -> {
-                SessionData session = entry.getValue();
+                Party session = entry.getValue();
 
                 return currentTime - session.getCreatedTime() > TIMEOUT;
             });
