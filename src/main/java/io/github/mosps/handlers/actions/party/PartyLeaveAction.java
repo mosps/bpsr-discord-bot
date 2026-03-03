@@ -1,19 +1,22 @@
 package io.github.mosps.handlers.actions.party;
 
 import io.github.mosps.party.Party;
+import io.github.mosps.party.PartyManager;
+import io.github.mosps.views.party.PartyView;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 public class PartyLeaveAction extends PartyActionBase {
 
     @Override
     public void handle(ButtonInteractionEvent event, String[] customId) {
-        Party session = getSession(event, customId);
-        if (session == null) return;
+        Party party = getParty(event, customId);
+        if (party == null) return;
 
         long userId = event.getUser().getIdLong();
 
-        session.removeMembers(userId);
+        party.removeMembers(userId);
 
-        updateMessage(event, session);
+        PartyView view = PartyManager.createView(party);
+        updateMessage(event, view);
     }
 }

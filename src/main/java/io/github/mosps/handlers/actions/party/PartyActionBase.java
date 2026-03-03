@@ -5,29 +5,30 @@ import io.github.mosps.render.MessageRenderer;
 import io.github.mosps.render.RenderResult;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
+import io.github.mosps.views.party.PartyView;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 public abstract class PartyActionBase implements ButtonHandler {
 
-    protected Party getSession(ButtonInteractionEvent event, String[] customId) {
-        String sessionId = customId[2];
+    protected Party getParty(ButtonInteractionEvent event, String[] customId) {
+        String partyId = customId[2];
 
-        Party session = PartyManager.getSession(sessionId);
+        Party party = PartyManager.getParty(partyId);
 
-        if (session == null) {
+        if (party == null) {
             event.reply("期限切れの募集です。").setEphemeral(true).queue();
             return null;
         }
-        if (session.isClosed()) {
+        if (party.isClosed()) {
             event.reply("締め切られた募集です。").setEphemeral(true).queue();
             return null;
         }
 
-        return session;
+        return party;
     }
 
-    protected void updateMessage(ButtonInteractionEvent event, Party session) {
-        RenderResult renderResult = MessageRenderer.render(session);
+    protected void updateMessage(ButtonInteractionEvent event, PartyView view) {
+        RenderResult renderResult = MessageRenderer.render(view);
 
         event.editMessageEmbeds(
                 renderResult.getEmbed()

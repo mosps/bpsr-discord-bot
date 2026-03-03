@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class PartyView {
     public long ownerId;
-    public long sessionId;
+    public String partyId;
     public Set<Long> members;
     public int maxMembers;
     public boolean closed;

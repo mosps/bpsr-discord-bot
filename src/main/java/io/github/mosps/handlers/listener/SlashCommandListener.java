@@ -21,7 +21,7 @@ public class SlashCommandListener extends ListenerAdapter {
                         interactionHook.retrieveOriginal().queue(message -> {
                             Party session = new Party(event.getUser().getIdLong(), message.getIdLong());
 
-                            PartyManager.register(session.getSessionId(), session);
+                            PartyManager.register(session.getPartyId(), session);
                         });
                     });
         }

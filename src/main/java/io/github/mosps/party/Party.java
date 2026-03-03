@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class Party {
     private final long ownerId;
-    private final String sessionId = UUID.randomUUID().toString();
+    private final String partyId = UUID.randomUUID().toString();
     private final long messageId;
     private final Set<Long> members = new HashSet<>();
 
@@ -44,6 +44,10 @@ public class Party {
         members.remove(memberId);
     }
 
+    public int getMaxMembers() {
+        return maxMembers;
+    }
+
     public long getCreatedTime() {
         return createdTime;
     }
@@ -52,8 +56,8 @@ public class Party {
         return ownerId;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getPartyId() {
+        return partyId;
     }
 
     public long getMessageId() {
