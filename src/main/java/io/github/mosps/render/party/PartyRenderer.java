@@ -6,6 +6,7 @@ import io.github.mosps.views.party.PartyView;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
+import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 public class PartyRenderer extends BaseRenderer<PartyView> {
 
@@ -31,6 +32,6 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
         Button leave = Button.success("party:leave:" + view.partyId, "退出");
         Button close = Button.success("party:close:" + view.partyId, "終了");
 
-        return build(embedBuilder, ActionRow.of(join, leave, close));
+        return build(MessageEditData.fromEmbeds(embedBuilder.build()), ActionRow.of(join, leave, close));
     }
 }

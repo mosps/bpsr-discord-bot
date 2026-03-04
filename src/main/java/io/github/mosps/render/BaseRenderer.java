@@ -2,6 +2,7 @@ package io.github.mosps.render;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
+import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.awt.*;
 import java.util.*;
@@ -14,7 +15,7 @@ public abstract class BaseRenderer<T> implements Renderer<T> {
                 .setColor(Color.CYAN);
     }
 
-    protected RenderResult build(EmbedBuilder embed, ActionRow rows) {
-        return new RenderResult(embed.build(), List.of(rows));
+    protected RenderResult build(MessageEditData data, ActionRow rows) {
+        return new RenderResult(data, List.of(rows));
     }
 }

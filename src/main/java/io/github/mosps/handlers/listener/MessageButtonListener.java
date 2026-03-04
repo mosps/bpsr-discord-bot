@@ -9,6 +9,9 @@ public class MessageButtonListener extends ListenerAdapter {
 
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
+        if (!event.isAcknowledged()) {
+            event.deferEdit().queue();
+        }
         ButtonHandlerManager.handle(event);
     }
 }

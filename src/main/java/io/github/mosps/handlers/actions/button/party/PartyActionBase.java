@@ -1,4 +1,4 @@
-package io.github.mosps.handlers.actions.party;
+package io.github.mosps.handlers.actions.button.party;
 
 import io.github.mosps.handlers.handler.ButtonHandler;
 import io.github.mosps.render.MessageRenderer;
@@ -30,8 +30,8 @@ public abstract class PartyActionBase implements ButtonHandler {
     protected void updateMessage(ButtonInteractionEvent event, PartyView view) {
         RenderResult renderResult = MessageRenderer.render(view);
 
-        event.editMessageEmbeds(
-                renderResult.getEmbed()
+        event.getHook().editOriginal(
+                renderResult.getMessageEditData()
         ).setComponents(
                 renderResult.getComponents()
         ).queue();

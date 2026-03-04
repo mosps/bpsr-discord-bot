@@ -2,20 +2,21 @@ package io.github.mosps.render;
 
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.util.List;
 
 public class RenderResult {
-    private final MessageEmbed embed;
+    private final MessageEditData data;
     private final List<ActionRow> components;
 
-    public RenderResult(MessageEmbed embed, List<ActionRow> components) {
-        this.embed = embed;
+    public RenderResult(MessageEditData data, List<ActionRow> components) {
+        this.data = data;
         this.components = components;
     }
 
-    public MessageEmbed getEmbed() {
-        return embed;
+    public MessageEditData getMessageEditData() {
+        return data;
     }
 
     public List<ActionRow> getComponents() {
