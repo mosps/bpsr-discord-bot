@@ -1,8 +1,8 @@
 package io.github.mosps.handlers.handler;
 
-import io.github.mosps.handlers.actions.party.PartyCloseAction;
-import io.github.mosps.handlers.actions.party.PartyJoinAction;
-import io.github.mosps.handlers.actions.party.PartyLeaveAction;
+import io.github.mosps.handlers.actions.button.party.PartyCloseAction;
+import io.github.mosps.handlers.actions.button.party.PartyJoinAction;
+import io.github.mosps.handlers.actions.button.party.PartyLeaveAction;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 import java.util.HashMap;

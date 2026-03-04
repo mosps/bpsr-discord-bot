@@ -9,7 +9,7 @@ import java.util.UUID;
 public class Party {
     private final long ownerId;
     private final String partyId = UUID.randomUUID().toString();
-    private final long messageId;
+    //private final long messageId;
     private final Set<Long> members = new HashSet<>();
 
     private final long createdTime = System.currentTimeMillis();
@@ -17,9 +17,8 @@ public class Party {
     private int maxMembers = 5;
     private boolean closed = false;
 
-    public Party(long ownerId, long messageId) {
+    public Party(long ownerId) {
         this.ownerId = ownerId;
-        this.messageId = messageId;
         this.addMembers(ownerId);
     }
 
@@ -27,17 +26,8 @@ public class Party {
         return members;
     }
 
-    public void addMembers(Member member) {
-        members.add(member.getIdLong());
-    }
-
-    public void removeMembers(Member member) {
-        members.remove(member.getIdLong());
-    }
-
-    public boolean addMembers(long memberId) {
-        if (members.size() >= maxMembers) return false;
-        return members.add(memberId);
+    public void addMembers(long memberId) {
+        members.add(memberId);
     }
 
     public void removeMembers(long memberId) {
@@ -60,9 +50,9 @@ public class Party {
         return partyId;
     }
 
-    public long getMessageId() {
-        return messageId;
-    }
+    //public long getMessageId() {
+    //    return messageId;
+    //}
 
     public boolean isClosed() {
         return closed;

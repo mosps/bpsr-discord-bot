@@ -13,8 +13,32 @@ public class PartyManager {
 
     private static final long TIMEOUT = TimeUnit.MINUTES.toMillis(5);
 
-    public static void register (String partyId, Party party) {
+    public static void register(String partyId, Party party) {
         PartyManager.parties.put(partyId, party);
+    }
+
+    public static void join(Party party, long userId) {
+        if (party.getMembers().size() >= party.getMaxMembers()) return;
+        if (party.isClosed()) return;
+        party.addMembers(userId);
+    }
+
+    public static void leave(Party party, long userId) {
+        if (party.getMembers().size() >= party.getMaxMembers()) return;
+        if (party.isClosed()) return;
+        party.removeMembers(userId);
+    }
+
+    public static void close(Party party) {
+        party.close();
+    }
+
+    public static Party createParty(long ownerId) {
+        Party party = new Party(ownerId);
+
+        register(party.getPartyId(), party);
+
+        return party;
     }
 
     public static Party getParty(String partyId) {
@@ -44,9 +68,9 @@ public class PartyManager {
             long currentTime = System.currentTimeMillis();
 
             parties.entrySet().removeIf(entry -> {
-                Party session = entry.getValue();
+                Party party = entry.getValue();
 
-                return currentTime - session.getCreatedTime() > TIMEOUT;
+                return currentTime - party.getCreatedTime() > TIMEOUT;
             });
         }, 1, 1, TimeUnit.MINUTES);
     }

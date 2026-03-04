@@ -1,11 +1,11 @@
-package io.github.mosps.handlers.actions.party;
+package io.github.mosps.handlers.actions.button.party;
 
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
 import io.github.mosps.views.party.PartyView;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
-public class PartyJoinAction extends PartyActionBase {
+public class PartyLeaveAction extends PartyActionBase {
 
     @Override
     public void handle(ButtonInteractionEvent event, String[] customId) {
@@ -14,7 +14,7 @@ public class PartyJoinAction extends PartyActionBase {
 
         long userId = event.getUser().getIdLong();
 
-        party.addMembers(userId);
+        PartyManager.leave(party, userId);
 
         PartyView view = PartyManager.createView(party);
         updateMessage(event, view);
