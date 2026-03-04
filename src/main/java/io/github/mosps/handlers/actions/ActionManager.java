@@ -10,5 +10,24 @@ import java.util.Map;
 
 public class ActionManager {
 
+    private static final Map<String, Action> actions = new HashMap<>();
 
+    static {
+        register("party:join", new PartyJoinAction());
+        register("party:leave", new PartyLeaveAction());
+        register("party:close", new PartyCloseAction());
+        register("party:create", new PartyCreateAction());
+    }
+
+    public static void register(String key, Action action) {
+        actions.put(key, action);
+    }
+
+    public static Action get(String key) {
+        Action action = actions.get(key);
+        if (action == null) {
+            throw new IllegalArgumentException(key + " is unknown key");
+        }
+        return actions.get(key);
+    }
 }
