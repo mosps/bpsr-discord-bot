@@ -29,8 +29,8 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
         );
 
         Button join = Button.success("party:join:" + view.partyId, "参加");
-        Button leave = Button.success("party:leave:" + view.partyId, "退出");
-        Button close = Button.success("party:close:" + view.partyId, "終了");
+        Button leave = Button.danger("party:leave:" + view.partyId, "退出");
+        Button close = Button.primary("party:close:" + view.partyId, "終了");
 
         return build(MessageEditData.fromEmbeds(embedBuilder.build()), ActionRow.of(join, leave, close));
     }
