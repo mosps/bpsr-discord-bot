@@ -1,7 +1,5 @@
 package io.github.mosps.party;
 
-import net.dv8tion.jda.api.entities.Member;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -9,7 +7,6 @@ import java.util.UUID;
 public class Party {
     private final long ownerId;
     private final String partyId = UUID.randomUUID().toString();
-    //private final long messageId;
     private final Set<Long> members = new HashSet<>();
 
     private final long createdTime = System.currentTimeMillis();
@@ -49,10 +46,6 @@ public class Party {
     public String getPartyId() {
         return partyId;
     }
-
-    //public long getMessageId() {
-    //    return messageId;
-    //}
 
     public boolean isClosed() {
         return closed;

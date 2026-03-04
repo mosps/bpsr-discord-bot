@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
 
 public abstract class BaseRenderer<T> implements Renderer<T> {

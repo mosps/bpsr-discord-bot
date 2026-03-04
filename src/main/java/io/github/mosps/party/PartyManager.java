@@ -18,14 +18,10 @@ public class PartyManager {
     }
 
     public static void join(Party party, long userId) {
-        if (party.getMembers().size() >= party.getMaxMembers()) return;
-        if (party.isClosed()) return;
         party.addMembers(userId);
     }
 
     public static void leave(Party party, long userId) {
-        if (party.getMembers().size() >= party.getMaxMembers()) return;
-        if (party.isClosed()) return;
         party.removeMembers(userId);
     }
 

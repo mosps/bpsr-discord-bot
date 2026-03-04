@@ -1,7 +1,6 @@
 package io.github.mosps.render;
 
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.util.List;
