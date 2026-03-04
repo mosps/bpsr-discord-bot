@@ -32,9 +32,9 @@ public class BPSRInviteManager {
 }
 
 /*TODO
-createView作成
-PartyRenderer中身調整
-必要に応じてPartyView調整
-session/内名前変更
+ActionResult作成
+ResponseDispatcher作成
+Command用Handler,Action作成
+PartyManager改良
 ↓新機能追加...
 */
