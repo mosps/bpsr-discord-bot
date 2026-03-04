@@ -5,6 +5,7 @@ import io.github.mosps.handlers.listener.SlashCommandListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
@@ -27,14 +28,14 @@ public class BPSRInviteManager {
                 .setActivity(Activity.playing("デバッグ中"))
                 .setRawEventsEnabled(true)
                 .build();
-        jda.upsertCommand("party", "パーティ募集を作成").queue();
+        jda.upsertCommand("party", "パーティ用コマンド")
+                .addSubcommands(
+                        new SubcommandData("create", "パーティを作成")
+        ).queue();
     }
 }
 
 /*TODO
-ActionResult作成
-ResponseDispatcher作成
-Command用Handler,Action作成
 PartyManager改良
 ↓新機能追加...
 */
