@@ -30,7 +30,13 @@ public class BPSRInviteManager {
                 .build();
         jda.upsertCommand("party", "パーティ用コマンド")
                 .addSubcommands(
-                        new SubcommandData("create", "パーティを作成")
+                        new SubcommandData("create", "パーティを作成"),
+                        new SubcommandData("admin", "初期メッセージを送信")
+        ).queue();
+        jda.upsertCommand("profile", "プロフィール用コマンド")
+                .addSubcommands(
+                        new SubcommandData("register", "プロフィール情報を登録"),
+                        new SubcommandData("admin", "初期メッセージを送信")
         ).queue();
     }
 }

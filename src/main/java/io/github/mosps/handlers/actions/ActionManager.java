@@ -1,9 +1,6 @@
 package io.github.mosps.handlers.actions;
 
-import io.github.mosps.handlers.actions.party.PartyCloseAction;
-import io.github.mosps.handlers.actions.party.PartyCreateAction;
-import io.github.mosps.handlers.actions.party.PartyJoinAction;
-import io.github.mosps.handlers.actions.party.PartyLeaveAction;
+import io.github.mosps.handlers.actions.party.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +14,10 @@ public class ActionManager {
         register("party:leave", new PartyLeaveAction());
         register("party:close", new PartyCloseAction());
         register("party:create", new PartyCreateAction());
+        register("party:admin", new PartyAdminAction());
+
+        register("profile:register", new ProfileRegisterAction());
+        register("profile:lobby", new ProfileAdminAction());
     }
 
     public static void register(String key, Action action) {
