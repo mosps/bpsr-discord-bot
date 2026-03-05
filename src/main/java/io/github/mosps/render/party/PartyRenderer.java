@@ -4,7 +4,6 @@ import io.github.mosps.render.BaseRenderer;
 import io.github.mosps.render.RenderResult;
 import io.github.mosps.views.party.PartyView;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
@@ -23,9 +22,10 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
         embedBuilder.setTitle("パーティ募集");
 
         embedBuilder.setDescription(
-                        "-----------------------------------\n" +
-                        "目的地: カナミア\n" +
-                        "-----------------------------------"
+                """
+                        -----------------------------------
+                        目的地: カナミア
+                        -----------------------------------"""
                         );
 
         embedBuilder.addField("参加者 " + "```" + view.members.size() + "/" + view.maxMembers + "```",
