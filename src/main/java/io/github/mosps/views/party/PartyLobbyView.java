@@ -1,4 +1,4 @@
 package io.github.mosps.views.party;
 
-public class PartyAdminView {
+public class PartyLobbyView {
 }
