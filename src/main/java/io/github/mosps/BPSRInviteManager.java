@@ -43,5 +43,6 @@ public class BPSRInviteManager {
 
 /*TODO
 PartyManager改良
-↓新機能追加...
+profile機能実装
+各uiデザインを調整
 */
