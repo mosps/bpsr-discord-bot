@@ -3,8 +3,6 @@ package io.github.mosps.render.party;
 import io.github.mosps.render.BaseRenderer;
 import io.github.mosps.render.RenderResult;
 import io.github.mosps.views.party.PartyLobbyView;
-import io.github.mosps.views.party.PartyView;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
