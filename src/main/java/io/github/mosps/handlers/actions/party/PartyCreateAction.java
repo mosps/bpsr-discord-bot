@@ -8,7 +8,6 @@ import io.github.mosps.party.PartyManager;
 import io.github.mosps.render.MessageRenderer;
 import io.github.mosps.render.RenderResult;
 import io.github.mosps.views.party.PartyView;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 public class PartyCreateAction implements Action {
 
