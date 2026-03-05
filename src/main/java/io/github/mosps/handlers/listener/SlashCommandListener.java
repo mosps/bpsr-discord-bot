@@ -9,7 +9,7 @@ public class SlashCommandListener extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (!event.isAcknowledged()) {
-            event.deferReply().queue();
+            event.deferReply(false).queue();
         }
         CommandHandler.handle(event);
     }
