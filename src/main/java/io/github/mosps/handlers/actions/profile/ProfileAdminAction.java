@@ -1,4 +1,4 @@
-package io.github.mosps.handlers.actions.party;
+package io.github.mosps.handlers.actions.profile;
 
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
