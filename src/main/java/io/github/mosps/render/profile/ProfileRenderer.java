@@ -39,7 +39,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
 
         .formatted(view.name, view.mainClass, view.subClasses, view.imagines));
 
-        StringSelectMenu mainClass = StringSelectMenu.create("profile:register:main_class")
+        StringSelectMenu mainClass = StringSelectMenu.create("profile:register:main_class:" + view.userId)
                 .setPlaceholder("メインクラスを選択")
                 .addOptions(Arrays.stream(Classes.values())
                         .map(c -> SelectOption.of(c.getName(), c.name())
@@ -47,7 +47,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                                 .withEmoji(Emoji.fromFormatted(c.getEmoji())))
                         .toList())
                 .build();
-        StringSelectMenu subClass = StringSelectMenu.create("profile:register:sub_class")
+        StringSelectMenu subClass = StringSelectMenu.create("profile:register:sub_class:" + view.userId)
                 .setPlaceholder("サブクラスを選択")
                 .addOptions(Arrays.stream(Classes.values())
                         .map(c -> SelectOption.of(c.getName(), c.name())
@@ -57,7 +57,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                 .setMinValues(0)
                 .setMaxValues(5)
                 .build();
-        StringSelectMenu imagine = StringSelectMenu.create("profile:register:imagine")
+        StringSelectMenu imagine = StringSelectMenu.create("profile:register:imagine:" + view.userId)
                 .setPlaceholder("バトルイマジンを選択")
                 .addOptions(Arrays.stream(Imagines.values())
                         .map(v -> SelectOption.of(v.getName(), v.name())
