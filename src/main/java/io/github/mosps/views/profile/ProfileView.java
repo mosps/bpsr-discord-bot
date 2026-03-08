@@ -7,7 +7,7 @@ public class ProfileView {
     public String name;
 
     public String mainClass;
-    public Set<String> subClasses;
+    public String subClasses;
 
-    public Set<String> imagines;
+    public String imagines;
 }
