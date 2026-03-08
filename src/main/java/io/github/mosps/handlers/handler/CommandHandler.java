@@ -14,7 +14,7 @@ public class CommandHandler {
     public static void handle(SlashCommandInteractionEvent event) {
         String key = event.getName() + ":" + event.getSubcommandName();
 
-        ActionContext context = new ActionContext(event.getUser().getIdLong());
+        ActionContext context = new ActionContext(event.getUser().getIdLong(), event.getUser().getEffectiveName());
         Action action = ActionManager.get(key);
 
         ActionResult result = action.execute(context);
