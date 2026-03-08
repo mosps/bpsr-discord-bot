@@ -1,5 +1,9 @@
 package io.github.mosps.profile;
 
+import io.github.mosps.data.Classes;
+import io.github.mosps.data.Imagines;
+
+import java.util.HashSet;
 import java.util.Set;
 
 public class Profile {
@@ -7,10 +11,10 @@ public class Profile {
     private final long userId;
     private String name;
 
-    private String mainClass;
-    private Set<String> subClasses;
+    private Classes mainClass;
+    private Set<Classes> subClasses = new HashSet<>();
 
-    private Set<String> imagines;
+    private Set<Imagines> imagines = new HashSet<>();
 
     public Profile(long userId, String name) {
         this.userId = userId;
@@ -29,27 +33,35 @@ public class Profile {
         this.name = name;
     }
 
-    public String getMainClass() {
+    public Classes getMainClass() {
         return mainClass;
     }
 
-    public void setMainClass(String mainClass) {
+    public void setMainClass(Classes mainClass) {
         this.mainClass = mainClass;
     }
 
-    public Set<String> getsubClasses() {
+    public Set<Classes> getSubClasses() {
         return subClasses;
     }
 
-    public void addSubClass(String subClass) {
+    public void addSubClass(Classes subClass) {
         this.subClasses.add(subClass);
     }
 
-    public Set<String> getImagines() {
+    public void resetSubClasses() {
+        subClasses.clear();
+    }
+
+    public Set<Imagines> getImagines() {
         return imagines;
     }
 
-    public void addImagine(String imagine) {
+    public void addImagine(Imagines imagine) {
         this.imagines.add(imagine);
+    }
+
+    public void resetImagines() {
+        imagines.clear();
     }
 }
