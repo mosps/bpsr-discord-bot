@@ -14,7 +14,11 @@ public abstract class BaseRenderer<T> implements Renderer<T> {
                 .setColor(Color.CYAN);
     }
 
-    protected RenderResult build(MessageEditData data, ActionRow rows) {
-        return new RenderResult(data, List.of(rows));
+    protected RenderResult build(MessageEditData data, ActionRow row) {
+        return new RenderResult(data, List.of(row));
+    }
+
+    protected RenderResult build(MessageEditData data, List<ActionRow> rows) {
+        return new RenderResult(data, rows);
     }
 }
