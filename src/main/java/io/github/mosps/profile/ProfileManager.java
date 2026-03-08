@@ -1,10 +1,14 @@
 package io.github.mosps.profile;
 
+import io.github.mosps.data.Classes;
+import io.github.mosps.data.Imagines;
 import io.github.mosps.util.ProfileStorage;
 import io.github.mosps.views.profile.ProfileView;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class ProfileManager {
 
@@ -14,17 +18,14 @@ public class ProfileManager {
         profiles.putAll(ProfileStorage.loadAll());
     }
 
+    public static Profile getProfile(long userId) {
+        return profiles.get(userId);
+    }
+
     public static Profile getOrCreateProfile(long userId, String name) {
         Profile profile = profiles.get(userId);
 
         if (profile != null) return profile;
-
-        profile = ProfileStorage.load(userId);
-
-        if (profile != null) {
-            profiles.put(userId, profile);
-            return profile;
-        }
 
         profile = createProfile(userId, name);
         saveProfile(profile);
@@ -40,17 +41,32 @@ public class ProfileManager {
     }
 
     public static void saveProfile(Profile profile) {
+        profiles.put(profile.getUserId(), profile);
         ProfileStorage.save(profile);
     }
 
     public static ProfileView createView(Profile profile) {
         ProfileView view = new ProfileView();
 
+        Classes classes = profile.getMainClass();
+        Set<Classes> subClasses = profile.getSubClasses();
+        Set<Imagines> imagines = profile.getImagines();
+
         view.userId = profile.getUserId();
         view.name = profile.getName();
-        view.mainClass = profile.getMainClass();
-        view.subClasses = profile.getsubClasses();
-        view.imagines = profile.getImagines();
+        view.mainClass = classes != null
+                ? classes.getDisplay()
+                : "未設定";
+        view.subClasses = subClasses.isEmpty()
+                ? "未設定"
+                : subClasses.stream()
+                .map(Classes::getDisplay)
+                .collect(Collectors.joining("\n"));
+        view.imagines = imagines.isEmpty()
+                ? "未設定"
+                : imagines.stream()
+                .map(Imagines::getDisplay)
+                .collect(Collectors.joining("\n"));
 
         return view;
     }
