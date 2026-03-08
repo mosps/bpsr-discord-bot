@@ -36,7 +36,6 @@ public enum ProfileField {
 
         @Override
         public void reset(Profile profile) {
-            profile.resetImagines();
         }
     };
 
