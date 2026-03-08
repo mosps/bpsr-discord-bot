@@ -73,8 +73,4 @@ public class ProfileStorage {
 
         return profiles;
     }
-
-    public static boolean exists(long userId) {
-        return Files.exists(path.resolve(userId + ".json"));
-    }
 }
