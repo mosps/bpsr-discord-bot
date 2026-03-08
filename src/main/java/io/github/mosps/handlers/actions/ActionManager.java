@@ -16,6 +16,7 @@ public class ActionManager {
         register("party:create", new PartyCreateAction());
         register("party:admin", new PartyAdminAction());
 
+        register("profile:create", new ProfileCreateAction());
         register("profile:register", new ProfileRegisterAction());
         register("profile:lobby", new ProfileAdminAction());
     }
