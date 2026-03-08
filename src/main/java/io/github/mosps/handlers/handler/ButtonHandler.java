@@ -16,7 +16,7 @@ public class ButtonHandler {
         String key = customId[0] + ":" + customId[1];
         String partyId = customId[2];
 
-        ActionContext context = new ActionContext(event.getUser().getIdLong(), partyId);
+        ActionContext context = new ActionContext(event.getUser().getIdLong(), event.getUser().getName(), partyId);
         Action action = ActionManager.get(key);
 
         ActionResult result = action.execute(context);
