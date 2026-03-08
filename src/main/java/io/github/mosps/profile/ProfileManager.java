@@ -66,7 +66,7 @@ public class ProfileManager {
                 ? "未設定"
                 : imagines.stream()
                 .map(Imagines::getDisplay)
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining(""));
 
         return view;
     }
