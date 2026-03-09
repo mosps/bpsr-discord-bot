@@ -10,6 +10,7 @@ public class ActionContext {
     private final String type;
     private final List<String> value;
 
+    /*ButtonHandler*/
     public ActionContext(long userId, String name, String partyId) {
         this.userId = userId;
         this.partyId = partyId;
@@ -18,6 +19,7 @@ public class ActionContext {
         this.value = null;
     }
 
+    /*SelectMenuHandler*/
     public ActionContext(long userId, String name, String type, List<String> value) {
         this.userId = userId;
         this.name = name;
@@ -26,6 +28,7 @@ public class ActionContext {
         this.partyId = null;
     }
 
+    /*CommandHandler*/
     public ActionContext(long userId, String name) {
         this.userId = userId;
         this.name = name;
