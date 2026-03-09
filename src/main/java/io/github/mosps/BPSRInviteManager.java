@@ -41,7 +41,6 @@ public class BPSRInviteManager {
                 Commands.slash("profile", "プロフィール用コマンド")
                         .addSubcommands(
                                 new SubcommandData("create", "プロフィールを作成"),
-                                new SubcommandData("register", "プロフィール情報を登録"),
                                 new SubcommandData("admin", "初期メッセージを送信"))
         );
 
@@ -50,7 +49,10 @@ public class BPSRInviteManager {
 }
 
 /*TODO
-PartyManager改良
-profile機能実装
-各uiデザインを調整
+PartyCreateActionを編集から新規メッセージへ
+バトルイマジン選択時、ProfileEditRendererからバトルイマジン編集画面へ、メニュー選択後確定.
+Party画面に作成時刻、期限を表示UI更新時に期限も更新.
+Party状態に応じてEmbedColorを変更
+時刻、備考はメッセージ入力によって取得..?
+目的地によって最大人数を変更可能に
 */
