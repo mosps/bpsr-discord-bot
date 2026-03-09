@@ -23,10 +23,13 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
         embedBuilder.setDescription(
                 """
-                        -----------------------------------
-                        目的地: カナミア
-                        -----------------------------------"""
-                        );
+                -----------------------------------
+                **目的地:** %s
+                **時間:** %s
+                **備考:** %s
+                -----------------------------------
+                """
+        .formatted(view.name, view.mainClass, view.subClasses, view.imagines));
 
         embedBuilder.addField("参加者 " + "```" + view.members.size() + "/" + view.maxMembers + "```",
                 stringBuilder.isEmpty() ? "　" : stringBuilder.toString(),
