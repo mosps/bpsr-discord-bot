@@ -36,7 +36,6 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                 %s
                 -----------------------------------
                 """
-
         .formatted(view.name, view.mainClass, view.subClasses, view.imagines));
 
         StringSelectMenu mainClass = StringSelectMenu.create("profile:register:main_class:" + view.userId)
