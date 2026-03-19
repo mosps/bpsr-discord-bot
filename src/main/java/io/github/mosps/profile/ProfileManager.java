@@ -45,7 +45,7 @@ public class ProfileManager {
         ProfileStorage.save(profile);
     }
 
-    public static ProfileView createView(Profile profile) {
+    public static ProfileView createProfileView(Profile profile) {
         ProfileView view = new ProfileView();
 
         Classes classes = profile.getMainClass();
