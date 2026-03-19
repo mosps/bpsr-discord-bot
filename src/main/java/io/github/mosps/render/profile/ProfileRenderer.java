@@ -7,6 +7,7 @@ import io.github.mosps.render.RenderResult;
 import io.github.mosps.views.profile.ProfileView;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
+import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.components.selections.SelectOption;
 import net.dv8tion.jda.api.components.selections.StringSelectMenu;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
@@ -56,18 +57,13 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                 .setMinValues(0)
                 .setMaxValues(5)
                 .build();
-        StringSelectMenu imagine = StringSelectMenu.create("profile:register:imagine:" + view.userId)
-                .setPlaceholder("バトルイマジンを選択")
-                .addOptions(Arrays.stream(Imagines.values())
-                        .map(v -> SelectOption.of(v.getName(), v.name())
-                                .withEmoji(Emoji.fromFormatted(v.getEmoji())))
-                        .toList())
-                .build();
+
+        Button edit = Button.secondary("profile:edit:" + view.userId, "イマジンを変更");
 
         List<ActionRow> rows = List.of(
                 ActionRow.of(mainClass),
                 ActionRow.of(subClass),
-                ActionRow.of(imagine)
+                ActionRow.of(edit)
         );
 
         return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);

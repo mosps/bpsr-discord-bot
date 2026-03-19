@@ -61,6 +61,10 @@ public class Profile {
         this.imagines.add(imagine);
     }
 
+    public void removeImagine(Imagines imagine) {
+        this.imagines.remove(imagine);
+    }
+
     public void resetImagines() {
         imagines.clear();
     }

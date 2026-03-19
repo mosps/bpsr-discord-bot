@@ -28,10 +28,21 @@ public enum ProfileField {
         }
     },
 
-    IMAGINE("imagine") {
+    IMAGINE_ENTRY("imagine_entry") {
         @Override
         public void apply(Profile profile, String value) {
             profile.addImagine(Imagines.valueOf(value));
+        }
+
+        @Override
+        public void reset(Profile profile) {
+        }
+    },
+
+    IMAGINE_REMOVE("imagine_remove") {
+        @Override
+        public void apply(Profile profile, String value) {
+            profile.removeImagine(Imagines.valueOf(value));
         }
 
         @Override

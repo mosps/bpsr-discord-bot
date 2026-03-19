@@ -7,5 +7,24 @@ import java.util.Set;
 
 public class ProfileEditSession {
 
+    private final long userId;
 
+    private Set<Imagines> addImagines = new HashSet<>();
+    private Set<Imagines> removeImagines = new HashSet<>();
+
+    private String tier;
+
+    public ProfileEditSession(long userId) {
+        this.userId = userId;
+    }
+
+    public void add(Imagines imagine) {
+        addImagines.add(imagine);
+        removeImagines.remove(imagine);
+    }
+
+    public void remove(Imagines imagine) {
+        removeImagines.add(imagine);
+        addImagines.remove(imagine);
+    }
 }
