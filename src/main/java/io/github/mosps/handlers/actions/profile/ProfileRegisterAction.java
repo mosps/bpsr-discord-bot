@@ -28,7 +28,7 @@ public class ProfileRegisterAction implements Action {
 
         ProfileManager.saveProfile(profile);
 
-        ProfileView view = ProfileManager.createProfileView(profile);
+        ProfileView view = ProfileManager.createView(profile);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.success(render);
