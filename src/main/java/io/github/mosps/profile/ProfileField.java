@@ -28,7 +28,7 @@ public enum ProfileField {
         }
     },
 
-    IMAGINE_ENTRY("imagine_entry") {
+    IMAGINE_ADD("imagine_add") {
         @Override
         public void apply(Profile profile, String value) {
             profile.addImagine(Imagines.valueOf(value));
@@ -66,9 +66,7 @@ public enum ProfileField {
 
     public static ProfileField fromId(String id) {
         for (ProfileField field : values()) {
-            if (field.id.equals(id)) {
-                return field;
-            }
+            if (field.id.equals(id)) return field;
         }
         return null;
     }
