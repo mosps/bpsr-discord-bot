@@ -1,7 +1,6 @@
 package io.github.mosps.handlers.actions;
 
 import java.util.List;
-import java.util.Set;
 
 public class ActionContext {
     private final long userId;
