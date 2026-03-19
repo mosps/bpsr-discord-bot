@@ -1,11 +1,9 @@
 package io.github.mosps.render.profile;
 
-import io.github.mosps.data.Classes;
 import io.github.mosps.data.Imagines;
 import io.github.mosps.render.BaseRenderer;
 import io.github.mosps.render.RenderResult;
-import io.github.mosps.views.profile.ProfileImagineView;
-import io.github.mosps.views.profile.ProfileView;
+import io.github.mosps.views.profile.imagine.ImagineEditView;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
@@ -17,10 +15,10 @@ import net.dv8tion.jda.api.utils.messages.MessageEditData;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProfileImagineEditRenderer extends BaseRenderer<ProfileImagineView> {
+public class ProfileImagineEditRenderer extends BaseRenderer<ImagineEditView> {
 
     @Override
-    public RenderResult render(ProfileImagineView view) {
+    public RenderResult render(ImagineEditView view) {
         EmbedBuilder embedBuilder = baseEmbed();
 
         embedBuilder.setTitle("イマジン編集");

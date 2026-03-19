@@ -1,11 +1,10 @@
-package io.github.mosps.views.profile;
+package io.github.mosps.views.profile.imagine;
 
 import io.github.mosps.data.Imagines;
 
-import java.util.HashSet;
 import java.util.Set;
 
-public class ProfileImagineView {
+public class ImagineEditView {
     public long userId;
 
     public String entry;
