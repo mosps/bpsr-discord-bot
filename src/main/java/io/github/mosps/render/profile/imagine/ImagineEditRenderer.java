@@ -1,4 +1,4 @@
-package io.github.mosps.render.profile;
+package io.github.mosps.render.profile.imagine;
 
 import io.github.mosps.data.Imagines;
 import io.github.mosps.render.BaseRenderer;
@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.utils.messages.MessageEditData;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProfileImagineEditRenderer extends BaseRenderer<ImagineEditView> {
+public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
 
     @Override
     public RenderResult render(ImagineEditView view) {
