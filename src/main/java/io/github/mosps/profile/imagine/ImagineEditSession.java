@@ -9,8 +9,8 @@ public class ImagineEditSession {
 
     private final long userId;
 
-    private Set<Imagines> addImagines = new HashSet<>();
-    private Set<Imagines> removeImagines = new HashSet<>();
+    private final Set<Imagines> addImagines = new HashSet<>();
+    private final Set<Imagines> removeImagines = new HashSet<>();
 
     private String tier;
 
@@ -26,5 +26,25 @@ public class ImagineEditSession {
     public void remove(Imagines imagine) {
         removeImagines.add(imagine);
         addImagines.remove(imagine);
+    }
+
+    public void setTier(String tier) {
+        this.tier = tier;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public Set<Imagines> getAddImagines() {
+        return addImagines;
+    }
+
+    public Set<Imagines> getRemoveImagines() {
+        return removeImagines;
+    }
+
+    public String getTier() {
+        return tier;
     }
 }
