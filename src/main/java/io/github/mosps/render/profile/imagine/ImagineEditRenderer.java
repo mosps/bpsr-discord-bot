@@ -37,26 +37,25 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
                 **凸数指定**
                 %s
                 -----------------------------------
-                """.formatted(view.entry, view.delete, view.tier));
+                """.formatted(view.add, view.remove, view.tier));
 
-        StringSelectMenu imagineEntry = StringSelectMenu.create("profile:imagine:add:" + view.userId)
+        StringSelectMenu imagineEntry = StringSelectMenu.create("profile:imagine_edit:add:" + view.userId)
                 .setPlaceholder("登録するバトルイマジンを選択")
-                .addOptions(Arrays.stream(Imagines.values())
-                        .filter(v -> !view.imagines.contains(v))
+                .addOptions(view.addImagines.stream()
                         .map(v -> SelectOption.of(v.getName(), v.name())
                                 .withEmoji(Emoji.fromFormatted(v.getEmoji())))
                         .toList())
                 .setMaxValues(25)
                 .build();
-        StringSelectMenu imagineRemove = StringSelectMenu.create("profile:imagine:remove:" + view.userId)
+        StringSelectMenu imagineRemove = StringSelectMenu.create("profile:imagine_edit:remove:" + view.userId)
                 .setPlaceholder("削除するバトルイマジンを選択")
-                .addOptions(view.imagines.stream()
+                .addOptions(view.removeImagines.stream()
                         .map(v -> SelectOption.of(v.getName(), v.name())
                                 .withEmoji(Emoji.fromFormatted(v.getEmoji())))
                         .toList())
                 .setMaxValues(25)
                 .build();
-        StringSelectMenu.Builder numberBuilder = StringSelectMenu.create("profile:imagine:tier:" + view.userId)
+        StringSelectMenu.Builder numberBuilder = StringSelectMenu.create("profile:imagine_edit:tier:" + view.userId)
                 .setPlaceholder("凸数を選択");
 
         for (int i = 0; i <= 6; i++) {
