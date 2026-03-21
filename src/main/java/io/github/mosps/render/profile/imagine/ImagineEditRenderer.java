@@ -12,13 +12,28 @@ import net.dv8tion.jda.api.components.selections.StringSelectMenu;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
 
     @Override
     public RenderResult render(ImagineEditView view) {
+        EmbedBuilder embedBuilder = buildEmbed(view);
+
+        List<ActionRow> rows = new ArrayList<>();
+        rows.add(createTierRow(view));
+        rows.add(createEntryRow(view));
+        rows.add(createPageButtonRow(view));
+        createRemoveRow(view).ifPresent(rows::add);
+        rows.add(createConfirmButtonRow(view));
+
+        return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);
+    }
+
+    private EmbedBuilder buildEmbed(ImagineEditView view) {
         EmbedBuilder embedBuilder = baseEmbed();
 
         embedBuilder.setTitle("イマジン編集");
@@ -31,49 +46,69 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
                 登録済みのイマジンを再度登録することで
                 削除することもできます。
                 -----------------------------------
-                **選択中**
-                登録 》__%s__
-                削除 》__%s__
                 **凸数指定**
                 %s
+                **登録**
+                %s
+                **削除**
+                %s
                 -----------------------------------
-                """.formatted(view.add, view.remove, view.tier));
+                """.formatted(view.tier, view.add, view.remove));
 
+        return embedBuilder;
+    }
+
+    private ActionRow createEntryRow(ImagineEditView view) {
         StringSelectMenu imagineEntry = StringSelectMenu.create("profile:imagine_edit:add:" + view.userId)
                 .setPlaceholder("登録するバトルイマジンを選択")
-                .addOptions(view.addImagines.stream()
+                .addOptions(Arrays.stream(Imagines.values())
+                        .filter(v -> !view.currentImagines.contains(v))
                         .map(v -> SelectOption.of(v.getName(), v.name())
                                 .withEmoji(Emoji.fromFormatted(v.getEmoji())))
                         .toList())
                 .setMaxValues(25)
                 .build();
+
+        return ActionRow.of(imagineEntry);
+    }
+
+    private Optional<ActionRow> createRemoveRow(ImagineEditView view) {
+        if (view.currentImagines.isEmpty()) return Optional.empty();
+
         StringSelectMenu imagineRemove = StringSelectMenu.create("profile:imagine_edit:remove:" + view.userId)
                 .setPlaceholder("削除するバトルイマジンを選択")
-                .addOptions(view.removeImagines.stream()
+                .addOptions(view.currentImagines.stream()
                         .map(v -> SelectOption.of(v.getName(), v.name())
                                 .withEmoji(Emoji.fromFormatted(v.getEmoji())))
                         .toList())
                 .setMaxValues(25)
                 .build();
+
+        return Optional.of(ActionRow.of(imagineRemove));
+    }
+
+    private ActionRow createTierRow(ImagineEditView view) {
         StringSelectMenu.Builder numberBuilder = StringSelectMenu.create("profile:imagine_edit:tier:" + view.userId)
                 .setPlaceholder("凸数を選択");
 
-        for (int i = 0; i <= 6; i++) {
+        for (int i = 0; i <= 4; i++) {
             numberBuilder.addOption(i + "凸", i + "凸");
         }
-        StringSelectMenu number = numberBuilder.build();
+        numberBuilder.addOption("__5凸__", "__5凸__");
 
-        Button success = Button.success("profile:success:" + view.userId, "✅");
-        Button previous = Button.secondary("profile:previous:" + view.userId, "⬅️");
-        Button next = Button.secondary("profile:next:" + view.userId, "➡️️");
+        return ActionRow.of(numberBuilder.build());
+    }
 
-        List<ActionRow> rows = List.of(
-                ActionRow.of(imagineEntry),
-                ActionRow.of(imagineRemove),
-                ActionRow.of(number),
-                ActionRow.of(previous, success,  next)
-        );
+    private ActionRow createPageButtonRow(ImagineEditView view) {
+        Button previous = Button.secondary("profile:previous:" + view.userId, "⬅️前のページ");
+        Button next = Button.secondary("profile:next:" + view.userId, "次のページ➡️️");
 
-        return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);
+        return ActionRow.of(previous, next);
+    }
+
+    private ActionRow createConfirmButtonRow(ImagineEditView view) {
+        Button success = Button.success("profile:imagine_confirm:" + view.userId, "✅確定");
+
+        return ActionRow.of(success);
     }
 }
