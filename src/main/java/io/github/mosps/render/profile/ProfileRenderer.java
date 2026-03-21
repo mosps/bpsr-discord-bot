@@ -58,7 +58,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                 .setMaxValues(5)
                 .build();
 
-        Button edit = Button.secondary("profile:edit:" + view.userId, "イマジンを変更");
+        Button edit = Button.secondary("profile:imagine_edit:" + view.userId, "イマジンを変更");
 
         List<ActionRow> rows = List.of(
                 ActionRow.of(mainClass),
