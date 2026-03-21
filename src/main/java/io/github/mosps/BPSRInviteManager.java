@@ -49,7 +49,6 @@ public class BPSRInviteManager {
 
 /*TODO
 PartyCreateActionを編集から新規メッセージへ
-バトルイマジン選択時、ProfileEditRendererからバトルイマジン編集画面へ、メニュー選択後確定.
 Party画面に作成時刻、期限を表示UI更新時に期限も更新.
 Party状態に応じてEmbedColorを変更
 時刻、備考はメッセージ入力によって取得..?
