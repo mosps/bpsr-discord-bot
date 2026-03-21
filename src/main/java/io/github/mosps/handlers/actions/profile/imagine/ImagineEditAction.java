@@ -17,11 +17,9 @@ public class ImagineEditAction implements Action {
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
 
         ImagineEditField field = ImagineEditField.fromId(context.getType());
-        if (field == null) {
-            return ActionResult.error();
+        if (field != null) {
+            context.getValue().forEach(value -> field.apply(session, value));
         }
-
-        context.getValue().forEach(value -> field.apply(session, value));
 
         ImagineEditView view = ImagineEditManager.createView(session);
         RenderResult render = MessageRenderer.render(view);
