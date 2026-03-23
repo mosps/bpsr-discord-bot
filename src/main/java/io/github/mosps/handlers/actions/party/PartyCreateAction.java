@@ -18,7 +18,7 @@ public class PartyCreateAction implements Action {
         PartyView view = PartyManager.createView(party);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.success(render)
+        return ActionResult.of().withReply(render)
                 .withEphemeral("パーティを作成しました！");
     }
 }

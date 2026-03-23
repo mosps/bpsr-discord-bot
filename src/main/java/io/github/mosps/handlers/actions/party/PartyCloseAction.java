@@ -15,17 +15,17 @@ public class PartyCloseAction implements Action {
     public ActionResult execute(ActionContext context) {
         Party party = PartyManager.getParty(context.getPartyId());
         if (party == null) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("このパーティは期限切れです。");
         }
 
         if (party.isClosed()) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("このパーティは締め切り済みです。");
         }
 
         if (context.getUserId() != party.getOwnerId()) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("パーティ作成者ではありません。");
         }
 
@@ -34,7 +34,7 @@ public class PartyCloseAction implements Action {
         PartyView view = PartyManager.createView(party);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.success(render)
+        return ActionResult.of().withUpdate(render)
                 .withEphemeral("パーティを締め切りました。");
     }
 }

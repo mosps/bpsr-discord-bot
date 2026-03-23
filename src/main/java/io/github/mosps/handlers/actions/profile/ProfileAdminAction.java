@@ -12,13 +12,13 @@ public class ProfileAdminAction implements Action {
     @Override
     public ActionResult execute(ActionContext context) {
         if (context.getUserId() != 635395177946808321L) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("このコマンドを実行する権限がありません。");
         }
 
         RenderResult render = MessageRenderer.render(new ProfileLobbyView());
 
-        return ActionResult.success(render)
+        return ActionResult.of().withUpdate(render)
                 .withEphemeral("プロフィール登録用メッセージを生成しました。");
     }
 }

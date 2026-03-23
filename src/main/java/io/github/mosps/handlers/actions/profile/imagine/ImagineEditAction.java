@@ -24,6 +24,6 @@ public class ImagineEditAction implements Action {
         ImagineEditView view = ImagineEditManager.createView(session);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.success(render);
+        return ActionResult.of().withUpdate(render);
     }
 }

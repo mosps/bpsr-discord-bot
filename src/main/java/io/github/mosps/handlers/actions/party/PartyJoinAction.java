@@ -15,17 +15,17 @@ public class PartyJoinAction implements Action {
     public ActionResult execute(ActionContext context) {
         Party party = PartyManager.getParty(context.getPartyId());
         if (party == null) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("このパーティは期限切れです。");
         }
 
         if (party.isClosed()) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("このパーティは締め切り済みです。");
         }
 
         if (party.getMembers().size() >= party.getMaxMembers()) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("このパーティは満員です。");
         }
 
@@ -34,7 +34,7 @@ public class PartyJoinAction implements Action {
         PartyView view = PartyManager.createView(party);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.success(render)
+        return ActionResult.of().withUpdate(render)
                 .withEphemeral("パーティに参加しました");
     }
 }

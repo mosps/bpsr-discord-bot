@@ -27,6 +27,6 @@ public class ImagineConfirmAction implements Action {
         ProfileView view = ProfileManager.createView(profile);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.success(render);
+        return ActionResult.of().withUpdate(render);
     }
 }

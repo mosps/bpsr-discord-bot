@@ -5,18 +5,23 @@ import io.github.mosps.render.RenderResult;
 public class ActionResult {
 
     private RenderResult update;
+    private RenderResult reply;
     private String ephemeralMessage;
 
     private ActionResult() {}
 
-    public static ActionResult error() {
+    public static ActionResult of() {
         return new ActionResult();
     }
 
-    public static ActionResult success(RenderResult render) {
-        ActionResult result = new ActionResult();
-        result.update = render;
-        return result;
+    public ActionResult withUpdate(RenderResult render) {
+        this.update = render;
+        return this;
+    }
+
+    public ActionResult withReply(RenderResult render) {
+        this.reply = render;
+        return this;
     }
 
     public ActionResult withEphemeral(String message) {
@@ -26,6 +31,10 @@ public class ActionResult {
 
     public RenderResult getUpdate() {
         return update;
+    }
+
+    public RenderResult getReply() {
+        return reply;
     }
 
     public String getEphemeralMessage() {

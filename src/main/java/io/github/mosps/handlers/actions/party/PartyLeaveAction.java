@@ -15,17 +15,17 @@ public class PartyLeaveAction implements Action {
     public ActionResult execute(ActionContext context) {
         Party party = PartyManager.getParty(context.getPartyId());
         if (party == null) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("このパーティは期限切れです。");
         }
 
         if (party.isClosed()) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("このパーティは締め切り済みです。");
         }
 
         if (!party.getMembers().contains(context.getUserId())) {
-            return ActionResult.error()
+            return ActionResult.of()
                     .withEphemeral("パーティに参加していません。");
         }
 
@@ -34,7 +34,7 @@ public class PartyLeaveAction implements Action {
         PartyView view = PartyManager.createView(party);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.success(render)
+        return ActionResult.of().withUpdate(render)
                 .withEphemeral("パーティから退出しました");
     }
 }

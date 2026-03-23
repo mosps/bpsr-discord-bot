@@ -20,7 +20,7 @@ public class ProfileRegisterAction implements Action {
 
         ProfileField field = ProfileField.fromId(context.getType());
         if (field == null) {
-            return ActionResult.error();
+            return ActionResult.of();
         }
 
         field.reset(profile);
@@ -31,6 +31,6 @@ public class ProfileRegisterAction implements Action {
         ProfileView view = ProfileManager.createView(profile);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.success(render);
+        return ActionResult.of().withUpdate(render);
     }
 }

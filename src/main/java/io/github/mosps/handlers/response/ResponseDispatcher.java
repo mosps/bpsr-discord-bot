@@ -8,6 +8,9 @@ public class ResponseDispatcher {
         if (result.getUpdate() != null) {
             responder.update(result.getUpdate());
         }
+        if (result.getReply() != null) {
+            responder.reply(result.getReply());
+        }
         if (result.getEphemeralMessage() != null) {
             responder.ephemeral(result.getEphemeralMessage());
         }
