@@ -3,6 +3,7 @@ package io.github.mosps.handlers.response;
 import io.github.mosps.render.RenderResult;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 public class CommandResponder implements Responder {
 
@@ -24,7 +25,7 @@ public class CommandResponder implements Responder {
     @Override
     public void reply(RenderResult render) {
         hook.sendMessage(
-                render.getMessageEditData().getContent()
+                MessageCreateData.fromEditData(render.getMessageEditData())
         ).setComponents(
                 render.getComponents()
         ).queue();
