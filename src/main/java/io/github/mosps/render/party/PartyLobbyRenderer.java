@@ -13,7 +13,7 @@ public class PartyLobbyRenderer extends BaseRenderer<PartyLobbyView> {
     public RenderResult render(PartyLobbyView view) {
         String context = "ボタンを押してパーティを作成します。";
 
-        Button create = Button.success("party:create:none", "パーティを作成");
+        Button create = Button.success("party:create:none", "📝パーティを作成");
 
         return build(MessageEditData.fromContent(context), ActionRow.of(create));
     }
