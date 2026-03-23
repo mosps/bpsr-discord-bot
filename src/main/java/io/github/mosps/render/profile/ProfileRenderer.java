@@ -1,7 +1,6 @@
 package io.github.mosps.render.profile;
 
 import io.github.mosps.data.Classes;
-import io.github.mosps.data.Imagines;
 import io.github.mosps.render.BaseRenderer;
 import io.github.mosps.render.RenderResult;
 import io.github.mosps.views.profile.ProfileView;
@@ -13,6 +12,7 @@ import net.dv8tion.jda.api.components.selections.StringSelectMenu;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +21,17 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
 
     @Override
     public RenderResult render(ProfileView view) {
+        EmbedBuilder embedBuilder = buildEmbed(view);
+
+        List<ActionRow> rows = new ArrayList<>();
+        rows.add(createMainClassRow(view));
+        rows.add(createSubClassRow(view));
+        rows.add(createEditClassButtonRow(view));
+
+        return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);
+    }
+
+    private EmbedBuilder buildEmbed(ProfileView view) {
         EmbedBuilder embedBuilder = baseEmbed();
 
         embedBuilder.setTitle("プロフィール");
@@ -36,9 +47,12 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                 **所持イマジン:**
                 %s
                 -----------------------------------
-                """
-        .formatted(view.name, view.mainClass, view.subClasses, view.imagines));
+                """.formatted(view.name, view.mainClass, view.subClasses, view.imagines));
 
+        return embedBuilder;
+    }
+
+    private ActionRow createMainClassRow(ProfileView view) {
         StringSelectMenu mainClass = StringSelectMenu.create("profile:register:main_class:" + view.userId)
                 .setPlaceholder("メインクラスを選択")
                 .addOptions(Arrays.stream(Classes.values())
@@ -47,6 +61,11 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                                 .withEmoji(Emoji.fromFormatted(c.getEmoji())))
                         .toList())
                 .build();
+
+        return ActionRow.of(mainClass);
+    }
+
+    private ActionRow createSubClassRow(ProfileView view) {
         StringSelectMenu subClass = StringSelectMenu.create("profile:register:sub_class:" + view.userId)
                 .setPlaceholder("サブクラスを選択")
                 .addOptions(Arrays.stream(Classes.values())
@@ -58,14 +77,12 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                 .setMaxValues(5)
                 .build();
 
+        return ActionRow.of(subClass);
+    }
+
+    private ActionRow createEditClassButtonRow(ProfileView view) {
         Button edit = Button.secondary("profile:imagine_edit:" + view.userId, "イマジンを変更");
 
-        List<ActionRow> rows = List.of(
-                ActionRow.of(mainClass),
-                ActionRow.of(subClass),
-                ActionRow.of(edit)
-        );
-
-        return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);
+        return ActionRow.of(edit);
     }
 }

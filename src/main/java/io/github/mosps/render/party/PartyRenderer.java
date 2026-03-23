@@ -1,3 +1,4 @@
+
 package io.github.mosps.render.party;
 
 import io.github.mosps.render.BaseRenderer;
@@ -8,16 +9,23 @@ import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
+import java.util.List;
+
 public class PartyRenderer extends BaseRenderer<PartyView> {
 
     @Override
     public RenderResult render(PartyView view) {
-        EmbedBuilder embedBuilder = baseEmbed();
+        EmbedBuilder embedBuilder = buildEmbed(view);
+        addMemberListField(view, embedBuilder);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        view.members.forEach(member ->
-                stringBuilder.append("<@").append(member).append(">\n")
-        );
+        List<Button> buttons = createPartyAccessButton(view);
+        buttons = disableIf(view.closed, buttons);
+
+        return build(MessageEditData.fromEmbeds(embedBuilder.build()), ActionRow.of(buttons));
+    }
+
+    private EmbedBuilder buildEmbed(PartyView view) {
+        EmbedBuilder embedBuilder = baseEmbed();
 
         embedBuilder.setTitle("パーティ募集");
 
@@ -29,23 +37,47 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
                 **備考:** %s
                 -----------------------------------
                 """
-        .formatted(view.name, view.mainClass, view.subClasses, view.imagines));
-
-        embedBuilder.addField("参加者 " + "```" + view.members.size() + "/" + view.maxMembers + "```",
-                stringBuilder.isEmpty() ? "　" : stringBuilder.toString(),
-                false
         );
 
-        Button join = Button.success("party:join:" + view.partyId, "参加");
-        Button leave = Button.danger("party:leave:" + view.partyId, "退出");
+        return embedBuilder;
+    }
+
+    private void addMemberListField(PartyView view, EmbedBuilder embedBuilder) {
+        StringBuilder members = buildMembersString(view);
+
+        embedBuilder.addField(
+                """
+                参加者```%s/%s```
+                """.formatted(view.members.size(), view.maxMembers),
+                members.isEmpty()
+                        ? "　"
+                        : members.toString(),
+                false
+        );
+    }
+
+    private StringBuilder buildMembersString(PartyView view) {
+        StringBuilder stringBuilder = new StringBuilder();
+        view.members.forEach(id ->
+                stringBuilder.append("<@").append(id).append(">\n")
+        );
+
+        return stringBuilder;
+    }
+
+    private List<Button> createPartyAccessButton(PartyView view) {
+        Button join = Button.success("party:join:" + view.partyId, "🟢参加");
+        Button leave = Button.danger("party:leave:" + view.partyId, "🔴退出");
         Button close = Button.secondary("party:close:" + view.partyId, "終了");
 
-        if (view.closed) {
-            join = join.asDisabled();
-            leave = leave.asDisabled();
-            close = close.asDisabled();
-        }
+        return List.of(join, leave, close);
+    }
 
-        return build(MessageEditData.fromEmbeds(embedBuilder.build()), ActionRow.of(join, leave, close));
+    private List<Button> disableIf(boolean condition, List<Button> buttons) {
+        if (!condition) return buttons;
+
+        return buttons.stream()
+                .map(Button::asDisabled)
+                .toList();
     }
 }
