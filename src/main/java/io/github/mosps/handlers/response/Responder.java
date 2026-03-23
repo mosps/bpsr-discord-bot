@@ -4,5 +4,6 @@ import io.github.mosps.render.RenderResult;
 
 public interface Responder {
     void update(RenderResult render);
+    void reply(RenderResult render);
     void ephemeral(String message);
 }

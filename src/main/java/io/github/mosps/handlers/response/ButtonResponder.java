@@ -22,6 +22,15 @@ public class ButtonResponder implements Responder {
     }
 
     @Override
+    public void reply(RenderResult render) {
+        hook.sendMessage(
+                render.getMessageEditData().getContent()
+        ).setComponents(
+                render.getComponents()
+        ).queue();
+    }
+
+    @Override
     public void ephemeral(String message) {
         hook.sendMessage(message)
                 .setEphemeral(true)
