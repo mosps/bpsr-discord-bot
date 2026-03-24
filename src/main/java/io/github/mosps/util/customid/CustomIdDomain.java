@@ -7,6 +7,12 @@ public enum CustomIdDomain {
 
     PARTY("party") {
         @Override
+        public String build(String action, Map<String, String> args) {
+            return prefix + ":" + action + ":" +
+                    args.get("partyId");
+        }
+
+        @Override
         public Map<String, String> parse(String[] args) {
             Map<String, String> map = new HashMap<>();
             map.put("party", args[0]);
@@ -15,6 +21,11 @@ public enum CustomIdDomain {
     },
 
     PROFILE("profile") {
+        public String build(String action, Map<String, String> args) {
+            return prefix + ":" + action + ":" +
+                    args.get("type") + "|" + args.get("ownerId");
+        }
+
         @Override
         public Map<String, String> parse(String[] args) {
             Map<String, String> map = new HashMap<>();
@@ -24,12 +35,13 @@ public enum CustomIdDomain {
         }
     };
 
-    private final String prefix;
+    protected final String prefix;
 
     CustomIdDomain(String prefix) {
         this.prefix = prefix;
     }
 
+    public abstract String build(String action, Map<String, String> args);
     public abstract Map<String, String> parse(String[] args);
 
     public static CustomIdDomain from(String prefix) {
