@@ -15,7 +15,7 @@ public enum CustomIdDomain {
         @Override
         public Map<String, String> parse(String[] args) {
             Map<String, String> map = new HashMap<>();
-            map.put("party", args[0]);
+            map.put("partyId", args[0]);
             return map;
         }
     },
@@ -30,7 +30,7 @@ public enum CustomIdDomain {
         public Map<String, String> parse(String[] args) {
             Map<String, String> map = new HashMap<>();
             map.put("type", args[0]);
-            map.put("owner", args[1]);
+            map.put("ownerId", args[1]);
             return map;
         }
     };
