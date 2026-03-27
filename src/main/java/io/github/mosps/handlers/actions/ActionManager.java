@@ -18,6 +18,7 @@ public class ActionManager {
         register("party:join", new PartyJoinAction());
         register("party:leave", new PartyLeaveAction());
         register("party:close", new PartyCloseAction());
+        register("party:setting", new PartySettingAction());
         register("party:create", new PartyCreateAction());
         register("party:admin", new PartyAdminAction());
 
