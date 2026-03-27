@@ -48,6 +48,16 @@ public class PartyManager {
     public static PartyView createView(Party party) {
         PartyView view = new PartyView();
 
+        view.destination = party.getDestination() != null
+                ? party.getDestination()
+                : "-";
+        view.time = party.getTime() != null
+                ? party.getTime()
+                : "-";
+        view.note = party.getNote() != null
+                ? party.getNote()
+                : "-";
+
         view.partyId = party.getPartyId();
         view.ownerId = party.getOwnerId();
         view.members = party.getMembers();
