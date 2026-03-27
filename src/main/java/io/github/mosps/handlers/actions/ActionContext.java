@@ -30,7 +30,7 @@ public class ActionContext {
         return customId;
     }
 
-    public ActionData getData() {
-        return data;
+    public <T extends ActionData> T getData(Class<T> type) {
+        return type.cast(data);
     }
 }

@@ -1,6 +1,5 @@
 package io.github.mosps.handlers.actions.data;
 
-import java.io.Serializable;
 import java.util.Map;
 
 public class ModalData implements ActionData {
@@ -10,7 +9,7 @@ public class ModalData implements ActionData {
         this.values = values;
     }
 
-    public Map<String, String> get() {
-        return values;
+    public String get(String key) {
+        return values.get(key);
     }
 }
