@@ -8,4 +8,8 @@ public class PartyView {
     public Set<Long> members;
     public int maxMembers;
     public boolean closed;
+
+    public String destination;
+    public String time;
+    public String note;
 }
