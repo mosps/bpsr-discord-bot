@@ -1,5 +1,6 @@
 package io.github.mosps.handlers.actions;
 
+import io.github.mosps.handlers.actions.data.ActionData;
 import io.github.mosps.util.customid.CustomId;
 
 import java.util.List;
@@ -8,13 +9,13 @@ public class ActionContext {
     private final long userId;
     private final String name;
     private final CustomId customId;
-    private final List<String> value;
+    private final ActionData data;
 
-    public ActionContext(long userId, String name, CustomId customId, List<String> value) {
+    public ActionContext(long userId, String name, CustomId customId, ActionData data) {
         this.userId = userId;
         this.name = name;
         this.customId = customId;
-        this.value = value;
+        this.data = data;
     }
 
     public long getUserId() {
@@ -29,7 +30,7 @@ public class ActionContext {
         return customId;
     }
 
-    public List<String> getValue() {
-        return value;
+    public ActionData getData() {
+        return data;
     }
 }

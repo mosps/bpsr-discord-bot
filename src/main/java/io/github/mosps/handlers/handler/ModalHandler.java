@@ -4,12 +4,16 @@ import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionManager;
 import io.github.mosps.handlers.actions.ActionResult;
-import io.github.mosps.handlers.response.ButtonResponder;
+import io.github.mosps.handlers.actions.data.ModalData;
 import io.github.mosps.handlers.response.ModalResponder;
 import io.github.mosps.handlers.response.Responder;
 import io.github.mosps.handlers.response.ResponseDispatcher;
 import io.github.mosps.util.customid.CustomId;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
+import net.dv8tion.jda.api.interactions.modals.ModalMapping;
+
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ModalHandler {
 
@@ -18,7 +22,13 @@ public class ModalHandler {
         long userId = event.getUser().getIdLong();
         String name = event.getUser().getEffectiveName();
 
-        ActionContext context = new ActionContext(userId, name, customId, event.);
+        Map<String,String> values = event.getValues().stream()
+                .collect(Collectors.toMap(
+                        ModalMapping::getCustomId,
+                        ModalMapping::getAsString
+                ));
+
+        ActionContext context = new ActionContext(userId, name, customId, new ModalData(values));
         Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);

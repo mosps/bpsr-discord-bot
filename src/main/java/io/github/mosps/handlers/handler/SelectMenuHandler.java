@@ -4,6 +4,7 @@ import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionManager;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.handlers.actions.data.SelectMenuData;
 import io.github.mosps.handlers.response.Responder;
 import io.github.mosps.handlers.response.ResponseDispatcher;
 import io.github.mosps.handlers.response.SelectMenuResponder;
@@ -24,7 +25,7 @@ public class SelectMenuHandler {
             return;
         }
 
-        ActionContext context = new ActionContext(userId, name, customId, event.getValues());
+        ActionContext context = new ActionContext(userId, name, customId, new SelectMenuData(event.getValues()));
         Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);
