@@ -7,17 +7,20 @@ import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.handlers.response.ButtonResponder;
 import io.github.mosps.handlers.response.Responder;
 import io.github.mosps.handlers.response.ResponseDispatcher;
+import io.github.mosps.util.customid.CustomId;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+
+import java.util.List;
 
 public class ButtonHandler {
 
     public static void handle(ButtonInteractionEvent event) {
-        String[] customId = event.getComponentId().split(":");
-        String key = customId[0] + ":" + customId[1];
-        String partyId = customId[2];
+        CustomId customId = CustomId.of(event.getComponentId());
+        long userId = event.getUser().getIdLong();
+        String name = event.getUser().getEffectiveName();
 
-        ActionContext context = new ActionContext(event.getUser().getIdLong(), event.getUser().getName(), partyId);
-        Action action = ActionManager.get(key);
+        ActionContext context = new ActionContext(userId, name, customId, List.of());
+        Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);
 

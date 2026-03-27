@@ -7,15 +7,20 @@ import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.handlers.response.CommandResponder;
 import io.github.mosps.handlers.response.Responder;
 import io.github.mosps.handlers.response.ResponseDispatcher;
+import io.github.mosps.util.customid.CustomId;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+
+import java.util.List;
 
 public class CommandHandler {
 
     public static void handle(SlashCommandInteractionEvent event) {
-        String key = event.getName() + ":" + event.getSubcommandName();
+        CustomId customId = CustomId.of(event.getName() + ":" + event.getSubcommandName());
+        long userId = event.getUser().getIdLong();
+        String name = event.getUser().getEffectiveName();
 
-        ActionContext context = new ActionContext(event.getUser().getIdLong(), event.getUser().getEffectiveName());
-        Action action = ActionManager.get(key);
+        ActionContext context = new ActionContext(userId, name, customId, List.of());
+        Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);
 
