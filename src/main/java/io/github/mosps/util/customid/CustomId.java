@@ -24,7 +24,7 @@ public class CustomId {
         String key = split[0] + ":" + split[1];
         String[] rawArgs = split.length == 3
                 ? split[2].split("\\|")
-                : new String[0];
+                : new String[1];
 
         CustomIdDomain domain = CustomIdDomain.from(domainKey);
 
