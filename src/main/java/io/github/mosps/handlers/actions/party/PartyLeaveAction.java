@@ -13,7 +13,7 @@ public class PartyLeaveAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Party party = PartyManager.getParty(context.getPartyId());
+        Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
         if (party == null) {
             return ActionResult.of()
                     .withEphemeral("このパーティは期限切れです。");

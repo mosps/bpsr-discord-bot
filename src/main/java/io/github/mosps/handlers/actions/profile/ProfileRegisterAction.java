@@ -3,6 +3,7 @@ package io.github.mosps.handlers.actions.profile;
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.handlers.actions.data.SelectMenuData;
 import io.github.mosps.profile.Profile;
 import io.github.mosps.profile.ProfileField;
 import io.github.mosps.profile.ProfileManager;
@@ -16,15 +17,17 @@ public class ProfileRegisterAction implements Action {
     public ActionResult execute(ActionContext context) {
         Profile profile = ProfileManager.getProfile(context.getUserId());
 
+        SelectMenuData data = context.getData(SelectMenuData.class);
+
         profile.setName(context.getName());
 
-        ProfileField field = ProfileField.fromId(context.getType());
+        ProfileField field = ProfileField.fromId(context.getCustomId().get("type"));
         if (field == null) {
             return ActionResult.of();
         }
 
         field.reset(profile);
-        context.getValue().forEach(value -> field.apply(profile, value));
+        data.get().forEach(value -> field.apply(profile, value));
 
         ProfileManager.saveProfile(profile);
 

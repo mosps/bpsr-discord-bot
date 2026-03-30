@@ -3,6 +3,7 @@ package io.github.mosps.handlers.actions.profile.imagine;
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.handlers.actions.data.SelectMenuData;
 import io.github.mosps.profile.imagine.ImagineEditField;
 import io.github.mosps.profile.imagine.ImagineEditManager;
 import io.github.mosps.profile.imagine.ImagineEditSession;
@@ -16,9 +17,11 @@ public class ImagineEditAction implements Action {
     public ActionResult execute(ActionContext context) {
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
 
-        ImagineEditField field = ImagineEditField.fromId(context.getType());
+        SelectMenuData data = context.getData(SelectMenuData.class);
+
+        ImagineEditField field = ImagineEditField.fromId(context.getCustomId().get("type"));
         if (field != null) {
-            context.getValue().forEach(value -> field.apply(session, value));
+            data.get().forEach(value -> field.apply(session, value));
         }
 
         ImagineEditView view = ImagineEditManager.createView(session);
