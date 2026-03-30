@@ -42,6 +42,6 @@ public enum Classes {
     }
 
     public String getDisplay() {
-        return emoji + name + style;
+        return emoji + name + " " + style;
     }
 }
