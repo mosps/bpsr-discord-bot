@@ -1,6 +1,7 @@
 package io.github.mosps.handlers.actions;
 
 import io.github.mosps.handlers.actions.data.ActionData;
+import io.github.mosps.handlers.actions.data.EmptyData;
 import io.github.mosps.util.customid.CustomId;
 
 import java.util.List;
@@ -32,5 +33,9 @@ public class ActionContext {
 
     public <T extends ActionData> T getData(Class<T> type) {
         return type.cast(data);
+    }
+
+    public boolean isEmptyData() {
+        return data instanceof EmptyData;
     }
 }
