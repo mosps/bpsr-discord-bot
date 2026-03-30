@@ -1,6 +1,9 @@
 
 package io.github.mosps.render.party;
 
+import io.github.mosps.data.Imagines;
+import io.github.mosps.profile.Profile;
+import io.github.mosps.profile.ProfileManager;
 import io.github.mosps.render.BaseRenderer;
 import io.github.mosps.render.RenderResult;
 import io.github.mosps.views.party.PartyView;
@@ -58,8 +61,13 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
     private StringBuilder buildMembersString(PartyView view) {
         StringBuilder stringBuilder = new StringBuilder();
-        view.members.forEach(id ->
-                stringBuilder.append("<@").append(id).append(">\n")
+        view.members.forEach(id -> {
+                    Profile profile = ProfileManager.getProfile(id);
+                    stringBuilder.append("<@").append(id).append("> ")
+                            .append(profile.getMainClass().getEmoji()).append(" ")
+                            .append(Imagines.AIRONA.getEmoji()).append(" ")
+                            .append("\n");
+                }
         );
 
         return stringBuilder;
