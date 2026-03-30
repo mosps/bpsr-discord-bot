@@ -1,6 +1,7 @@
 package io.github.mosps;
 
 import io.github.mosps.handlers.listener.MessageButtonListener;
+import io.github.mosps.handlers.listener.ModalListener;
 import io.github.mosps.handlers.listener.SelectMenuListener;
 import io.github.mosps.handlers.listener.SlashCommandListener;
 import io.github.mosps.profile.ProfileManager;
@@ -21,7 +22,8 @@ public class BPSRInviteManager {
                 .addEventListeners(
                         new SlashCommandListener(),
                         new MessageButtonListener(),
-                        new SelectMenuListener()
+                        new SelectMenuListener(),
+                        new ModalListener()
                 )
                 .disableCache(
                         CacheFlag.VOICE_STATE,
@@ -49,10 +51,11 @@ public class BPSRInviteManager {
 
 /*TODO
 Party
-画面に作成時刻、期限を表示UI更新時に期限も更新.
+画面に作成時刻、期限を表示UI更新時に期限も更新.（作成者が締め切ってから1日でSession切れに)
 Party状態に応じてEmbedColorを変更
-時刻、備考はメッセージ入力によって取得..?
 目的地によって最大人数を変更可能に
+編集用ActionRowを別UIに用意
+PartyCreateActionを変更->Modal出してから作成
 
 Profile
 ページ機能実装
