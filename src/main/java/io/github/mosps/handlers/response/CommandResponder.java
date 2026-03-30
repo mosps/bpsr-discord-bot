@@ -2,20 +2,22 @@ package io.github.mosps.handlers.response;
 
 import io.github.mosps.render.RenderResult;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
+import net.dv8tion.jda.api.modals.Modal;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 public class CommandResponder implements Responder {
 
-    private final InteractionHook hook;
+    private final SlashCommandInteractionEvent event;
 
     public CommandResponder(SlashCommandInteractionEvent event) {
-        this.hook = event.getHook();
+        this.event = event;
     }
 
     @Override
     public void update(RenderResult render) {
-        hook.editOriginal(
+        event.getHook().editOriginal(
                 render.getMessageEditData()
         ).setComponents(
                 render.getComponents()
@@ -24,7 +26,7 @@ public class CommandResponder implements Responder {
 
     @Override
     public void reply(RenderResult render) {
-        hook.sendMessage(
+        event.getHook().sendMessage(
                 MessageCreateData.fromEditData(render.getMessageEditData())
         ).setComponents(
                 render.getComponents()
@@ -32,8 +34,13 @@ public class CommandResponder implements Responder {
     }
 
     @Override
+    public void openModal(Modal modal) {
+        event.replyModal(modal).queue();
+    }
+
+    @Override
     public void ephemeral(String message) {
-        hook.sendMessage(message)
+        event.getHook().sendMessage(message)
                 .setEphemeral(true)
                 .queue();
     }

@@ -11,6 +11,9 @@ public class ResponseDispatcher {
         if (result.getReply() != null) {
             responder.reply(result.getReply());
         }
+        if (result.getModal() != null) {
+            responder.openModal(result.getModal());
+        }
         if (result.getEphemeralMessage() != null) {
             responder.ephemeral(result.getEphemeralMessage());
         }

@@ -1,11 +1,13 @@
 package io.github.mosps.handlers.actions;
 
 import io.github.mosps.render.RenderResult;
+import net.dv8tion.jda.api.modals.Modal;
 
 public class ActionResult {
 
     private RenderResult update;
     private RenderResult reply;
+    private Modal modal;
     private String ephemeralMessage;
 
     private ActionResult() {}
@@ -24,6 +26,11 @@ public class ActionResult {
         return this;
     }
 
+    public ActionResult withModal(Modal modal) {
+        this.modal = modal;
+        return this;
+    }
+
     public ActionResult withEphemeral(String message) {
         this.ephemeralMessage = message;
         return this;
@@ -35,6 +42,10 @@ public class ActionResult {
 
     public RenderResult getReply() {
         return reply;
+    }
+
+    public Modal getModal() {
+        return modal;
     }
 
     public String getEphemeralMessage() {

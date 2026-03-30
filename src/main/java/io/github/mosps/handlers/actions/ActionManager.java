@@ -20,6 +20,7 @@ public class ActionManager {
         register("party:close", new PartyCloseAction());
         register("party:setting", new PartySettingAction());
         register("party:create", new PartyCreateAction());
+        register("party:modal", new PartyModalAction());
         register("party:admin", new PartyAdminAction());
 
         register("profile:create", new ProfileCreateAction());
