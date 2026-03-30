@@ -2,6 +2,7 @@ package io.github.mosps.views.profile.imagine;
 
 import io.github.mosps.data.Imagines;
 
+import java.util.Map;
 import java.util.Set;
 
 public class ImagineEditView {
@@ -11,8 +12,8 @@ public class ImagineEditView {
     public String remove;
     public String tier;
 
-    public Set<Imagines> currentImagines;
+    public Map<Imagines, String> currentImagines;
 
-    public Set<Imagines> addImagines;
-    public Set<Imagines> removeImagines;
+    public Map<Imagines, String> addImagines;
+    public Map<Imagines, String> removeImagines;
 }

@@ -36,16 +36,16 @@ public class ImagineEditManager {
         view.userId = session.getUserId();
         view.add = view.addImagines.isEmpty()
                 ? "-"
-                : view.addImagines.stream()
-                .map(Imagines::getDisplay)
+                : view.addImagines.entrySet().stream()
+                .map(entry -> entry.getKey().getDisplay() + entry.getValue())
                 .collect(Collectors.joining(""));
         view.remove = view.removeImagines.isEmpty()
                 ? "-"
-                : view.removeImagines.stream()
-                .map(Imagines::getDisplay)
+                : view.removeImagines.entrySet().stream()
+                .map(entry -> entry.getKey().getDisplay() + entry.getValue())
                 .collect(Collectors.joining(""));
         view.tier = session.getTier() == null
-                ? "-"
+                ? "0凸"
                 : session.getTier();
 
         return view;

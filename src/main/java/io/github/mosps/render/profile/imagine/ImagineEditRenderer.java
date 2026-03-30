@@ -59,11 +59,11 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
     }
 
     private ActionRow createEntryRow(ImagineEditView view) {
-        StringSelectMenu imagineEntry = StringSelectMenu.create("profile:imagine_edit:add:" + view.userId)
+        StringSelectMenu imagineEntry = StringSelectMenu.create("profile:imagine_edit:add|" + view.userId)
                 .setPlaceholder("登録するバトルイマジンを選択")
                 .addOptions(Arrays.stream(Imagines.values())
-                        .filter(v -> !view.currentImagines.contains(v))
-                        .map(v -> SelectOption.of(v.getName(), v.name())
+                        .filter(v -> !view.currentImagines.containsKey(v))
+                        .map(v -> SelectOption.of(v.getName(), v.name() + ":" + view.tier)
                                 .withEmoji(Emoji.fromFormatted(v.getEmoji())))
                         .toList())
                 .setMaxValues(25)
@@ -75,11 +75,11 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
     private Optional<ActionRow> createRemoveRow(ImagineEditView view) {
         if (view.currentImagines.isEmpty()) return Optional.empty();
 
-        StringSelectMenu imagineRemove = StringSelectMenu.create("profile:imagine_edit:remove:" + view.userId)
+        StringSelectMenu imagineRemove = StringSelectMenu.create("profile:imagine_edit:remove|" + view.userId)
                 .setPlaceholder("削除するバトルイマジンを選択")
-                .addOptions(view.currentImagines.stream()
-                        .map(v -> SelectOption.of(v.getName(), v.name())
-                                .withEmoji(Emoji.fromFormatted(v.getEmoji())))
+                .addOptions(view.currentImagines.entrySet().stream()
+                        .map(entry -> SelectOption.of(entry.getKey().getName(), entry.getKey().name() + ":" + entry.getValue())
+                                .withEmoji(Emoji.fromFormatted(entry.getKey().getEmoji())))
                         .toList())
                 .setMaxValues(25)
                 .build();
@@ -88,7 +88,7 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
     }
 
     private ActionRow createTierRow(ImagineEditView view) {
-        StringSelectMenu.Builder numberBuilder = StringSelectMenu.create("profile:imagine_edit:tier:" + view.userId)
+        StringSelectMenu.Builder numberBuilder = StringSelectMenu.create("profile:imagine_edit:tier|" + view.userId)
                 .setPlaceholder("凸数を選択");
 
         for (int i = 0; i <= 4; i++) {
@@ -100,14 +100,14 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
     }
 
     private ActionRow createPageButtonRow(ImagineEditView view) {
-        Button previous = Button.secondary("profile:previous:" + view.userId, "⬅️前のページ");
-        Button next = Button.secondary("profile:next:" + view.userId, "次のページ➡️️");
+        Button previous = Button.secondary("profile:previous:|" + view.userId, "⬅️前のページ");
+        Button next = Button.secondary("profile:next:|" + view.userId, "次のページ➡️️");
 
         return ActionRow.of(previous, next);
     }
 
     private ActionRow createConfirmButtonRow(ImagineEditView view) {
-        Button success = Button.success("profile:imagine_confirm:" + view.userId, "✅確定");
+        Button success = Button.success("profile:imagine_confirm:|" + view.userId, "✅確定");
 
         return ActionRow.of(success);
     }

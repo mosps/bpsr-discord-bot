@@ -19,7 +19,7 @@ public class ImagineConfirmAction implements Action {
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
 
         session.getAddImagines().forEach(profile::addImagine);
-        session.getRemoveImagines().forEach(profile::removeImagine);
+        session.getRemoveImagines().keySet().forEach(profile::removeImagine);
 
         ProfileManager.saveProfile(profile);
         ImagineEditManager.remove(context.getUserId());

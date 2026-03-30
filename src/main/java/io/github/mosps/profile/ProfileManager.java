@@ -50,7 +50,7 @@ public class ProfileManager {
 
         Classes classes = profile.getMainClass();
         Set<Classes> subClasses = profile.getSubClasses();
-        Set<Imagines> imagines = profile.getImagines();
+        Map<Imagines, String> imagines = profile.getImagines();
 
         view.userId = profile.getUserId();
         view.name = profile.getName();
@@ -64,8 +64,8 @@ public class ProfileManager {
                 .collect(Collectors.joining("\n"));
         view.imagines = imagines.isEmpty()
                 ? "未設定"
-                : imagines.stream()
-                .map(Imagines::getDisplay)
+                : imagines.entrySet().stream()
+                .map(entry -> entry.getKey().getDisplay() + entry.getValue())
                 .collect(Collectors.joining(""));
 
         return view;

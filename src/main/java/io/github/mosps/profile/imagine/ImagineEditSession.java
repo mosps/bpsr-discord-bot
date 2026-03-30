@@ -2,30 +2,32 @@ package io.github.mosps.profile.imagine;
 
 import io.github.mosps.data.Imagines;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ImagineEditSession {
     private final long userId;
 
-    private final Set<Imagines> currentImagines = new HashSet<>();
+    private final Map<Imagines, String> currentImagines = new HashMap<>();
 
-    private final Set<Imagines> addImagines = new HashSet<>();
-    private final Set<Imagines> removeImagines = new HashSet<>();
+    private final Map<Imagines, String> addImagines = new HashMap<>();
+    private final Map<Imagines, String> removeImagines = new HashMap<>();
 
     private String tier;
 
-    public ImagineEditSession(long userId, Set<Imagines> imagines) {
+    public ImagineEditSession(long userId, Map<Imagines, String> imagines) {
         this.userId = userId;
-        currentImagines.addAll(imagines);
+        currentImagines.putAll(imagines);
     }
 
-    public void add(Imagines imagine) {
-        addImagines.add(imagine);
+    public void add(Imagines imagine, String tier) {
+        addImagines.put(imagine, tier);
     }
 
-    public void remove(Imagines imagine) {
-        removeImagines.add(imagine);
+    public void remove(Imagines imagine, String tier) {
+        removeImagines.put(imagine, tier);
     }
 
     public void setTier(String tier) {
@@ -36,15 +38,15 @@ public class ImagineEditSession {
         return userId;
     }
 
-    public Set<Imagines> getCurrentImagines() {
+    public Map<Imagines, String> getCurrentImagines() {
         return currentImagines;
     }
 
-    public Set<Imagines> getAddImagines() {
+    public Map<Imagines, String> getAddImagines() {
         return addImagines;
     }
 
-    public Set<Imagines> getRemoveImagines() {
+    public Map<Imagines, String> getRemoveImagines() {
         return removeImagines;
     }
 

@@ -7,14 +7,22 @@ public enum ImagineEditField {
     ADD("add") {
         @Override
         public void apply(ImagineEditSession session, String value) {
-            session.add(Imagines.valueOf(value));
+            String[] split = value.split(":");
+            Imagines imagines = Imagines.valueOf(split[0]);
+            String tier = split[1];
+
+            session.add(imagines, tier);
         }
     },
 
     REMOVE("remove") {
         @Override
         public void apply(ImagineEditSession session, String value) {
-            session.remove(Imagines.valueOf(value));
+            String[] split = value.split(":");
+            Imagines imagines = Imagines.valueOf(split[0]);
+            String tier = split[1];
+
+            session.remove(imagines, tier);
         }
     },
 

@@ -28,10 +28,30 @@ public enum ProfileField {
         }
     },
 
+    EQUIPPED_IMAGINES("equipped_images") {
+        @Override
+        public void apply(Profile profile, String value) {
+            String[] split = value.split(":");
+            Imagines imagines = Imagines.valueOf(split[0]);
+            String tier = split[1];
+
+            profile.addEquippedImagines(imagines, tier);
+        }
+
+        @Override
+        public void reset(Profile profile) {
+            profile.resetEquippedImagines();
+        }
+    },
+
     IMAGINE_ADD("imagine_add") {
         @Override
         public void apply(Profile profile, String value) {
-            profile.addImagine(Imagines.valueOf(value));
+            String[] split = value.split(":");
+            Imagines imagines = Imagines.valueOf(split[0]);
+            String tier = split[1];
+
+            profile.addImagine(imagines, tier);
         }
 
         @Override

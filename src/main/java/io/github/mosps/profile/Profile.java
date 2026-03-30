@@ -3,7 +3,9 @@ package io.github.mosps.profile;
 import io.github.mosps.data.Classes;
 import io.github.mosps.data.Imagines;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Profile {
@@ -14,7 +16,8 @@ public class Profile {
     private Classes mainClass;
     private Set<Classes> subClasses = new HashSet<>();
 
-    private Set<Imagines> imagines = new HashSet<>();
+    private Map<Imagines, String> equippedImagines = new HashMap<>();
+    private Map<Imagines, String> imagines = new HashMap<>();
 
     public Profile(long userId, String name) {
         this.userId = userId;
@@ -53,12 +56,24 @@ public class Profile {
         subClasses.clear();
     }
 
-    public Set<Imagines> getImagines() {
+    public Map<Imagines, String> getEquippedImagines() {
+        return equippedImagines;
+    }
+
+    public void addEquippedImagines(Imagines equippedImagines, String tier) {
+        this.equippedImagines.put(equippedImagines, tier);
+    }
+
+    public void resetEquippedImagines() {
+        equippedImagines.clear();
+    }
+
+    public Map<Imagines, String> getImagines() {
         return imagines;
     }
 
-    public void addImagine(Imagines imagine) {
-        this.imagines.add(imagine);
+    public void addImagine(Imagines imagine, String tier) {
+        this.imagines.put(imagine, tier);
     }
 
     public void removeImagine(Imagines imagine) {
