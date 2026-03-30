@@ -11,8 +11,6 @@ import io.github.mosps.handlers.response.ResponseDispatcher;
 import io.github.mosps.util.customid.CustomId;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
-import java.util.List;
-
 public class ButtonHandler {
 
     public static void handle(ButtonInteractionEvent event) {
