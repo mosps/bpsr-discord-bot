@@ -5,6 +5,8 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.modals.Modal;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
+import java.util.concurrent.TimeUnit;
+
 public class ButtonResponder implements Responder {
 
     private final ButtonInteractionEvent event;
@@ -40,6 +42,8 @@ public class ButtonResponder implements Responder {
     public void ephemeral(String message) {
         event.getHook().sendMessage(message)
                 .setEphemeral(true)
-                .queue();
+                .queue(msg -> {
+                    msg.delete().queueAfter(5, TimeUnit.SECONDS);
+                });
     }
 }

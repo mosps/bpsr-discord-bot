@@ -57,7 +57,6 @@ Party状態に応じてEmbedColorを変更
 編集用ActionRowを別UIに用意
 
 Profile
+海武器所持ボタン追加
 ページ機能実装
-
-replyを数秒で削除
 */
