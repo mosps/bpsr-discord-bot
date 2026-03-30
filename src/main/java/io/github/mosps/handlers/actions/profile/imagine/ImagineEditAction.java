@@ -17,10 +17,12 @@ public class ImagineEditAction implements Action {
     public ActionResult execute(ActionContext context) {
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
 
-        SelectMenuData data = context.getData(SelectMenuData.class);
+        SelectMenuData data = context.isEmptyData()
+                ? null
+                : context.getData(SelectMenuData.class);
 
         ImagineEditField field = ImagineEditField.fromId(context.getCustomId().get("type"));
-        if (field != null) {
+        if (field != null && data != null) {
             data.get().forEach(value -> field.apply(session, value));
         }
 
