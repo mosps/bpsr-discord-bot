@@ -55,8 +55,9 @@ Party
 Party状態に応じてEmbedColorを変更
 目的地によって最大人数を変更可能に
 編集用ActionRowを別UIに用意
-PartyCreateActionを変更->Modal出してから作成
 
 Profile
 ページ機能実装
+
+replyを数秒で削除
 */
