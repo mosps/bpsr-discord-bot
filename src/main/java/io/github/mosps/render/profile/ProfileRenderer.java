@@ -53,7 +53,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
     }
 
     private ActionRow createMainClassRow(ProfileView view) {
-        StringSelectMenu mainClass = StringSelectMenu.create("profile:register:main_class:" + view.userId)
+        StringSelectMenu mainClass = StringSelectMenu.create("profile:register:main_class|" + view.userId)
                 .setPlaceholder("メインクラスを選択")
                 .addOptions(Arrays.stream(Classes.values())
                         .map(c -> SelectOption.of(c.getName(), c.name())
@@ -66,7 +66,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
     }
 
     private ActionRow createSubClassRow(ProfileView view) {
-        StringSelectMenu subClass = StringSelectMenu.create("profile:register:sub_class:" + view.userId)
+        StringSelectMenu subClass = StringSelectMenu.create("profile:register:sub_class|" + view.userId)
                 .setPlaceholder("サブクラスを選択")
                 .addOptions(Arrays.stream(Classes.values())
                         .map(c -> SelectOption.of(c.getName(), c.name())
@@ -81,7 +81,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
     }
 
     private ActionRow createEditClassButtonRow(ProfileView view) {
-        Button edit = Button.secondary("profile:imagine_edit:" + view.userId, "イマジンを変更");
+        Button edit = Button.secondary("profile:imagine_edit:|" + view.userId, "イマジンを変更");
 
         return ActionRow.of(edit);
     }
