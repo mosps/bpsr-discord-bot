@@ -17,5 +17,8 @@ public class ResponseDispatcher {
         if (result.getEphemeralMessage() != null) {
             responder.ephemeral(result.getEphemeralMessage());
         }
+        if (result.getEphemeralRender() != null) {
+            responder.ephemeral(result.getEphemeralRender());
+        }
     }
 }
