@@ -76,7 +76,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
     private List<Button> createPartyAccessButton(PartyView view) {
         Button join = Button.success("party:join:" + view.partyId, "🟢参加");
         Button leave = Button.danger("party:leave:" + view.partyId, "🔴退出");
-        Button setting = Button.secondary("party:modal:" + view.partyId, "⚙");
+        Button setting = Button.secondary("party:setting:" + view.partyId, "⚙");
 
         return List.of(join, leave, setting);
     }

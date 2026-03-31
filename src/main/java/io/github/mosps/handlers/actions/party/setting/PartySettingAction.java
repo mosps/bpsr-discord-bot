@@ -42,7 +42,7 @@ public class PartySettingAction implements Action {
 
     public ActionRow createSettingButtonRow(String partyId) {
         Button close = Button.secondary("party:close:" + partyId, "終了");
-        Button edit = Button.secondary("party:edit:" + partyId, "編集");
+        Button edit = Button.secondary("party:modal:" + partyId, "編集");
 
         return ActionRow.of(close, edit);
     }
