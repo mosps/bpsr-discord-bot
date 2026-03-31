@@ -5,9 +5,7 @@ import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
-import io.github.mosps.render.MessageRenderer;
 import io.github.mosps.render.RenderResult;
-import io.github.mosps.views.party.PartyView;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.components.selections.StringSelectMenu;
@@ -21,16 +19,13 @@ public class PartySettingAction implements Action {
     public ActionResult execute(ActionContext context) {
         Party party = PartyManager.createParty(context.getUserId());
 
-        PartyView view = PartyManager.createView(party);
-        RenderResult render = MessageRenderer.render(view);
-
-        RenderResult ephemeralRender = new RenderResult(
+        RenderResult render = new RenderResult(
                 MessageEditData.fromContent("パーティ設定"),
                 List.of(createSettingButtonRow(party.getPartyId()), createRoleRow(party.getPartyId()))
         );
 
-        return ActionResult.of().withReply(render)
-                .withEphemeral(ephemeralRender);
+        return ActionResult.of()
+                .withEphemeral(render);
     }
 
     public ActionRow createRoleRow(String partyId) {
