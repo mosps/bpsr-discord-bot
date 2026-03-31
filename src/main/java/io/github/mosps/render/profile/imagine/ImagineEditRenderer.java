@@ -1,8 +1,10 @@
 package io.github.mosps.render.profile.imagine;
 
 import io.github.mosps.data.Imagines;
+import io.github.mosps.party.PartyManager;
 import io.github.mosps.render.BaseRenderer;
 import io.github.mosps.render.RenderResult;
+import io.github.mosps.render.util.PageManager;
 import io.github.mosps.views.profile.imagine.ImagineEditView;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
@@ -60,12 +62,8 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
 
     private ActionRow createEntryRow(ImagineEditView view) {
         StringSelectMenu imagineEntry = StringSelectMenu.create("profile:imagine_edit:add|" + view.userId)
-                .setPlaceholder("登録するバトルイマジンを選択")
-                .addOptions(Arrays.stream(Imagines.values())
-                        .filter(v -> !view.currentImagines.containsKey(v))
-                        .map(v -> SelectOption.of(v.getName(), v.name() + ":" + view.tier)
-                                .withEmoji(Emoji.fromFormatted(v.getEmoji())))
-                        .toList())
+                .setPlaceholder("登録するバトルイマジンを選択 (" + view.page + "/" + PageManager.maxPage(view.currentImagines.size()) + ")")
+                .addOptions(buildImagineOptions(view))
                 .setMaxValues(25)
                 .build();
 
@@ -100,8 +98,15 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
     }
 
     private ActionRow createPageButtonRow(ImagineEditView view) {
-        Button previous = Button.secondary("profile:previous:|" + view.userId, "⬅️前のページ");
-        Button next = Button.secondary("profile:next:|" + view.userId, "次のページ➡️️");
+        Button previous = Button.secondary("profile:imagine_prev:|" + view.userId, "⬅️前のページ");
+        Button next = Button.secondary("profile:imagine_next:|" + view.userId, "次のページ➡️️");
+
+        if (view.page == 0) {
+            previous = previous.asDisabled();
+        }
+        if (view.page == PageManager.maxPage(view.currentImagines.size())) {
+            next = next.asDisabled();
+        }
 
         return ActionRow.of(previous, next);
     }
@@ -110,5 +115,18 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
         Button success = Button.success("profile:imagine_confirm:|" + view.userId, "✅確定");
 
         return ActionRow.of(success);
+    }
+
+    public static List<SelectOption> buildImagineOptions(ImagineEditView view) {
+        List<Imagines> list = Arrays.stream(Imagines.values())
+                .filter(v -> !view.currentImagines.containsKey(v))
+                .toList();
+
+        List<Imagines> current = PageManager.getPage(list, view.page);
+
+        return current.stream()
+                .map(v -> SelectOption.of(v.getName(), v.name() + ":" + view.tier)
+                        .withEmoji(Emoji.fromFormatted(v.getEmoji())))
+                .toList();
     }
 }

@@ -6,6 +6,8 @@ import io.github.mosps.handlers.actions.profile.ProfileCreateAction;
 import io.github.mosps.handlers.actions.profile.ProfileRegisterAction;
 import io.github.mosps.handlers.actions.profile.imagine.ImagineConfirmAction;
 import io.github.mosps.handlers.actions.profile.imagine.ImagineEditAction;
+import io.github.mosps.handlers.actions.profile.imagine.ImaginePageNextAction;
+import io.github.mosps.handlers.actions.profile.imagine.ImaginePagePrevAction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,8 @@ public class ActionManager {
         register("profile:register", new ProfileRegisterAction());
         register("profile:imagine_edit", new ImagineEditAction());
         register("profile:imagine_confirm", new ImagineConfirmAction());
+        register("profile:imagine_next", new ImaginePageNextAction());
+        register("profile:imagine_prev", new ImaginePagePrevAction());
         register("profile:admin", new ProfileAdminAction());
     }
 

@@ -58,5 +58,4 @@ Party状態に応じてEmbedColorを変更
 
 Profile
 海武器所持ボタン追加
-ページ機能実装
 */

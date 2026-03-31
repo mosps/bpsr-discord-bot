@@ -8,6 +8,8 @@ import java.util.Set;
 public class ImagineEditView {
     public long userId;
 
+    public int page;
+
     public String add;
     public String remove;
     public String tier;

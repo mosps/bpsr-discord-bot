@@ -47,6 +47,7 @@ public class ImagineEditManager {
         view.tier = session.getTier() == null
                 ? "0凸"
                 : session.getTier();
+        view.page = session.getPage();
 
         return view;
     }

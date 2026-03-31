@@ -17,6 +17,8 @@ public class ImagineEditSession {
 
     private String tier;
 
+    private int page = 0;
+
     public ImagineEditSession(long userId, Map<Imagines, String> imagines) {
         this.userId = userId;
         currentImagines.putAll(imagines);
@@ -28,10 +30,6 @@ public class ImagineEditSession {
 
     public void remove(Imagines imagine, String tier) {
         removeImagines.put(imagine, tier);
-    }
-
-    public void setTier(String tier) {
-        this.tier = tier;
     }
 
     public long getUserId() {
@@ -52,5 +50,21 @@ public class ImagineEditSession {
 
     public String getTier() {
         return tier;
+    }
+
+    public void setTier(String tier) {
+        this.tier = tier;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void nextPage() {
+        this.page++;
+    }
+
+    public void prevPage() {
+        this.page--;
     }
 }
