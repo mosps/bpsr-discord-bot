@@ -19,9 +19,8 @@ public class Profile {
     private Map<Imagines, String> equippedImagines = new HashMap<>();
     private Map<Imagines, String> imagines = new HashMap<>();
 
-    public Profile(long userId, String name) {
+    public Profile(long userId) {
         this.userId = userId;
-        this.name = name;
     }
 
     public long getUserId() {

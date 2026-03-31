@@ -13,7 +13,7 @@ public class ProfileCreateAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Profile profile = ProfileManager.getOrCreateProfile(context.getUserId(), context.getName());
+        Profile profile = ProfileManager.getOrCreateProfile(context.getUserId());
 
         profile.setName(context.getName());
 

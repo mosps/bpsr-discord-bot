@@ -22,19 +22,19 @@ public class ProfileManager {
         return profiles.get(userId);
     }
 
-    public static Profile getOrCreateProfile(long userId, String name) {
+    public static Profile getOrCreateProfile(long userId) {
         Profile profile = profiles.get(userId);
 
         if (profile != null) return profile;
 
-        profile = createProfile(userId, name);
+        profile = createProfile(userId);
         saveProfile(profile);
 
         return profile;
     }
 
-    public static Profile createProfile(long userId, String name) {
-        Profile profile = new Profile(userId, name);
+    public static Profile createProfile(long userId) {
+        Profile profile = new Profile(userId);
         profiles.put(userId, profile);
 
         return profile;
