@@ -10,7 +10,7 @@ import io.github.mosps.render.MessageRenderer;
 import io.github.mosps.render.RenderResult;
 import io.github.mosps.views.party.PartyView;
 
-public class PartySettingAction implements Action {
+public class PartyEditAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
