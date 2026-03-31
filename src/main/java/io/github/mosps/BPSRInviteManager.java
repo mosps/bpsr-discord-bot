@@ -53,8 +53,6 @@ public class BPSRInviteManager {
 Party
 画面に作成時刻、期限を表示UI更新時に期限も更新.（作成者が締め切ってから1日でSession切れに)
 Party状態に応じてEmbedColorを変更
-目的地によって最大人数を変更可能に
-編集用ActionRowを別UIに用意
 
 Profile
 海武器所持ボタン追加
