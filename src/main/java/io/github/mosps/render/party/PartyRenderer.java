@@ -76,10 +76,9 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
     private List<Button> createPartyAccessButton(PartyView view) {
         Button join = Button.success("party:join:" + view.partyId, "🟢参加");
         Button leave = Button.danger("party:leave:" + view.partyId, "🔴退出");
-        Button close = Button.secondary("party:close:" + view.partyId, "終了");
         Button setting = Button.secondary("party:modal:" + view.partyId, "⚙");
 
-        return List.of(join, leave, close, setting);
+        return List.of(join, leave, setting);
     }
 
     private List<Button> disableIf(boolean condition, List<Button> buttons) {
