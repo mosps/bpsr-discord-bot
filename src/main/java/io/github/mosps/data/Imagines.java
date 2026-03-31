@@ -20,9 +20,9 @@ public enum Imagines {
     CELESTIAL_FLIER("ヘヴンスカイ", "<:battle_imagine_s1_boss_11:1480205601068945418>"),
     LIZARDMAN_KING("キングギルミー", "<:battle_imagine_s1_boss_12:1480205631569789151>"),
     GOBLIN_KING("キングゴブリン", "<:battle_imagine_s1_boss_13:1480205756207992833>"),
-    MUKU_KING("キングムーク", "<:battle_imagine_s1_boss_14:1480205792488591490>");
+    MUKU_KING("キングムーク", "<:battle_imagine_s1_boss_14:1480205792488591490>"),
 
-    /*BOARRIER_TYRANT("マイティボア", "<:battle_imagine_s1_elite_01:1480205937779151008>"),
+    BOARRIER_TYRANT("マイティボア", "<:battle_imagine_s1_elite_01:1480205937779151008>"),
     GOBLIN_ARCHER("ゴブリン弓兵", "<:battle_imagine_s1_elite_02:1480205987670524055>"),
     GOBLIN_GUARD("ゴブリン衛士", "<:battle_imagine_s1_elite_03:1480206031731822622>"),
     INFERNO_GOBLIN_MAGE("炎のエルダーゴブリン", "<:battle_imagine_s1_elite_04:1480206064250257500>"),
@@ -41,7 +41,7 @@ public enum Imagines {
     LIZARDMAN_MAGE("ギルミーメイジ", "<:battle_imagine_s1_elite_17:1480206439581487124>"),
     JUMGLE_GOBLIN_WARRIOR("森のゴブリンウォーリアー", "<:battle_imagine_s1_elite_18:1480206462000038091>"),
     MUKU_SCOUT("ムークスカウト", "<:battle_imagine_s1_elite_19:1480206482829086913>"),
-    VOID_OGRE("虚飾オーガ", "<:battle_imagine_s1_elite_00:1480206542782333091>");*/
+    VOID_OGRE("虚飾オーガ", "<:battle_imagine_s1_elite_00:1480206542782333091>");
 
 
     private final String name;
