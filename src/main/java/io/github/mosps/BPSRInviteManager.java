@@ -53,6 +53,8 @@ public class BPSRInviteManager {
 Party
 画面に作成時刻、期限を表示UI更新時に期限も更新.（作成者が締め切ってから1日でSession切れに)
 Party状態に応じてEmbedColorを変更
+Create時用のModalEditActionを作成
+EditがupdateになっているためMessageByIdからPartyを編集するように変更
 
 Profile
 海武器所持ボタン追加
