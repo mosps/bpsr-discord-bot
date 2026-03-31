@@ -9,6 +9,7 @@ public class ActionResult {
     private RenderResult reply;
     private Modal modal;
     private String ephemeralMessage;
+    private RenderResult ephemeralRender;
 
     private ActionResult() {}
 
@@ -36,6 +37,11 @@ public class ActionResult {
         return this;
     }
 
+    public ActionResult withEphemeral(RenderResult result) {
+        this.ephemeralRender = result;
+        return this;
+    }
+
     public RenderResult getUpdate() {
         return update;
     }
@@ -50,5 +56,9 @@ public class ActionResult {
 
     public String getEphemeralMessage() {
         return ephemeralMessage;
+    }
+
+    public RenderResult getEphemeralRender() {
+        return ephemeralRender;
     }
 }

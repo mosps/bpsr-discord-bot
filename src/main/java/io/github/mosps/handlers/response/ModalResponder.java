@@ -48,4 +48,13 @@ public class ModalResponder implements Responder {
                     msg.delete().queueAfter(5, TimeUnit.SECONDS);
                 });
     }
+
+    @Override
+    public void ephemeral(RenderResult render) {
+        event.getHook().sendMessage(
+                MessageCreateData.fromEditData(render.getMessageEditData())
+        ).setComponents(
+                render.getComponents()
+        ).setEphemeral(true).queue();
+    }
 }

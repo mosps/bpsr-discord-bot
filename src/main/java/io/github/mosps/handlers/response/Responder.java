@@ -8,4 +8,5 @@ public interface Responder {
     void reply(RenderResult render);
     void openModal(Modal modal);
     void ephemeral(String message);
+    void ephemeral(RenderResult render);
 }

@@ -43,4 +43,13 @@ public class SelectMenuResponder implements Responder {
                 .setEphemeral(true)
                 .queue();
     }
+
+    @Override
+    public void ephemeral(RenderResult render) {
+        event.getHook().sendMessage(
+                MessageCreateData.fromEditData(render.getMessageEditData())
+        ).setComponents(
+                render.getComponents()
+        ).setEphemeral(true).queue();
+    }
 }
