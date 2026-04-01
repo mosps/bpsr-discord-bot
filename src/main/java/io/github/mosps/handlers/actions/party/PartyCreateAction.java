@@ -40,6 +40,6 @@ public class PartyCreateAction implements Action {
                 ).build();
 
         return ActionResult.of().withModal(modal)
-                .withEphemeral("パーティを作成しました！");
+                .withEphemeral("パーティの作成をキャンセルしました。");
     }
 }

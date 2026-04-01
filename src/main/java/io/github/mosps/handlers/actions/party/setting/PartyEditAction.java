@@ -3,6 +3,8 @@ package io.github.mosps.handlers.actions.party.setting;
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.party.Party;
+import io.github.mosps.party.PartyManager;
 import net.dv8tion.jda.api.components.label.Label;
 import net.dv8tion.jda.api.components.textinput.TextInput;
 import net.dv8tion.jda.api.components.textinput.TextInputStyle;
@@ -12,6 +14,22 @@ public class PartyEditAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
+        Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
+        if (party == null) {
+            return ActionResult.of()
+                    .withEphemeral("このパーティは期限切れです。");
+        }
+
+        if (party.isClosed()) {
+            return ActionResult.of()
+                    .withEphemeral("このパーティは締め切り済みです。");
+        }
+
+        if (context.getUserId() != party.getOwnerId()) {
+            return ActionResult.of()
+                    .withEphemeral("パーティ作成者ではありません。");
+        }
+
         TextInput destination = TextInput.create("destination", TextInputStyle.SHORT)
                 .setPlaceholder("目的地")
                 .setRequired(true)

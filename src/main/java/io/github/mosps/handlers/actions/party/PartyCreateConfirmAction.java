@@ -26,6 +26,6 @@ public class PartyCreateConfirmAction implements Action {
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withReply(render)
-                .withEphemeral("パーティ設定を変更しました。");
+                .withEphemeral("パーティを作成しました！");
     }
 }
