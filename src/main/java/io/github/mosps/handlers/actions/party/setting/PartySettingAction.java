@@ -17,7 +17,7 @@ public class PartySettingAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Party party = PartyManager.createParty(context.getUserId());
+        Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
 
         RenderResult render = new RenderResult(
                 MessageEditData.fromContent("パーティ設定"),
