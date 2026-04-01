@@ -24,6 +24,7 @@ public class ActionManager {
         register("party:leave", new PartyLeaveAction());
         register("party:close", new PartyCloseAction());
         register("party:create", new PartyCreateAction());
+        register("party:create_confirm", new PartyCreateConfirmAction());
         register("party:setting", new PartySettingAction());
         register("party:edit", new PartyEditAction());
         register("party:edit_confirm", new PartyEditConfirmAction());
