@@ -39,7 +39,6 @@ public class PartyCreateAction implements Action {
                         Label.of("備考", note)
                 ).build();
 
-        return ActionResult.of().withModal(modal)
-                .withEphemeral("パーティの作成をキャンセルしました。");
+        return ActionResult.of().withModal(modal);
     }
 }
