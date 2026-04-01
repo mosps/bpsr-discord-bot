@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
+import java.awt.*;
 import java.util.List;
 
 public class PartyRenderer extends BaseRenderer<PartyView> {
@@ -29,6 +30,8 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
     private EmbedBuilder buildEmbed(PartyView view) {
         EmbedBuilder embedBuilder = baseEmbed();
+
+        embedBuilder.setColor(getColor(!view.closed));
 
         embedBuilder.setTitle("パーティ募集");
 
@@ -64,7 +67,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
         view.members.forEach(id -> {
                     Profile profile = ProfileManager.getProfile(id);
                     stringBuilder.append("<@").append(id).append("> ")
-                            .append(profile.getMainClass().getEmoji()).append(" ")
+                            .append(profile.getMainClass().getEmoji()).append(profile.getMainClass().getStyle()).append(" ")
                             .append(Imagines.AIRONA.getEmoji()).append(" ")
                             .append("\n");
                 }
@@ -87,5 +90,9 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
         return buttons.stream()
                 .map(Button::asDisabled)
                 .toList();
+    }
+
+    private Color getColor(boolean condition) {
+        return condition ? Color.GREEN : Color.RED;
     }
 }

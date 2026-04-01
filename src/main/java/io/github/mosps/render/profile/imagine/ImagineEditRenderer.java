@@ -14,6 +14,7 @@ import net.dv8tion.jda.api.components.selections.StringSelectMenu;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +38,8 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
 
     private EmbedBuilder buildEmbed(ImagineEditView view) {
         EmbedBuilder embedBuilder = baseEmbed();
+
+        embedBuilder.setColor(Color.ORANGE);
 
         embedBuilder.setTitle("イマジン編集");
 

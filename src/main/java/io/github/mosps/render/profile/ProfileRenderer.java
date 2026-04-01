@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.components.selections.StringSelectMenu;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,8 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
 
     private EmbedBuilder buildEmbed(ProfileView view) {
         EmbedBuilder embedBuilder = baseEmbed();
+
+        embedBuilder.setColor(Color.CYAN);
 
         embedBuilder.setTitle("プロフィール");
 

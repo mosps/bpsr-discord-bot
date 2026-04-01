@@ -10,8 +10,7 @@ import java.util.List;
 public abstract class BaseRenderer<T> implements Renderer<T> {
 
     protected EmbedBuilder baseEmbed() {
-        return new EmbedBuilder()
-                .setColor(Color.CYAN);
+        return new EmbedBuilder();
     }
 
     protected RenderResult build(MessageEditData data, ActionRow row) {
