@@ -4,19 +4,23 @@ import io.github.mosps.handlers.actions.data.ActionData;
 import io.github.mosps.handlers.actions.data.EmptyData;
 import io.github.mosps.util.customid.CustomId;
 
-import java.util.List;
-
 public class ActionContext {
+    private final String messageId;
     private final long userId;
     private final String name;
     private final CustomId customId;
     private final ActionData data;
 
-    public ActionContext(long userId, String name, CustomId customId, ActionData data) {
+    public ActionContext(String messageId, long userId, String name, CustomId customId, ActionData data) {
+        this.messageId = messageId;
         this.userId = userId;
         this.name = name;
         this.customId = customId;
         this.data = data;
+    }
+
+    public String getMessageId() {
+        return messageId;
     }
 
     public long getUserId() {

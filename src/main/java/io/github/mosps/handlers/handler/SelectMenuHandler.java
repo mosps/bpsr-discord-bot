@@ -15,6 +15,7 @@ public class SelectMenuHandler {
 
     public static void handle(StringSelectInteractionEvent event) {
         CustomId customId = CustomId.of(event.getComponentId());
+        String messageId = event.getMessageId();
         long userId = event.getUser().getIdLong();
         String name = event.getUser().getEffectiveName();
 
@@ -25,7 +26,7 @@ public class SelectMenuHandler {
             return;
         }
 
-        ActionContext context = new ActionContext(userId, name, customId, new SelectMenuData(event.getValues()));
+        ActionContext context = new ActionContext(messageId, userId, name, customId, new SelectMenuData(event.getValues()));
         Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);

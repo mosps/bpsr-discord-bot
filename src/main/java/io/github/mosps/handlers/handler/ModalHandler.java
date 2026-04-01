@@ -28,7 +28,7 @@ public class ModalHandler {
                         ModalMapping::getAsString
                 ));
 
-        ActionContext context = new ActionContext(userId, name, customId, new ModalData(values));
+        ActionContext context = new ActionContext(null, userId, name, customId, new ModalData(values));
         Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);

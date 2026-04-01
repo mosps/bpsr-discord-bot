@@ -16,6 +16,15 @@ public class ButtonResponder implements Responder {
     }
 
     @Override
+    public void update(RenderResult render, String messageId) {
+        event.getChannel().asTextChannel().editMessageById(
+                messageId, render.getMessageEditData()
+        ).setComponents(
+                render.getComponents()
+        ).queue();
+    }
+
+    @Override
     public void update(RenderResult render) {
         event.getHook().editOriginal(
                 render.getMessageEditData()

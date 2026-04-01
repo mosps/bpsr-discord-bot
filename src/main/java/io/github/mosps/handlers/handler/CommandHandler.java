@@ -18,7 +18,7 @@ public class CommandHandler {
         long userId = event.getUser().getIdLong();
         String name = event.getUser().getEffectiveName();
 
-        ActionContext context = new ActionContext(userId, name, customId, new EmptyData());
+        ActionContext context = new ActionContext(null, userId, name, customId, new EmptyData());
         Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);

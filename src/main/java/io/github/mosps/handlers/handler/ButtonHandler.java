@@ -15,10 +15,11 @@ public class ButtonHandler {
 
     public static void handle(ButtonInteractionEvent event) {
         CustomId customId = CustomId.of(event.getComponentId());
+        String messageId = event.getComponentId();
         long userId = event.getUser().getIdLong();
         String name = event.getUser().getEffectiveName();
 
-        ActionContext context = new ActionContext(userId, name, customId, new EmptyData());
+        ActionContext context = new ActionContext(messageId, userId, name, customId, new EmptyData());
         Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);

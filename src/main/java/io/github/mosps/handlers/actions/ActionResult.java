@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.modals.Modal;
 public class ActionResult {
 
     private RenderResult update;
+    private String targetId;
     private RenderResult reply;
     private Modal modal;
     private String ephemeralMessage;
@@ -19,6 +20,11 @@ public class ActionResult {
 
     public ActionResult withUpdate(RenderResult render) {
         this.update = render;
+        return this;
+    }
+
+    public ActionResult targetId(String messageId) {
+        this.targetId = messageId;
         return this;
     }
 
@@ -44,6 +50,10 @@ public class ActionResult {
 
     public RenderResult getUpdate() {
         return update;
+    }
+
+    public String getTargetId() {
+        return targetId;
     }
 
     public RenderResult getReply() {

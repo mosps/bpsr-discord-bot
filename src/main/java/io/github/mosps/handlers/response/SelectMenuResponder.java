@@ -2,7 +2,6 @@ package io.github.mosps.handlers.response;
 
 import io.github.mosps.render.RenderResult;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
-import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.modals.Modal;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
@@ -12,6 +11,15 @@ public class SelectMenuResponder implements Responder {
 
     public SelectMenuResponder(StringSelectInteractionEvent event) {
         this.event = event;
+    }
+
+    @Override
+    public void update(RenderResult render, String messageId) {
+        event.getChannel().asTextChannel().editMessageById(
+                messageId, render.getMessageEditData()
+        ).setComponents(
+                render.getComponents()
+        ).queue();
     }
 
     @Override
