@@ -3,10 +3,13 @@ package io.github.mosps.party;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Party {
+    private static final AtomicInteger counter = new AtomicInteger();
+
     private final long ownerId;
-    private final String partyId = UUID.randomUUID().toString();
+    private final String partyId = String.valueOf(counter.incrementAndGet());
     private final long createdTime = System.currentTimeMillis();
 
     private final Set<Long> members = new HashSet<>();
