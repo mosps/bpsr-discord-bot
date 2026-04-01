@@ -10,7 +10,6 @@ public class Party {
 
     private final long ownerId;
     private final String partyId = String.valueOf(counter.incrementAndGet());
-    private final long createdTime = System.currentTimeMillis();
 
     private final Set<Long> members = new HashSet<>();
 
@@ -19,6 +18,7 @@ public class Party {
     private String note;
 
     private int maxMembers = 5;
+    private long closedTime;
     private boolean closed = false;
 
     public Party(long ownerId) {
@@ -66,8 +66,8 @@ public class Party {
         return maxMembers;
     }
 
-    public long getCreatedTime() {
-        return createdTime;
+    public long getClosedTime() {
+        return closedTime;
     }
 
     public long getOwnerId() {
@@ -83,6 +83,7 @@ public class Party {
     }
 
     public void close() {
+        closedTime = System.currentTimeMillis();
         closed = true;
     }
 }
