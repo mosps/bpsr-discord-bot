@@ -15,7 +15,7 @@ public class ButtonHandler {
 
     public static void handle(ButtonInteractionEvent event) {
         CustomId customId = CustomId.of(event.getComponentId());
-        String messageId = event.getComponentId();
+        String messageId = event.getMessageId();
         long userId = event.getUser().getIdLong();
         String name = event.getUser().getEffectiveName();
 

@@ -21,15 +21,15 @@ public class PartySettingAction implements Action {
 
         RenderResult render = new RenderResult(
                 MessageEditData.fromContent("パーティ設定"),
-                List.of(createSettingButtonRow(party.getPartyId()), createRoleRow(party.getPartyId()))
+                List.of(createSettingButtonRow(context, party.getPartyId()), createRoleRow(context, party.getPartyId()))
         );
 
         return ActionResult.of()
                 .withEphemeral(render);
     }
 
-    public ActionRow createRoleRow(String partyId) {
-        StringSelectMenu role = StringSelectMenu.create("party:role:" + partyId)
+    public ActionRow createRoleRow(ActionContext context, String partyId) {
+        StringSelectMenu role = StringSelectMenu.create("party:role:" + partyId + "|" + context.getMessageId())
                 .setPlaceholder("パーティのロール構成を選択")
                 .addOption("ダンジョン 5人パーティ", "NORMAL_5")
                 .addOption("フリー 5人パーティ", "FREE_5")
@@ -40,9 +40,9 @@ public class PartySettingAction implements Action {
         return ActionRow.of(role);
     }
 
-    public ActionRow createSettingButtonRow(String partyId) {
-        Button close = Button.secondary("party:close:" + partyId, "終了");
-        Button edit = Button.secondary("party:edit:" + partyId, "編集");
+    public ActionRow createSettingButtonRow(ActionContext context, String partyId ) {
+        Button close = Button.secondary("party:close:" + partyId + "|" + context.getMessageId(), "終了");
+        Button edit = Button.secondary("party:edit:" + partyId + "|" + context.getMessageId(), "編集");
 
         return ActionRow.of(close, edit);
     }
