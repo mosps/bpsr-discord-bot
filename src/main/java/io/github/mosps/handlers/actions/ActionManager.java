@@ -1,8 +1,8 @@
 package io.github.mosps.handlers.actions;
 
 import io.github.mosps.handlers.actions.party.*;
+import io.github.mosps.handlers.actions.party.setting.PartyEditConfirmAction;
 import io.github.mosps.handlers.actions.party.setting.PartyEditAction;
-import io.github.mosps.handlers.actions.party.setting.PartyModalAction;
 import io.github.mosps.handlers.actions.party.setting.PartySettingAction;
 import io.github.mosps.handlers.actions.profile.ProfileAdminAction;
 import io.github.mosps.handlers.actions.profile.ProfileCreateAction;
@@ -23,10 +23,10 @@ public class ActionManager {
         register("party:join", new PartyJoinAction());
         register("party:leave", new PartyLeaveAction());
         register("party:close", new PartyCloseAction());
+        register("party:create", new PartyCreateAction());
         register("party:setting", new PartySettingAction());
         register("party:edit", new PartyEditAction());
-        register("party:create", new PartyCreateAction());
-        register("party:modal", new PartyModalAction());
+        register("party:edit_confirm", new PartyEditConfirmAction());
         register("party:admin", new PartyAdminAction());
 
         register("profile:create", new ProfileCreateAction());
