@@ -37,12 +37,13 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
         embedBuilder.setDescription(
                 """
+                ID: `%s`
                 -----------------------------------
                 **目的地:** %s
                 **時間:** %s
                 **備考:** %s
                 -----------------------------------
-                """.formatted(view.destination, view.time, view.note)
+                """.formatted(view.partyId, view.destination, view.time, view.note)
         );
 
         return embedBuilder;
@@ -53,7 +54,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
         embedBuilder.addField(
                 """
-                参加者```%s/%s```
+                参加者`%s/%s`
                 """.formatted(view.members.size(), view.maxMembers),
                 members.isEmpty()
                         ? "　"
