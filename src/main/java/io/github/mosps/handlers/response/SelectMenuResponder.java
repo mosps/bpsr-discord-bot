@@ -42,7 +42,7 @@ public class SelectMenuResponder implements Responder {
 
     @Override
     public void openModal(Modal modal) {
-        event.replyModal(modal).queue();
+        throw new UnsupportedOperationException("SelectMenuResponder cannot open Modal");
     }
 
     @Override

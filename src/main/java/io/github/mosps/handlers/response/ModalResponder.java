@@ -44,7 +44,7 @@ public class ModalResponder implements Responder {
 
     @Override
     public void openModal(Modal modal) {
-
+        throw new UnsupportedOperationException("ModalResponder cannot open Modal");
     }
 
     @Override

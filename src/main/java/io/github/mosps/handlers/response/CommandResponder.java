@@ -15,11 +15,7 @@ public class CommandResponder implements Responder {
 
     @Override
     public void update(RenderResult render, String messageId) {
-        event.getChannel().asTextChannel().editMessageById(
-                messageId, render.getMessageEditData()
-        ).setComponents(
-                render.getComponents()
-        ).queue();
+        throw new UnsupportedOperationException("CommandResponder cannot update message by messageId");
     }
 
     @Override
@@ -42,7 +38,7 @@ public class CommandResponder implements Responder {
 
     @Override
     public void openModal(Modal modal) {
-        event.replyModal(modal).queue();
+        throw new UnsupportedOperationException("CommandResponder cannot open Modal");
     }
 
     @Override
