@@ -13,7 +13,7 @@ public class MessageButtonListener extends ListenerAdapter {
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         CustomId customId = CustomId.of(event.getComponentId());
-        boolean isModal = customId.getKey().equals("party:modal") || customId.getKey().equals("party:create");
+        boolean isModal = customId.getKey().equals("party:edit") || customId.getKey().equals("party:create");
 
         if (!event.isAcknowledged() && !isModal) {
             event.deferEdit().queue();
