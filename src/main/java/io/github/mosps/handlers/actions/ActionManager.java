@@ -1,10 +1,7 @@
 package io.github.mosps.handlers.actions;
 
 import io.github.mosps.handlers.actions.party.*;
-import io.github.mosps.handlers.actions.party.setting.PartyEditConfirmAction;
-import io.github.mosps.handlers.actions.party.setting.PartyEditAction;
-import io.github.mosps.handlers.actions.party.setting.PartyRoleSettingAction;
-import io.github.mosps.handlers.actions.party.setting.PartySettingAction;
+import io.github.mosps.handlers.actions.party.setting.*;
 import io.github.mosps.handlers.actions.profile.ProfileAdminAction;
 import io.github.mosps.handlers.actions.profile.ProfileCreateAction;
 import io.github.mosps.handlers.actions.profile.ProfileRegisterAction;
