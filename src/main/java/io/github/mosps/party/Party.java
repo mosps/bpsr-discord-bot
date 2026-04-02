@@ -2,7 +2,6 @@ package io.github.mosps.party;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Party {
@@ -17,7 +16,8 @@ public class Party {
     private String time;
     private String note;
 
-    private int maxMembers = 5;
+    private PartyRolePreset preset = PartyRolePreset.NORMAL_5;
+
     private long closedTime;
     private boolean closed = false;
 
@@ -62,8 +62,12 @@ public class Party {
         this.note = note;
     }
 
-    public int getMaxMembers() {
-        return maxMembers;
+    public PartyRolePreset getPreset() {
+        return preset;
+    }
+
+    public void setPreset(PartyRolePreset preset) {
+        this.preset = preset;
     }
 
     public long getClosedTime() {

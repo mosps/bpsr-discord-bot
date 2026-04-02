@@ -5,6 +5,8 @@ import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
+import io.github.mosps.party.PartyRoleManager;
+import io.github.mosps.profile.Profile;
 import io.github.mosps.profile.ProfileManager;
 import io.github.mosps.render.MessageRenderer;
 import io.github.mosps.render.RenderResult;
@@ -25,14 +27,15 @@ public class PartyJoinAction implements Action {
                     .withEphemeral("このパーティは締め切り済みです。");
         }
 
-        if (party.getMembers().size() >= party.getMaxMembers()) {
-            return ActionResult.of()
-                    .withEphemeral("このパーティは満員です。");
-        }
-
-        if (ProfileManager.getProfile(context.getUserId()) == null) {
+        Profile profile = ProfileManager.getProfile(context.getUserId());
+        if (profile == null) {
             return ActionResult.of()
                     .withEphemeral("プロフィールを作成してください。");
+        }
+
+        if (!PartyRoleManager.canJoin(party.getPreset(), party, profile)) {
+            return ActionResult.of()
+                    .withEphemeral("このパーティは満員です。");
         }
 
         PartyManager.join(party, context.getUserId());
