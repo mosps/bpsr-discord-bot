@@ -50,9 +50,6 @@ public class BPSRInviteManager {
 }
 
 /*TODO
-Party
-ロール構成の実装、ロール比較の実装
-
 Profile
 装備イマジンを選択するように
 海武器所持ボタン追加
