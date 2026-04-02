@@ -19,7 +19,7 @@ public class SelectMenuHandler {
         long userId = event.getUser().getIdLong();
         String name = event.getUser().getEffectiveName();
 
-        if (!event.getUser().getId().equals(customId.get("ownerId"))) {
+        if (!event.getUser().getId().equals(customId.get("ownerId")) && customId.getKey().startsWith("profile")) {
             event.getHook().sendMessage("あなたはこのメニューを操作できません。")
                     .setEphemeral(true)
                     .queue();
