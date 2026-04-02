@@ -1,7 +1,9 @@
 
 package io.github.mosps.render.party;
 
+import io.github.mosps.data.Classes;
 import io.github.mosps.data.Imagines;
+import io.github.mosps.data.Role;
 import io.github.mosps.profile.Profile;
 import io.github.mosps.profile.ProfileManager;
 import io.github.mosps.render.BaseRenderer;
@@ -14,6 +16,8 @@ import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PartyRenderer extends BaseRenderer<PartyView> {
 
@@ -50,20 +54,43 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
     }
 
     private void addMemberListField(PartyView view, EmbedBuilder embedBuilder) {
-        StringBuilder members = buildMembersString(view);
-
         embedBuilder.addField(
-                """
-                参加者`%s/%s`
-                """.formatted(view.members.size(), view.maxMembers),
-                members.isEmpty()
-                        ? "　"
-                        : members.toString(),
+                buildMemberCap(view),
+                buildMembersString(view),
                 false
         );
     }
 
-    private StringBuilder buildMembersString(PartyView view) {
+    private String buildMemberCap(PartyView view) {
+        if (view.role.containsKey(Role.ALL)) {
+            return "参加者 `%s/%s`".formatted(view.members.size(), view.role.get(Role.ALL));
+        }
+
+        Map<Role, Long> counts = view.members.stream()
+                .map(ProfileManager::getProfile)
+                .map(Profile::getMainClass)
+                .collect(Collectors.groupingBy(
+                        Classes::getRole,
+                        Collectors.counting()
+                ));
+
+        Map<Role, Integer> limits = view.role;
+
+        StringBuilder stringBuilder = new StringBuilder().append("参加者 ");
+        for (Role role: Role.values()) {
+            if (role == Role.ALL) continue;
+
+            long current = counts.getOrDefault(role, 0L);
+            int max = limits.getOrDefault(role, 0);
+
+            stringBuilder.append(role.getName()).append(":`")
+                    .append(current).append("/").append(max).append("` ");
+        }
+
+        return stringBuilder.append("\n").toString();
+    }
+
+    private String buildMembersString(PartyView view) {
         StringBuilder stringBuilder = new StringBuilder();
         view.members.forEach(id -> {
                     Profile profile = ProfileManager.getProfile(id);
@@ -74,7 +101,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
                 }
         );
 
-        return stringBuilder;
+        return stringBuilder.isEmpty() ? " " : stringBuilder.toString();
     }
 
     private List<Button> createPartyAccessButton(PartyView view) {

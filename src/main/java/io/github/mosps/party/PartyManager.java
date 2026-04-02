@@ -11,7 +11,7 @@ public class PartyManager {
     private static final ScheduledExecutorService cleaner = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> cleanerTask;
 
-    private static final long TIMEOUT = TimeUnit.MINUTES.toMillis(5);
+    private static final long TIMEOUT = TimeUnit.MINUTES.toMillis(1);
 
     public static void register(String partyId, Party party) {
         PartyManager.parties.put(partyId, party);
@@ -61,7 +61,7 @@ public class PartyManager {
         view.partyId = party.getPartyId();
         view.ownerId = party.getOwnerId();
         view.members = party.getMembers();
-        view.maxMembers = party.getMaxMembers();
+        view.role = party.getPreset().getValue();
         view.closed = party.isClosed();
 
         return view;
@@ -75,8 +75,9 @@ public class PartyManager {
 
             parties.entrySet().removeIf(entry -> {
                 Party party = entry.getValue();
+                if (!party.isClosed()) return false;
 
-                return currentTime - party.getCreatedTime() > TIMEOUT;
+                return currentTime - party.getClosedTime() > TIMEOUT;
             });
         }, 1, 1, TimeUnit.MINUTES);
     }
