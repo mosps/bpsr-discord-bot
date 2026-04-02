@@ -6,8 +6,10 @@ import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.handlers.actions.data.SelectMenuData;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
-import io.github.mosps.party.PartyRoleManager;
 import io.github.mosps.party.PartyRolePreset;
+import io.github.mosps.render.MessageRenderer;
+import io.github.mosps.render.RenderResult;
+import io.github.mosps.views.party.PartyView;
 
 public class PartyRoleSettingAction implements Action {
 
@@ -20,7 +22,9 @@ public class PartyRoleSettingAction implements Action {
 
         party.setPreset(PartyRolePreset.valueOf(selected));
 
-        return ActionResult.of()
-                .withEphemeral("ロール構成を変更しました");
+        PartyView view = PartyManager.createView(party);
+        RenderResult render = MessageRenderer.render(view);
+
+        return ActionResult.of().withUpdate(render).targetId(context.getCustomId().get("messageId"));
     }
 }
