@@ -3,6 +3,7 @@ package io.github.mosps.handlers.actions;
 import io.github.mosps.handlers.actions.party.*;
 import io.github.mosps.handlers.actions.party.setting.PartyEditConfirmAction;
 import io.github.mosps.handlers.actions.party.setting.PartyEditAction;
+import io.github.mosps.handlers.actions.party.setting.PartyRoleSettingAction;
 import io.github.mosps.handlers.actions.party.setting.PartySettingAction;
 import io.github.mosps.handlers.actions.profile.ProfileAdminAction;
 import io.github.mosps.handlers.actions.profile.ProfileCreateAction;
@@ -28,6 +29,7 @@ public class ActionManager {
         register("party:setting", new PartySettingAction());
         register("party:edit", new PartyEditAction());
         register("party:edit_confirm", new PartyEditConfirmAction());
+        register("party:role", new PartyRoleSettingAction());
         register("party:admin", new PartyAdminAction());
 
         register("profile:create", new ProfileCreateAction());
