@@ -1,4 +1,4 @@
-package io.github.mosps.handlers.actions.party;
+package io.github.mosps.handlers.actions.party.setting;
 
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
@@ -34,7 +34,7 @@ public class PartyCloseAction implements Action {
         PartyView view = PartyManager.createView(party);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.of().withUpdate(render)
+        return ActionResult.of().withUpdate(render).targetId(context.getCustomId().get("messageId"))
                 .withEphemeral("パーティを締め切りました。");
     }
 }
