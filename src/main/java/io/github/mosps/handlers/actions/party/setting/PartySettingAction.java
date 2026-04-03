@@ -20,17 +20,12 @@ public class PartySettingAction implements Action {
         Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
         if (party == null) {
             return ActionResult.of()
-                    .withEphemeral("このパーティは期限切れです。");
-        }
-
-        if (party.isClosed()) {
-            return ActionResult.of()
-                    .withEphemeral("このパーティは締め切り済みです。");
+                    .error("このパーティは期限切れです。");
         }
 
         if (context.getUserId() != party.getOwnerId()) {
             return ActionResult.of()
-                    .withEphemeral("パーティ作成者ではありません。");
+                    .error("パーティ作成者ではありません。");
         }
 
         RenderResult render = new RenderResult(
@@ -55,7 +50,7 @@ public class PartySettingAction implements Action {
     }
 
     public ActionRow createSettingButtonRow(ActionContext context, String partyId ) {
-        Button close = Button.secondary("party:close:" + partyId + "|" + context.getMessageId(), "終了");
+        Button close = Button.secondary("party:toggle:" + partyId + "|" + context.getMessageId(), "終了 | 再開");
         Button edit = Button.secondary("party:edit:" + partyId + "|" + context.getMessageId(), "編集");
 
         return ActionRow.of(close, edit);

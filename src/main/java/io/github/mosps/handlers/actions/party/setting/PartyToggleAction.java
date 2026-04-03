@@ -9,32 +9,29 @@ import io.github.mosps.render.MessageRenderer;
 import io.github.mosps.render.RenderResult;
 import io.github.mosps.views.party.PartyView;
 
-public class PartyCloseAction implements Action {
+public class PartyToggleAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
         Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
         if (party == null) {
             return ActionResult.of()
-                    .withEphemeral("このパーティは期限切れです。");
-        }
-
-        if (party.isClosed()) {
-            return ActionResult.of()
-                    .withEphemeral("このパーティは締め切り済みです。");
+                    .error("このパーティは期限切れです。");
         }
 
         if (context.getUserId() != party.getOwnerId()) {
             return ActionResult.of()
-                    .withEphemeral("パーティ作成者ではありません。");
+                    .error("パーティ作成者ではありません。");
         }
 
-        PartyManager.close(party);
+        PartyManager.toggle(party);
 
         PartyView view = PartyManager.createView(party);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render).targetId(context.getCustomId().get("messageId"))
-                .withEphemeral("パーティを締め切りました。");
+                .withEphemeral(party.isClosed()
+                        ? "パーティを締め切りました"
+                        : "パーティを再開しました");
     }
 }

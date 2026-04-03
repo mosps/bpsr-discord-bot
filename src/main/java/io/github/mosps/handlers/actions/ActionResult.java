@@ -11,6 +11,7 @@ public class ActionResult {
     private Modal modal;
     private String ephemeralMessage;
     private RenderResult ephemeralRender;
+    private String errorMessage;
 
     private ActionResult() {}
 
@@ -48,6 +49,11 @@ public class ActionResult {
         return this;
     }
 
+    public ActionResult error(String errorMessage) {
+        this.errorMessage = errorMessage;
+        return this;
+    }
+
     public RenderResult getUpdate() {
         return update;
     }
@@ -70,5 +76,9 @@ public class ActionResult {
 
     public RenderResult getEphemeralRender() {
         return ephemeralRender;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

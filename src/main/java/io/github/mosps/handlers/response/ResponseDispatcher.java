@@ -23,5 +23,8 @@ public class ResponseDispatcher {
         if (result.getEphemeralRender() != null) {
             responder.ephemeral(result.getEphemeralRender());
         }
+        if (result.getErrorMessage() != null) {
+            responder.error(result.getErrorMessage());
+        }
     }
 }

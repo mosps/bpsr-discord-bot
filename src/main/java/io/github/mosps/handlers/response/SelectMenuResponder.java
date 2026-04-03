@@ -5,6 +5,8 @@ import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionE
 import net.dv8tion.jda.api.modals.Modal;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
+import java.util.concurrent.TimeUnit;
+
 public class SelectMenuResponder implements Responder {
 
     private final StringSelectInteractionEvent event;
@@ -59,5 +61,23 @@ public class SelectMenuResponder implements Responder {
         ).setComponents(
                 render.getComponents()
         ).setEphemeral(true).queue();
+    }
+
+    @Override
+    public void error(String message) {
+        if (!event.isAcknowledged()) {
+            event.reply(message)
+                    .setEphemeral(true)
+                    .queue(msg -> {
+                        msg.deleteOriginal().queueAfter(5, TimeUnit.SECONDS);
+                    });
+        } else {
+            event.getHook()
+                    .sendMessage(message)
+                    .setEphemeral(true)
+                    .queue(msg -> {
+                        msg.delete().queueAfter(5, TimeUnit.SECONDS);
+                    });
+        }
     }
 }

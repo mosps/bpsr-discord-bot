@@ -10,4 +10,5 @@ public interface Responder {
     void openModal(Modal modal);
     void ephemeral(String message);
     void ephemeral(RenderResult render);
+    void error(String message);
 }

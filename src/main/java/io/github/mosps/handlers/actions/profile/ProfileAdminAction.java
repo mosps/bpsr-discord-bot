@@ -13,7 +13,7 @@ public class ProfileAdminAction implements Action {
     public ActionResult execute(ActionContext context) {
         if (context.getUserId() != 635395177946808321L) {
             return ActionResult.of()
-                    .withEphemeral("このコマンドを実行する権限がありません。");
+                    .error("このコマンドを実行する権限がありません。");
         }
 
         RenderResult render = MessageRenderer.render(new ProfileLobbyView());

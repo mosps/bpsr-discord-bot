@@ -17,22 +17,22 @@ public class PartyLeaveAction implements Action {
         Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
         if (party == null) {
             return ActionResult.of()
-                    .withEphemeral("このパーティは期限切れです。");
+                    .error("このパーティは期限切れです。");
         }
 
         if (party.isClosed()) {
             return ActionResult.of()
-                    .withEphemeral("このパーティは締め切り済みです。");
+                    .error("このパーティは締め切り済みです。");
         }
 
         if (!party.getMembers().contains(context.getUserId())) {
             return ActionResult.of()
-                    .withEphemeral("パーティに参加していません。");
+                    .error("パーティに参加していません。");
         }
 
         if (ProfileManager.getProfile(context.getUserId()) == null) {
             return ActionResult.of()
-                    .withEphemeral("プロフィールを作成してください。");
+                    .error("プロフィールを作成してください。");
         }
 
         PartyManager.leave(party, context.getUserId());

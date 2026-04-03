@@ -64,4 +64,22 @@ public class ButtonResponder implements Responder {
                 render.getComponents()
         ).setEphemeral(true).queue();
     }
+
+    @Override
+    public void error(String message) {
+        if (!event.isAcknowledged()) {
+            event.reply(message)
+                    .setEphemeral(true)
+                    .queue(msg -> {
+                        msg.deleteOriginal().queueAfter(5, TimeUnit.SECONDS);
+                    });
+        } else {
+            event.getHook()
+                    .sendMessage(message)
+                    .setEphemeral(true)
+                    .queue(msg -> {
+                        msg.delete().queueAfter(5, TimeUnit.SECONDS);
+                    });
+        }
+    }
 }

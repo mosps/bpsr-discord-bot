@@ -19,23 +19,23 @@ public class PartyJoinAction implements Action {
         Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
         if (party == null) {
             return ActionResult.of()
-                    .withEphemeral("このパーティは期限切れです。");
+                    .error("このパーティは期限切れです。");
         }
 
         if (party.isClosed()) {
             return ActionResult.of()
-                    .withEphemeral("このパーティは締め切り済みです。");
+                    .error("このパーティは締め切り済みです。");
         }
 
         Profile profile = ProfileManager.getProfile(context.getUserId());
         if (profile == null) {
             return ActionResult.of()
-                    .withEphemeral("プロフィールを作成してください。");
+                    .error("プロフィールを作成してください。");
         }
 
         if (!PartyRoleManager.canJoin(party.getPreset(), party, profile)) {
             return ActionResult.of()
-                    .withEphemeral("このパーティは満員です。");
+                    .error("このパーティは満員です。");
         }
 
         PartyManager.join(party, context.getUserId());
