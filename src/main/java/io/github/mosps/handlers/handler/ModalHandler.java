@@ -20,7 +20,9 @@ public class ModalHandler {
     public static void handle(ModalInteractionEvent event) {
         CustomId customId = CustomId.of(event.getModalId());
         long userId = event.getUser().getIdLong();
-        String name = event.getUser().getEffectiveName();
+        String name = event.getMember() == null
+                ? event.getUser().getEffectiveName()
+                : event.getMember().getEffectiveName();
 
         Map<String,String> values = event.getValues().stream()
                 .collect(Collectors.toMap(

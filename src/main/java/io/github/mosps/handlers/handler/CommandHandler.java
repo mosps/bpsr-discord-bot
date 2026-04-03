@@ -16,7 +16,9 @@ public class CommandHandler {
     public static void handle(SlashCommandInteractionEvent event) {
         CustomId customId = CustomId.of(event.getName() + ":" + event.getSubcommandName());
         long userId = event.getUser().getIdLong();
-        String name = event.getUser().getEffectiveName();
+        String name = event.getMember() == null
+                ? event.getUser().getEffectiveName()
+                : event.getMember().getEffectiveName();
 
         ActionContext context = new ActionContext(null, userId, name, customId, new EmptyData());
         Action action = ActionManager.get(customId.getKey());

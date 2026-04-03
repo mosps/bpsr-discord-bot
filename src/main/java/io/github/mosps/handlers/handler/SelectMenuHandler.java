@@ -17,7 +17,9 @@ public class SelectMenuHandler {
         CustomId customId = CustomId.of(event.getComponentId());
         String messageId = event.getMessageId();
         long userId = event.getUser().getIdLong();
-        String name = event.getUser().getEffectiveName();
+        String name = event.getMember() == null
+                ? event.getUser().getEffectiveName()
+                : event.getMember().getEffectiveName();
 
         if (!event.getUser().getId().equals(customId.get("ownerId")) && customId.getKey().startsWith("profile")) {
             event.getHook().sendMessage("あなたはこのメニューを操作できません。")

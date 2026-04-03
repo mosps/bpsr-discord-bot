@@ -17,7 +17,9 @@ public class ButtonHandler {
         CustomId customId = CustomId.of(event.getComponentId());
         String messageId = event.getMessageId();
         long userId = event.getUser().getIdLong();
-        String name = event.getUser().getEffectiveName();
+        String name = event.getMember() == null
+                ? event.getUser().getEffectiveName()
+                : event.getMember().getEffectiveName();
 
         ActionContext context = new ActionContext(messageId, userId, name, customId, new EmptyData());
         Action action = ActionManager.get(customId.getKey());
