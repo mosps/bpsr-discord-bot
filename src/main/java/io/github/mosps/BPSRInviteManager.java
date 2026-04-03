@@ -51,6 +51,5 @@ public class BPSRInviteManager {
 
 /*TODO
 Profile
-装備イマジンを選択するように
 海武器所持ボタン追加
 */
