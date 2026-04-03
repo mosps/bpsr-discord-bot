@@ -2,8 +2,8 @@ package io.github.mosps.actions;
 
 import io.github.mosps.actions.party.*;
 import io.github.mosps.actions.party.setting.*;
-import io.github.mosps.handlers.actions.party.*;
-import io.github.mosps.handlers.actions.party.setting.*;
+import io.github.mosps.actions.party.*;
+import io.github.mosps.actions.party.setting.*;
 import io.github.mosps.actions.profile.ProfileAdminAction;
 import io.github.mosps.actions.profile.ProfileCreateAction;
 import io.github.mosps.actions.profile.ProfileRegisterAction;
