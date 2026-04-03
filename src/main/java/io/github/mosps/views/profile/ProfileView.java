@@ -1,6 +1,8 @@
 package io.github.mosps.views.profile;
 
-import java.util.Set;
+import io.github.mosps.data.Imagines;
+
+import java.util.Map;
 
 public class ProfileView {
     public long userId;
@@ -9,5 +11,8 @@ public class ProfileView {
     public String mainClass;
     public String subClasses;
 
+    public String equippedImagines;
     public String imagines;
+
+    public Map<Imagines, String> ownedImagines;
 }

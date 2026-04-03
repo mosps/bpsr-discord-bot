@@ -96,7 +96,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
                     Profile profile = ProfileManager.getProfile(id);
                     stringBuilder.append("<@").append(id).append("> ")
                             .append(profile.getMainClass().getEmoji()).append(profile.getMainClass().getStyle()).append(" ")
-                            .append(Imagines.AIRONA.getEmoji()).append(" ")
+                            .append(getEquippedImaginesView(profile.getEquippedImagines())).append(" ")
                             .append("\n");
                 }
         );
@@ -110,6 +110,14 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
         Button setting = Button.secondary("party:setting:" + view.partyId + "|null", "⚙");
 
         return List.of(join, leave, setting);
+    }
+
+    private String getEquippedImaginesView(Map<Imagines, String> equippedImagines) {
+       return equippedImagines.isEmpty()
+                ? "未設定"
+                : equippedImagines.entrySet().stream()
+                .map(entry -> entry.getKey().getDisplay() + entry.getValue())
+                .collect(Collectors.joining(""));
     }
 
     private List<Button> disableIf(boolean condition, List<Button> buttons) {

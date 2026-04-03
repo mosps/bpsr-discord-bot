@@ -16,6 +16,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 public class ProfileRenderer extends BaseRenderer<ProfileView> {
@@ -27,6 +28,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
         List<ActionRow> rows = new ArrayList<>();
         rows.add(createMainClassRow(view));
         rows.add(createSubClassRow(view));
+        createEquippedImaginesRow(view).ifPresent(rows::add);
         rows.add(createEditClassButtonRow(view));
 
         return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);
@@ -47,10 +49,12 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                 __%s__
                 **サブクラス:**
                 %s
+                **装備イマジン**
+                %s
                 **所持イマジン:**
                 %s
                 -----------------------------------
-                """.formatted(view.name, view.mainClass, view.subClasses, view.imagines));
+                """.formatted(view.name, view.mainClass, view.subClasses, view.equippedImagines, view.imagines));
 
         return embedBuilder;
     }
@@ -81,6 +85,22 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
                 .build();
 
         return ActionRow.of(subClass);
+    }
+
+    private Optional<ActionRow> createEquippedImaginesRow(ProfileView view) {
+        if (view.ownedImagines.isEmpty()) return Optional.empty();
+
+        StringSelectMenu subClass = StringSelectMenu.create("profile:register:equipped_imagines|" + view.userId)
+                .setPlaceholder("装備するイマジンを選択")
+                .addOptions(view.ownedImagines.entrySet().stream()
+                        .map(entry -> SelectOption.of(entry.getKey().getName(), entry.getKey().name() + ":" + entry.getValue())
+                                .withEmoji(Emoji.fromFormatted(entry.getKey().getEmoji())))
+                        .toList())
+                .setMinValues(0)
+                .setMaxValues(2)
+                .build();
+
+        return Optional.of(ActionRow.of(subClass));
     }
 
     private ActionRow createEditClassButtonRow(ProfileView view) {

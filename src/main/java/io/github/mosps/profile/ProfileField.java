@@ -28,7 +28,7 @@ public enum ProfileField {
         }
     },
 
-    EQUIPPED_IMAGINES("equipped_images") {
+    EQUIPPED_IMAGINES("equipped_imagines") {
         @Override
         public void apply(Profile profile, String value) {
             String[] split = value.split(":");
