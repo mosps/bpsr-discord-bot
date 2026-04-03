@@ -20,7 +20,7 @@ public class ProfileCreateAction implements Action {
         ProfileView view = ProfileManager.createView(profile);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.of().withUpdate(render)
+        return ActionResult.of().withReply(render)
                 .withEphemeral("プロフィールを作成しました！");
     }
 }
