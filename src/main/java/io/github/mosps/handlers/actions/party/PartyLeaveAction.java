@@ -3,6 +3,7 @@ package io.github.mosps.handlers.actions.party;
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
 import io.github.mosps.profile.ProfileManager;
@@ -37,7 +38,7 @@ public class PartyLeaveAction implements Action {
 
         PartyManager.leave(party, context.getUserId());
 
-        PartyView view = PartyManager.createView(party);
+        PartyView view = ViewMapper.map(party);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render)

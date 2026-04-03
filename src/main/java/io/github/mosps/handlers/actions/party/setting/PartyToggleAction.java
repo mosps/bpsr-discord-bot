@@ -3,6 +3,7 @@ package io.github.mosps.handlers.actions.party.setting;
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
 import io.github.mosps.render.MessageRenderer;
@@ -26,7 +27,7 @@ public class PartyToggleAction implements Action {
 
         PartyManager.toggle(party);
 
-        PartyView view = PartyManager.createView(party);
+        PartyView view = ViewMapper.map(party);;
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render).targetId(context.getCustomId().get("messageId"))

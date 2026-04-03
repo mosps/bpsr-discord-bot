@@ -4,6 +4,7 @@ import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.handlers.actions.data.ModalData;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
 import io.github.mosps.render.MessageRenderer;
@@ -36,7 +37,7 @@ public class PartyEditConfirmAction implements Action {
         party.setTime(data.get("time"));
         party.setNote(data.get("note"));
 
-        PartyView view = PartyManager.createView(party);
+        PartyView view = ViewMapper.map(party);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render).targetId(context.getCustomId().get("messageId"))

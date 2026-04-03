@@ -3,6 +3,7 @@ package io.github.mosps.handlers.actions.profile.imagine;
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.profile.Profile;
 import io.github.mosps.profile.ProfileManager;
 import io.github.mosps.profile.imagine.ImagineEditManager;
@@ -26,7 +27,7 @@ public class ImagineConfirmAction implements Action {
         ProfileManager.saveProfile(profile);
         ImagineEditManager.remove(context.getUserId());
 
-        ProfileView view = ProfileManager.createView(profile);
+        ProfileView view = ViewMapper.map(profile);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render);

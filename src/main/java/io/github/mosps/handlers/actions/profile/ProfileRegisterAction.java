@@ -4,6 +4,7 @@ import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.handlers.actions.data.SelectMenuData;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.profile.Profile;
 import io.github.mosps.profile.ProfileField;
 import io.github.mosps.profile.ProfileManager;
@@ -31,7 +32,7 @@ public class ProfileRegisterAction implements Action {
 
         ProfileManager.saveProfile(profile);
 
-        ProfileView view = ProfileManager.createView(profile);
+        ProfileView view = ViewMapper.map(profile);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render);

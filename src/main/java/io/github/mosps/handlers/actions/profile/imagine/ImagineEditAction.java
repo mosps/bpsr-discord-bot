@@ -4,6 +4,7 @@ import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.handlers.actions.data.SelectMenuData;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.profile.imagine.ImagineEditField;
 import io.github.mosps.profile.imagine.ImagineEditManager;
 import io.github.mosps.profile.imagine.ImagineEditSession;
@@ -26,7 +27,7 @@ public class ImagineEditAction implements Action {
             data.get().forEach(value -> field.apply(session, value));
         }
 
-        ImagineEditView view = ImagineEditManager.createView(session);
+        ImagineEditView view = ViewMapper.map(session);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render);

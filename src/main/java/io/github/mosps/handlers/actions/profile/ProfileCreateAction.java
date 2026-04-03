@@ -3,6 +3,7 @@ package io.github.mosps.handlers.actions.profile;
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.profile.Profile;
 import io.github.mosps.profile.ProfileManager;
 import io.github.mosps.render.MessageRenderer;
@@ -17,7 +18,7 @@ public class ProfileCreateAction implements Action {
 
         profile.setName(context.getName());
 
-        ProfileView view = ProfileManager.createView(profile);
+        ProfileView view = ViewMapper.map(profile);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of()
