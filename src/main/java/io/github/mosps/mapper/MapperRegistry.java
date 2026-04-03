@@ -24,7 +24,7 @@ public class MapperRegistry {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T, V> Mapper<T, V> getMapper(Class<T> model) {
-        return (Mapper<T, V>) mappers.get(model);
+    public static <T, V> Mapper<T, V> getMapper(T model) {
+        return (Mapper<T, V>) mappers.get(model.getClass());
     }
 }
