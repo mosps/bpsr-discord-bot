@@ -48,38 +48,4 @@ public class ProfileManager {
     public static void stillOwnedImagines(Profile profile) {
         profile.getEquippedImagines().keySet().removeIf(key -> !profile.getImagines().containsKey(key));
     }
-
-    public static ProfileView createView(Profile profile) {
-        ProfileView view = new ProfileView();
-
-        Classes classes = profile.getMainClass();
-        Set<Classes> subClasses = profile.getSubClasses();
-        Map<Imagines, String> equippedImagines = profile.getEquippedImagines();
-        Map<Imagines, String> imagines = profile.getImagines();
-
-        view.ownedImagines = imagines;
-
-        view.userId = profile.getUserId();
-        view.name = profile.getName();
-        view.mainClass = classes != null
-                ? classes.getDisplay()
-                : "未設定";
-        view.subClasses = subClasses.isEmpty()
-                ? "未設定"
-                : subClasses.stream()
-                .map(Classes::getDisplay)
-                .collect(Collectors.joining("\n"));
-        view.equippedImagines = equippedImagines.isEmpty()
-                ? "未設定"
-                : equippedImagines.entrySet().stream()
-                .map(entry -> entry.getKey().getDisplay() + entry.getValue())
-                .collect(Collectors.joining(""));
-        view.imagines = imagines.isEmpty()
-                ? "未設定"
-                : imagines.entrySet().stream()
-                .map(entry -> entry.getKey().getDisplay() + entry.getValue())
-                .collect(Collectors.joining(""));
-
-        return view;
-    }
 }
