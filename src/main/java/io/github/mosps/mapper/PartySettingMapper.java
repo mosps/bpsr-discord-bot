@@ -10,7 +10,6 @@ public class PartySettingMapper implements Mapper<Party, PartySettingView> {
         PartySettingView view = new PartySettingView();
 
         view.partyId = party.getPartyId();
-        view.messageId = party.getMessageId();
 
         return view;
     }
