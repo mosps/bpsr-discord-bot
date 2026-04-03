@@ -41,7 +41,6 @@ public class BPSRInviteManager {
                                 new SubcommandData("admin", "初期メッセージを送信")),
                 Commands.slash("profile", "プロフィール用コマンド")
                         .addSubcommands(
-                                new SubcommandData("create", "プロフィールを作成"),
                                 new SubcommandData("admin", "初期メッセージを送信"))
         );
 
@@ -50,6 +49,13 @@ public class BPSRInviteManager {
 }
 
 /*TODO
+・Party,Profileリスト作成..?
+・bot再起動時sessionの保存　
+・各Managerの責務を再確認
+
+・Partyの期限切れ時メッセージ削除
+・Party完全削除ボタン
+
 Profile
-海武器所持ボタン追加
+・海武器所持ボタン追加　
 */
