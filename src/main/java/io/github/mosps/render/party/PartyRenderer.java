@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
         List<Button> buttons = createPartyAccessButton(view);
         buttons = disableIf(view.closed, buttons);
+        buttons.add(createPartySettingButton(view));
 
         return build(MessageEditData.fromEmbeds(embedBuilder.build()), ActionRow.of(buttons));
     }
@@ -105,16 +107,21 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
     }
 
     private List<Button> createPartyAccessButton(PartyView view) {
-        Button join = Button.success("party:join:" + view.partyId + "|null", "🟢参加");
-        Button leave = Button.danger("party:leave:" + view.partyId + "|null", "🔴退出");
-        Button setting = Button.secondary("party:setting:" + view.partyId + "|null", "⚙");
+        List<Button> buttons = new ArrayList<>();
 
-        return List.of(join, leave, setting);
+        buttons.add(Button.success("party:join:" + view.partyId + "|null", "🟢参加"));
+        buttons.add(Button.danger("party:leave:" + view.partyId + "|null", "🔴退出"));
+
+        return buttons;
+    }
+
+    private Button createPartySettingButton(PartyView view) {
+        return Button.secondary("party:setting:" + view.partyId + "|null", "⚙");
     }
 
     private String getEquippedImaginesView(Map<Imagines, String> equippedImagines) {
        return equippedImagines.isEmpty()
-                ? "未設定"
+                ? ""
                 : equippedImagines.entrySet().stream()
                 .map(entry -> entry.getKey().getDisplay() + entry.getValue())
                 .collect(Collectors.joining(""));
@@ -125,7 +132,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
         return buttons.stream()
                 .map(Button::asDisabled)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private Color getColor(boolean condition) {
