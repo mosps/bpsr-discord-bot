@@ -16,7 +16,6 @@ public enum CustomIdDomain {
         public Map<String, String> parse(String[] args) {
             Map<String, String> map = new HashMap<>();
             map.put("partyId", args[0]);
-            map.put("messageId", args[1]);
             return map;
         }
     },

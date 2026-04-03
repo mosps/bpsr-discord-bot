@@ -45,7 +45,7 @@ public class PartyEditAction implements Action {
                 .setRequired(false)
                 .build();
 
-        Modal modal = Modal.create("party:edit_confirm:" + context.getCustomId().get("partyId") + "|" + context.getCustomId().get("messageId"), "パーティ設定").
+        Modal modal = Modal.create("party:edit_confirm:" + context.getCustomId().get("partyId"), "パーティ設定").
                 addComponents(
                         Label.of("目的地", destination),
                         Label.of("開始時刻", time),

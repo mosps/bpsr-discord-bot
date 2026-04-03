@@ -8,9 +8,12 @@ public class Party {
     private static final AtomicInteger counter = new AtomicInteger();
 
     private final long ownerId;
-    private final String partyId = String.valueOf(counter.incrementAndGet());private final long createdTime = System.currentTimeMillis();
+    private final String partyId = String.valueOf(counter.incrementAndGet());
+    private final long createdTime = System.currentTimeMillis();
 
     private final Set<Long> members = new HashSet<>();
+
+    private String messageId;
 
     private String destination;
     private String time;
@@ -23,6 +26,14 @@ public class Party {
     public Party(long ownerId) {
         this.ownerId = ownerId;
         this.addMembers(ownerId);
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getMessageId() {
+        return messageId;
     }
 
     public Set<Long> getMembers() {

@@ -109,14 +109,14 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
     private List<Button> createPartyAccessButton(PartyView view) {
         List<Button> buttons = new ArrayList<>();
 
-        buttons.add(Button.success("party:join:" + view.partyId + "|null", "🟢参加"));
-        buttons.add(Button.danger("party:leave:" + view.partyId + "|null", "🔴退出"));
+        buttons.add(Button.success("party:join:" + view.partyId, "🟢参加"));
+        buttons.add(Button.danger("party:leave:" + view.partyId, "🔴退出"));
 
         return buttons;
     }
 
     private Button createPartySettingButton(PartyView view) {
-        return Button.secondary("party:setting:" + view.partyId + "|null", "⚙");
+        return Button.secondary("party:setting:" + view.partyId, "⚙");
     }
 
     private String getEquippedImaginesView(Map<Imagines, String> equippedImagines) {

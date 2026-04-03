@@ -32,7 +32,7 @@ public class PartyCreateAction implements Action {
                 .setRequired(false)
                 .build();
 
-        Modal modal = Modal.create("party:create_confirm:" + context.getUserId() + "|null", "パーティ設定").
+        Modal modal = Modal.create("party:create_confirm:" + context.getUserId(), "パーティ設定").
                 addComponents(
                         Label.of("目的地", destination),
                         Label.of("開始時刻", time),

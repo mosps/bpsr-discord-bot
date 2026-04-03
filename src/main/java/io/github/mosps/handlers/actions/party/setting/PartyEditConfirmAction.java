@@ -40,7 +40,7 @@ public class PartyEditConfirmAction implements Action {
         PartyView view = ViewMapper.map(party);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.of().withUpdate(render).targetId(context.getCustomId().get("messageId"))
+        return ActionResult.of().withUpdate(render).targetId(party.getMessageId())
                 .withEphemeral("パーティ設定を変更しました。");
     }
 }
