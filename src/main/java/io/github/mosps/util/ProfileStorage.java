@@ -1,9 +1,8 @@
 package io.github.mosps.util;
 
 import com.google.gson.Gson;
-import io.github.mosps.profile.Profile;
+import io.github.mosps.model.profile.Profile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

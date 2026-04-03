@@ -1,0 +1,31 @@
+package io.github.mosps.ui.mapper.party;
+
+import io.github.mosps.model.party.Party;
+import io.github.mosps.ui.mapper.Mapper;
+import io.github.mosps.ui.views.party.PartyView;
+
+public class PartyMapper implements Mapper<Party, PartyView> {
+
+    @Override
+    public PartyView map(Party party) {
+        PartyView view = new PartyView();
+
+        view.destination = party.getDestination() != null
+                ? party.getDestination()
+                : "-";
+        view.time = party.getTime() != null
+                ? party.getTime()
+                : "-";
+        view.note = party.getNote() != null
+                ? party.getNote()
+                : "-";
+
+        view.partyId = party.getPartyId();
+        view.ownerId = party.getOwnerId();
+        view.members = party.getMembers();
+        view.role = party.getPreset().getValue();
+        view.closed = party.isClosed();
+
+        return view;
+    }
+}

@@ -1,6 +1,6 @@
 package io.github.mosps;
 
-import io.github.mosps.party.PartyManager;
+import io.github.mosps.model.party.PartyManager;
 
 public class Main {
     public static void main(String[] args) {

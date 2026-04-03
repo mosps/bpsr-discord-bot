@@ -1,10 +1,10 @@
 package io.github.mosps;
 
-import io.github.mosps.handlers.listener.MessageButtonListener;
-import io.github.mosps.handlers.listener.ModalListener;
-import io.github.mosps.handlers.listener.SelectMenuListener;
-import io.github.mosps.handlers.listener.SlashCommandListener;
-import io.github.mosps.profile.ProfileManager;
+import io.github.mosps.jda.listener.MessageButtonListener;
+import io.github.mosps.jda.listener.ModalListener;
+import io.github.mosps.jda.listener.SelectMenuListener;
+import io.github.mosps.jda.listener.SlashCommandListener;
+import io.github.mosps.model.profile.ProfileManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -34,14 +34,16 @@ public class BPSRInviteManager {
                 .setActivity(Activity.playing("デバッグ中"))
                 .setRawEventsEnabled(true)
                 .build();
-        jda.updateCommands().addCommands(
-                Commands.slash("party", "パーティ用コマンド")
-                        .addSubcommands(
-                                new SubcommandData("create", "パーティを作成"),
-                                new SubcommandData("admin", "初期メッセージを送信")),
-                Commands.slash("profile", "プロフィール用コマンド")
-                        .addSubcommands(
-                                new SubcommandData("admin", "初期メッセージを送信"))
+        jda.getGuilds().forEach(guild ->
+                guild.updateCommands().addCommands(
+                        Commands.slash("party", "パーティ用コマンド")
+                                .addSubcommands(
+                                        new SubcommandData("create", "パーティを作成"),
+                                        new SubcommandData("admin", "初期メッセージを送信")),
+                        Commands.slash("profile", "プロフィール用コマンド")
+                                .addSubcommands(
+                                        new SubcommandData("admin", "初期メッセージを送信"))
+                ).queue()
         );
 
         ProfileManager.loadAll();
@@ -50,12 +52,12 @@ public class BPSRInviteManager {
 
 /*TODO
 ・Party,Profileリスト作成..?
-・bot再起動時sessionの保存　
 ・各Managerの責務を再確認
+・海武器所持ボタン追加
 
+・bot再起動時sessionの保存　(定期保存、クラッシュ対応)
 ・Partyの期限切れ時メッセージ削除
 ・Party完全削除ボタン
 
-Profile
-・海武器所持ボタン追加　
+複数サーバー仕様　(未定）
 */
