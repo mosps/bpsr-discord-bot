@@ -79,10 +79,9 @@ public class PartyManager {
 
             parties.entrySet().removeIf(entry -> {
                 Party party = entry.getValue();
-                if (!party.isClosed()) return false;
 
-                return currentTime - party.getClosedTime() > TIMEOUT;
+                return currentTime - party.getCreatedTime() > TIMEOUT;
             });
-        }, 1, 1, TimeUnit.MINUTES);
+        }, 1, 1, TimeUnit.HOURS);
     }
 }

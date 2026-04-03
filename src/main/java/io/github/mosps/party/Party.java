@@ -8,7 +8,7 @@ public class Party {
     private static final AtomicInteger counter = new AtomicInteger();
 
     private final long ownerId;
-    private final String partyId = String.valueOf(counter.incrementAndGet());
+    private final String partyId = String.valueOf(counter.incrementAndGet());private final long createdTime = System.currentTimeMillis();
 
     private final Set<Long> members = new HashSet<>();
 
@@ -18,7 +18,6 @@ public class Party {
 
     private PartyRolePreset preset = PartyRolePreset.NORMAL_5;
 
-    private long closedTime;
     private boolean closed = false;
 
     public Party(long ownerId) {
@@ -70,8 +69,8 @@ public class Party {
         this.preset = preset;
     }
 
-    public long getClosedTime() {
-        return closedTime;
+    public long getCreatedTime() {
+        return createdTime;
     }
 
     public long getOwnerId() {
@@ -87,7 +86,6 @@ public class Party {
     }
 
     public void close() {
-        closedTime = System.currentTimeMillis();
         closed = true;
     }
 
