@@ -53,6 +53,6 @@ public class PartySettingAction implements Action {
         Button close = Button.secondary("party:toggle:" + partyId + "|" + context.getMessageId(), "終了 | 再開");
         Button edit = Button.secondary("party:edit:" + partyId + "|" + context.getMessageId(), "編集");
 
-        return ActionRow.of(close, edit);
+        return ActionRow.of(edit, close);
     }
 }
