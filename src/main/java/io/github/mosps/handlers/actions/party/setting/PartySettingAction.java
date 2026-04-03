@@ -3,15 +3,12 @@ package io.github.mosps.handlers.actions.party.setting;
 import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
+import io.github.mosps.render.MessageRenderer;
 import io.github.mosps.render.RenderResult;
-import net.dv8tion.jda.api.components.actionrow.ActionRow;
-import net.dv8tion.jda.api.components.buttons.Button;
-import net.dv8tion.jda.api.components.selections.StringSelectMenu;
-import net.dv8tion.jda.api.utils.messages.MessageEditData;
-
-import java.util.List;
+import io.github.mosps.views.party.setting.PartySettingView;
 
 public class PartySettingAction implements Action {
 
@@ -28,31 +25,10 @@ public class PartySettingAction implements Action {
                     .error("パーティ作成者ではありません。");
         }
 
-        RenderResult render = new RenderResult(
-                MessageEditData.fromContent("パーティ設定"),
-                List.of(createSettingButtonRow(context, party.getPartyId()), createRoleRow(context, party.getPartyId()))
-        );
+        PartySettingView view = ViewMapper.map(party);
+        RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of()
                 .withEphemeral(render);
-    }
-
-    public ActionRow createRoleRow(ActionContext context, String partyId) {
-        StringSelectMenu role = StringSelectMenu.create("party:role:" + partyId + "|" + context.getMessageId())
-                .setPlaceholder("パーティのロール構成を選択")
-                .addOption("ダンジョン 5人パーティ", "NORMAL_5")
-                .addOption("フリー 5人パーティ", "FREE_5")
-                .addOption("レイド 20人パーティ", "NORMAL_20")
-                .addOption("フリー 20人パーティ", "FREE_20")
-                .build();
-
-        return ActionRow.of(role);
-    }
-
-    public ActionRow createSettingButtonRow(ActionContext context, String partyId ) {
-        Button close = Button.secondary("party:toggle:" + partyId + "|" + context.getMessageId(), "募集終了 | 募集再開");
-        Button edit = Button.secondary("party:edit:" + partyId + "|" + context.getMessageId(), "編集");
-
-        return ActionRow.of(edit, close);
     }
 }
