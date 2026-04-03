@@ -11,9 +11,9 @@ public class ProfileLobbyRenderer extends BaseRenderer<ProfileLobbyView> {
 
     @Override
     public RenderResult render(ProfileLobbyView view) {
-        String context = "ボタンを押してプロフィールを登録します。";
+        String context = "ボタンを押してプロフィールを表示します。";
 
-        Button create = Button.success("profile:create", "プロフィールを登録");
+        Button create = Button.success("profile:create", "🧾プロフィールを表示");
 
         return build(MessageEditData.fromContent(context), ActionRow.of(create));
     }
