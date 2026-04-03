@@ -13,7 +13,7 @@ public class ProfileLobbyRenderer extends BaseRenderer<ProfileLobbyView> {
     public RenderResult render(ProfileLobbyView view) {
         String context = "ボタンを押してプロフィールを登録します。";
 
-        Button create = Button.success("profile:register", "プロフィールを登録");
+        Button create = Button.success("profile:create", "プロフィールを登録");
 
         return build(MessageEditData.fromContent(context), ActionRow.of(create));
     }
