@@ -4,6 +4,7 @@ import io.github.mosps.handlers.actions.Action;
 import io.github.mosps.handlers.actions.ActionContext;
 import io.github.mosps.handlers.actions.ActionResult;
 import io.github.mosps.handlers.actions.data.SelectMenuData;
+import io.github.mosps.mapper.ViewMapper;
 import io.github.mosps.party.Party;
 import io.github.mosps.party.PartyManager;
 import io.github.mosps.party.PartyRolePreset;
@@ -36,9 +37,9 @@ public class PartyRoleSettingAction implements Action {
 
         party.setPreset(PartyRolePreset.valueOf(selected));
 
-        PartyView view = PartyManager.createView(party);
+        PartyView view = ViewMapper.map(party);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.of().withUpdate(render).targetId(context.getCustomId().get("messageId"));
+        return ActionResult.of().withUpdate(render).targetId(party.getMessageId());
     }
 }
