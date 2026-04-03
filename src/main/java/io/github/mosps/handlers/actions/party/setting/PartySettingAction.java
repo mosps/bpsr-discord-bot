@@ -50,7 +50,7 @@ public class PartySettingAction implements Action {
     }
 
     public ActionRow createSettingButtonRow(ActionContext context, String partyId ) {
-        Button close = Button.secondary("party:toggle:" + partyId + "|" + context.getMessageId(), "終了 | 再開");
+        Button close = Button.secondary("party:toggle:" + partyId + "|" + context.getMessageId(), "募集終了 | 募集再開");
         Button edit = Button.secondary("party:edit:" + partyId + "|" + context.getMessageId(), "編集");
 
         return ActionRow.of(edit, close);
