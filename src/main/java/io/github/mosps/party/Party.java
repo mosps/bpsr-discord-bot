@@ -90,4 +90,8 @@ public class Party {
         closedTime = System.currentTimeMillis();
         closed = true;
     }
+
+    public void open() {
+        closed = false;
+    }
 }

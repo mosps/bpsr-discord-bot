@@ -20,7 +20,7 @@ public class ActionManager {
     static {
         register("party:join", new PartyJoinAction());
         register("party:leave", new PartyLeaveAction());
-        register("party:close", new PartyCloseAction());
+        register("party:toggle", new PartyToggleAction());
         register("party:create", new PartyCreateAction());
         register("party:create_confirm", new PartyCreateConfirmAction());
         register("party:setting", new PartySettingAction());

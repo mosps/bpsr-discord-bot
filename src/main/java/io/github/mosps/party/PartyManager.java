@@ -25,8 +25,12 @@ public class PartyManager {
         party.removeMembers(userId);
     }
 
-    public static void close(Party party) {
-        party.close();
+    public static void toggle(Party party) {
+        if (party.isClosed()) {
+            party.open();
+        } else {
+            party.close();
+        }
     }
 
     public static Party createParty(long ownerId) {
