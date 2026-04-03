@@ -2,16 +2,14 @@ package io.github.mosps.mapper;
 
 import io.github.mosps.data.Classes;
 import io.github.mosps.data.Imagines;
-import io.github.mosps.party.Party;
 import io.github.mosps.profile.Profile;
-import io.github.mosps.views.party.PartyView;
 import io.github.mosps.views.profile.ProfileView;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ProfileViewMapper implements ViewMapper<Profile, ProfileView> {
+public class ProfileMapper implements Mapper<Profile, ProfileView> {
 
     @Override
     public ProfileView map(Profile profile) {

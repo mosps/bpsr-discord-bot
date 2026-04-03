@@ -5,7 +5,7 @@ import io.github.mosps.views.profile.imagine.ImagineEditView;
 
 import java.util.stream.Collectors;
 
-public class ImagineViewMapper implements ViewMapper<ImagineEditSession, ImagineEditView> {
+public class ImagineMapper implements Mapper<ImagineEditSession, ImagineEditView> {
 
     @Override
     public ImagineEditView map(ImagineEditSession session) {

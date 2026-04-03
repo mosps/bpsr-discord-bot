@@ -3,7 +3,7 @@ package io.github.mosps.mapper;
 import io.github.mosps.party.Party;
 import io.github.mosps.views.party.PartyView;
 
-public class PartyViewMapper implements ViewMapper<Party, PartyView> {
+public class PartyMapper implements Mapper<Party, PartyView> {
 
     @Override
     public PartyView map(Party party) {
