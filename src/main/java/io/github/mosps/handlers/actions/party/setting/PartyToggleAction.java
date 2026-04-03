@@ -31,7 +31,7 @@ public class PartyToggleAction implements Action {
 
         return ActionResult.of().withUpdate(render).targetId(context.getCustomId().get("messageId"))
                 .withEphemeral(party.isClosed()
-                        ? "パーティを締め切りました"
-                        : "パーティを再開しました");
+                        ? "募集を締め切りました"
+                        : "募集を再開しました");
     }
 }
