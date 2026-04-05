@@ -1,6 +1,7 @@
 package io.github.mosps;
 
 import io.github.mosps.jda.listener.*;
+import io.github.mosps.model.party.PartyManager;
 import io.github.mosps.model.profile.ProfileManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -31,7 +32,10 @@ public class BPSRInviteManager {
                 .setRawEventsEnabled(true)
                 .build();
 
+        PartyManager.loadAll();
         ProfileManager.loadAll();
+
+        PartyManager.initCounter();
     }
 }
 
@@ -39,10 +43,12 @@ public class BPSRInviteManager {
 ・Party,Profileリスト作成..?
 ・各Managerの責務を再確認
 ・海武器所持ボタン追加
+・responder,delete()同様updateを複数メッセージに対してできるように。
+・modal前要素表示
+・imaginesession時間経過削除
 
 ・bot再起動時sessionの保存　(定期保存、クラッシュ対応)
 ・Partyの期限切れ時メッセージ削除
-・Party完全削除ボタン
 
 複数サーバー仕様　(未定）
 */
