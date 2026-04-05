@@ -33,6 +33,10 @@ public class PartyJoinAction implements Action {
             return ActionResult.of()
                     .error("プロフィールを作成してください。");
         }
+        if (profile.getMainClass() == null) {
+            return ActionResult.of()
+                    .error("メインクラスを設定してください。");
+        }
 
         if (!PartyRoleManager.canJoin(party.getPreset(), party, profile)) {
             return ActionResult.of()
