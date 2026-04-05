@@ -28,7 +28,10 @@ public class PartyCreateConfirmAction implements Action {
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withReply(render)
-                .afterReply(message -> party.setMessageId(message.getId()))
+                .afterReply(message -> {
+                    party.setMessageId(message.getId());
+                    PartyManager.saveParty(party);
+                })
                 .withEphemeral("パーティを作成しました！", 5);
     }
 }
