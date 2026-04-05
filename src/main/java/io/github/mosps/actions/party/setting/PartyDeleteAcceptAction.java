@@ -24,7 +24,6 @@ public class PartyDeleteAcceptAction implements Action {
         String messageId = party.getMessageId();
 
         PartyManager.deleteParty(party);
-        PartyManager.saveParty(party);
 
         return ActionResult.of().deleteSource().deleteAll(messageId).withEphemeral("パーティを削除しました。", 5);
     }
