@@ -25,7 +25,6 @@ public class Party {
 
     public Party(long ownerId) {
         this.ownerId = ownerId;
-        this.addMembers(ownerId);
     }
 
     public static void setCounter(int counter) {
