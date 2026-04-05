@@ -2,11 +2,15 @@ package io.github.mosps.ui.render;
 
 import io.github.mosps.ui.render.party.PartyLobbyRenderer;
 import io.github.mosps.ui.render.party.PartyRenderer;
+import io.github.mosps.ui.render.party.setting.PartyDeleteRenderer;
+import io.github.mosps.ui.render.party.setting.PartySettingRenderer;
 import io.github.mosps.ui.render.profile.ProfileLobbyRenderer;
 import io.github.mosps.ui.render.profile.ProfileRenderer;
 import io.github.mosps.ui.render.profile.imagine.ImagineEditRenderer;
 import io.github.mosps.ui.views.party.PartyLobbyView;
 import io.github.mosps.ui.views.party.PartyView;
+import io.github.mosps.ui.views.party.setting.PartyDeleteView;
+import io.github.mosps.ui.views.party.setting.PartySettingView;
 import io.github.mosps.ui.views.profile.ProfileLobbyView;
 import io.github.mosps.ui.views.profile.ProfileView;
 import io.github.mosps.ui.views.profile.imagine.ImagineEditView;
@@ -20,6 +24,8 @@ public class RendererRegistry {
 
     static {
         register(PartyView.class, new PartyRenderer());
+        register(PartySettingView.class, new PartySettingRenderer());
+        register(PartyDeleteView.class, new PartyDeleteRenderer());
         register(PartyLobbyView.class, new PartyLobbyRenderer());
         register(ProfileView.class, new ProfileRenderer());
         register(ProfileLobbyView.class, new ProfileLobbyRenderer());
