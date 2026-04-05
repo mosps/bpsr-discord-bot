@@ -46,8 +46,6 @@ public class BPSRInviteManager {
 ・responder,delete()同様updateを複数メッセージに対してできるように。
 ・modal前要素表示
 ・imaginesession時間経過削除
-
-・bot再起動時sessionの保存　(定期保存、クラッシュ対応)
 ・Partyの期限切れ時メッセージ削除
 
 複数サーバー仕様　(未定）
