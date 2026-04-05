@@ -28,6 +28,6 @@ public class PartyDeleteAction implements Action {
         PartySettingView view = ViewMapper.map(party);
         RenderResult render = MessageRenderer.render(view);
 
-        return ActionResult.of().withEphemeral(render);
+        return ActionResult.of().withEphemeral(render, 5 * 60);
     }
 }

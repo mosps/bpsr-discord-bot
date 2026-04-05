@@ -45,6 +45,6 @@ public class PartyJoinAction implements Action {
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render)
-                .withEphemeral("パーティに参加しました");
+                .withEphemeral("パーティに参加しました", 5);
     }
 }

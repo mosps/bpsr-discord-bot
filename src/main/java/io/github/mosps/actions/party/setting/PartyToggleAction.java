@@ -33,6 +33,6 @@ public class PartyToggleAction implements Action {
         return ActionResult.of().withUpdate(render).targetId(party.getMessageId())
                 .withEphemeral(party.isClosed()
                         ? "募集を締め切りました"
-                        : "募集を再開しました");
+                        : "募集を再開しました", 5);
     }
 }

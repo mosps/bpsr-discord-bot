@@ -19,6 +19,6 @@ public class PartyAdminAction implements Action {
         RenderResult render = MessageRenderer.render(new PartyLobbyView());
 
         return ActionResult.of().withUpdate(render)
-                .withEphemeral("パーティ作成用メッセージを生成しました。");
+                .withEphemeral("パーティ作成用メッセージを生成しました。", 5);
     }
 }

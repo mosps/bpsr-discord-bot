@@ -19,6 +19,6 @@ public class ProfileAdminAction implements Action {
         RenderResult render = MessageRenderer.render(new ProfileLobbyView());
 
         return ActionResult.of().withUpdate(render)
-                .withEphemeral("プロフィール登録用メッセージを生成しました。");
+                .withEphemeral("プロフィール登録用メッセージを生成しました。", 5);
     }
 }

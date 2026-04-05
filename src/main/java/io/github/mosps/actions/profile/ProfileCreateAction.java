@@ -22,6 +22,6 @@ public class ProfileCreateAction implements Action {
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of()
-                .withEphemeral(render);
+                .withEphemeral(render, 30 * 60);
     }
 }

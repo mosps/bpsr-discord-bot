@@ -42,6 +42,6 @@ public class PartyLeaveAction implements Action {
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render)
-                .withEphemeral("パーティから退出しました");
+                .withEphemeral("パーティから退出しました", 5);
     }
 }

@@ -8,6 +8,6 @@ public class PartyDeleteDenyAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        return ActionResult.of().deleteSource();
+        return ActionResult.of().deleteSource().withEphemeral("パーティ削除をキャンセルしました。", 5);
     }
 }

@@ -41,6 +41,6 @@ public class PartyEditConfirmAction implements Action {
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render).targetId(party.getMessageId())
-                .withEphemeral("パーティ設定を変更しました。");
+                .withEphemeral("パーティ設定を変更しました。", 5);
     }
 }
