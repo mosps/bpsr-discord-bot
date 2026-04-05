@@ -25,7 +25,7 @@ public class PartyDeleteAction implements Action {
                     .error("パーティ作成者ではありません。");
         }
 
-        PartySettingView view = ViewMapper.map(party);
+        PartySettingView view = ViewMapper.map(party, PartySettingView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withEphemeral(render, 5 * 60);

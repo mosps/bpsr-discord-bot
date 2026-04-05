@@ -18,7 +18,7 @@ public class ProfileCreateAction implements Action {
 
         profile.setName(context.getName());
 
-        ProfileView view = ViewMapper.map(profile);
+        ProfileView view = ViewMapper.map(profile, ProfileView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of()

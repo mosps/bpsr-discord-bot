@@ -32,7 +32,7 @@ public class ProfileRegisterAction implements Action {
 
         ProfileManager.saveProfile(profile);
 
-        ProfileView view = ViewMapper.map(profile);
+        ProfileView view = ViewMapper.map(profile, ProfileView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render);

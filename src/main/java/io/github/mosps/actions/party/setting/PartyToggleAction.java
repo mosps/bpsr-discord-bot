@@ -27,7 +27,7 @@ public class PartyToggleAction implements Action {
 
         PartyManager.toggle(party);
 
-        PartyView view = ViewMapper.map(party);;
+        PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render).targetId(party.getMessageId())

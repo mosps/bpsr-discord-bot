@@ -37,7 +37,7 @@ public class PartyRoleSettingAction implements Action {
 
         party.setPreset(PartyRolePreset.valueOf(selected));
 
-        PartyView view = ViewMapper.map(party);
+        PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render).targetId(party.getMessageId());

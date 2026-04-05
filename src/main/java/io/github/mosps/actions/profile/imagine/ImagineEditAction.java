@@ -27,7 +27,7 @@ public class ImagineEditAction implements Action {
             data.get().forEach(value -> field.apply(session, value));
         }
 
-        ImagineEditView view = ViewMapper.map(session);
+        ImagineEditView view = ViewMapper.map(session, ImagineEditView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render);

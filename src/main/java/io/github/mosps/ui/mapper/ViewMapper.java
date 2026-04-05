@@ -2,8 +2,8 @@ package io.github.mosps.ui.mapper;
 
 public class ViewMapper {
 
-    public static <T, V> V map(T model) {
-        Mapper<T, V> mapper = MapperRegistry.getMapper(model);
+    public static <T, V> V map(T model, Class<V> view) {
+        Mapper<T, V> mapper = MapperRegistry.getMapper(model, view);
 
         return mapper.map(model);
     }

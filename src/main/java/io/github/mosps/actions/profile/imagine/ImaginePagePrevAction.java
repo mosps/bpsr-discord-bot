@@ -20,7 +20,7 @@ public class ImaginePagePrevAction implements Action {
             session.prevPage();
         }
 
-        ImagineEditView view = ViewMapper.map(session);
+        ImagineEditView view = ViewMapper.map(session, ImagineEditView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render);

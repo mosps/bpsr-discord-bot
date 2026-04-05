@@ -27,7 +27,7 @@ public class ImagineConfirmAction implements Action {
         ProfileManager.saveProfile(profile);
         ImagineEditManager.remove(context.getUserId());
 
-        ProfileView view = ViewMapper.map(profile);
+        ProfileView view = ViewMapper.map(profile, ProfileView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render);

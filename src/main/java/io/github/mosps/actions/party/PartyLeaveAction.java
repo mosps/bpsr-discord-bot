@@ -38,7 +38,7 @@ public class PartyLeaveAction implements Action {
 
         PartyManager.leave(party, context.getUserId());
 
-        PartyView view = ViewMapper.map(party);
+        PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render)

@@ -21,7 +21,7 @@ public class ImaginePageNextAction implements Action {
             session.nextPage();
         }
 
-        ImagineEditView view = ViewMapper.map(session);
+        ImagineEditView view = ViewMapper.map(session, ImagineEditView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withUpdate(render);
