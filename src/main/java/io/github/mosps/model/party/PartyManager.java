@@ -11,7 +11,7 @@ public class PartyManager {
     private static final ScheduledExecutorService cleaner = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> cleanerTask;
 
-    private static final long TIMEOUT = TimeUnit.MINUTES.toMillis(1);
+    private static final long TIMEOUT = TimeUnit.DAYS.toDays(7);
 
     public static void register(String partyId, Party party) {
         PartyManager.parties.put(partyId, party);
@@ -76,6 +76,6 @@ public class PartyManager {
 
                 return currentTime - party.getCreatedTime() > TIMEOUT;
             });
-        }, 1, 1, TimeUnit.HOURS);
+        }, 1, 1, TimeUnit.DAYS);
     }
 }
