@@ -18,10 +18,10 @@ public class ResponseDispatcher {
             responder.openModal(result.getModal());
         }
         if (result.getEphemeralMessage() != null) {
-            responder.ephemeral(result.getEphemeralMessage(), result.getMinutes());
+            responder.ephemeral(result.getEphemeralMessage(), result.getSeconds());
         }
         if (result.getEphemeralRender() != null) {
-            responder.ephemeral(result.getEphemeralRender(), result.getMinutes());
+            responder.ephemeral(result.getEphemeralRender(), result.getSeconds());
         }
         if (result.getErrorMessage() != null) {
             responder.error(result.getErrorMessage());
