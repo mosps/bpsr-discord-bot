@@ -28,6 +28,10 @@ public class Party {
         this.addMembers(ownerId);
     }
 
+    public static void setCounter(int counter) {
+        Party.counter.set(counter);
+    }
+
     public void setMessageId(String messageId) {
         this.messageId = messageId;
     }

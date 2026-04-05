@@ -21,6 +21,14 @@ public class PartyManager {
         parties.putAll(PartyStorage.loadAll());
     }
 
+    public static void initCounter() {
+        int max = parties.keySet().stream()
+                .mapToInt(Integer::parseInt)
+                .max().orElse(0);
+
+        Party.setCounter(max);
+    }
+
     public static void saveParty(Party party) {
         PartyStorage.save(party);
     }
@@ -52,8 +60,9 @@ public class PartyManager {
         return parties.get(partyId);
     }
 
-    public static void deleteParty(String partyId) {
-        parties.remove(partyId);
+    public static void deleteParty(Party party) {
+        parties.remove(party.getPartyId());
+        PartyStorage.delete(party);
     }
 
     public static synchronized void startCleaner() {
