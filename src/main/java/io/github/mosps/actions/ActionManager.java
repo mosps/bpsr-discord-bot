@@ -29,6 +29,9 @@ public class ActionManager {
         register("party:edit", new PartyEditAction());
         register("party:edit_confirm", new PartyEditConfirmAction());
         register("party:role", new PartyRoleSettingAction());
+        register("party:delete", new PartyDeleteAction());
+        register("party:delete_accept", new PartyDeleteAcceptAction());
+        register("party:delete_deny", new PartyDeleteDenyAction());
         register("party:admin", new PartyAdminAction());
 
         register("profile:create", new ProfileCreateAction());

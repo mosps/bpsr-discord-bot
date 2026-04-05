@@ -23,8 +23,8 @@ public class PartyDeleteRenderer extends BaseRenderer<PartySettingView> {
     }
 
     private ActionRow createCheckButtonRow(PartySettingView view) {
-        Button yes = Button.success("party:accept:" + view.partyId, "はい");
-        Button no = Button.danger("party:deny:" + view.partyId, "いいえ");
+        Button yes = Button.success("party:delete_accept:" + view.partyId, "はい");
+        Button no = Button.danger("party:delete_deny:" + view.partyId, "いいえ");
 
         return ActionRow.of(yes, no);
     }
