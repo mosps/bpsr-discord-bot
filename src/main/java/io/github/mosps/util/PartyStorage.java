@@ -38,7 +38,7 @@ public class PartyStorage {
             Path file = path.resolve(party.getPartyId() + ".json");
 
             if (Files.exists(file)) {
-                Files.delete(path);
+                Files.delete(file);
             }
         } catch (IOException e) {
             logger.log(Level.WARNING, "Could not delete party to file", e);
