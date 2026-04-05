@@ -43,7 +43,7 @@ public class PartyManager {
         return parties.get(partyId);
     }
 
-    public static void removeParty(String partyId) {
+    public static void deleteParty(String partyId) {
         parties.remove(partyId);
     }
 
