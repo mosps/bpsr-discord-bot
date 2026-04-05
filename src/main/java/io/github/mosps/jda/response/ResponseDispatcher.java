@@ -11,7 +11,10 @@ public class ResponseDispatcher {
         else if (result.getUpdate() != null) {
             responder.update(result.getUpdate());
         }
-        if (result.getReply() != null) {
+        if (result.getReply() != null && result.getAfterReply() != null) {
+            responder.reply(result.getReply(), result.getAfterReply());
+        }
+        else if (result.getReply() != null) {
             responder.reply(result.getReply());
         }
         if (result.getModal() != null) {

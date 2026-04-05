@@ -1,12 +1,16 @@
 package io.github.mosps.jda.response;
 
 import io.github.mosps.ui.render.RenderResult;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.modals.Modal;
+
+import java.util.function.Consumer;
 
 public interface Responder {
     void update(RenderResult render, String messageId);
     void update(RenderResult render);
     void reply(RenderResult render);
+    void reply(RenderResult result, Consumer<Message> callback);
     void openModal(Modal modal);
     void ephemeral(String messageId, int seconds);
     void ephemeral(RenderResult render, int seconds);

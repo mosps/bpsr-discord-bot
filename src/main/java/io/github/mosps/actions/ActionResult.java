@@ -1,11 +1,13 @@
 package io.github.mosps.actions;
 
 import io.github.mosps.ui.render.RenderResult;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.modals.Modal;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class ActionResult {
 
@@ -19,6 +21,7 @@ public class ActionResult {
     private String errorMessage;
     private List<String> deleteMessageWithId = new ArrayList<>();
     private boolean deleteSource;
+    private Consumer<Message> afterReply;
 
     private ActionResult() {}
 
@@ -73,6 +76,11 @@ public class ActionResult {
         return this;
     }
 
+    public ActionResult afterReply(Consumer<Message> consumer) {
+        this.afterReply = consumer;
+        return this;
+    }
+
     public RenderResult getUpdate() {
         return update;
     }
@@ -111,5 +119,9 @@ public class ActionResult {
 
     public List<String> getDeleteMessageWithId() {
         return deleteMessageWithId;
+    }
+
+    public Consumer<Message> getAfterReply() {
+        return afterReply;
     }
 }

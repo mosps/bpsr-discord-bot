@@ -1,11 +1,13 @@
 package io.github.mosps.jda.response;
 
 import io.github.mosps.ui.render.RenderResult;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.modals.Modal;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class ModalResponder implements Responder {
 
@@ -31,6 +33,15 @@ public class ModalResponder implements Responder {
         ).setComponents(
                 render.getComponents()
         ).queue();
+    }
+
+    @Override
+    public void reply(RenderResult render, Consumer<Message> callback) {
+        event.getHook().sendMessage(
+                MessageCreateData.fromEditData(render.getMessageEditData())
+        ).setComponents(
+                render.getComponents()
+        ).queue(callback);
     }
 
     @Override
