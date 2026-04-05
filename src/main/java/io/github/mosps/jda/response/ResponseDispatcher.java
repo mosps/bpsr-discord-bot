@@ -18,13 +18,21 @@ public class ResponseDispatcher {
             responder.openModal(result.getModal());
         }
         if (result.getEphemeralMessage() != null) {
-            responder.ephemeral(result.getEphemeralMessage());
+            responder.ephemeral(result.getEphemeralMessage(), result.getMinutes());
         }
         if (result.getEphemeralRender() != null) {
-            responder.ephemeral(result.getEphemeralRender());
+            responder.ephemeral(result.getEphemeralRender(), result.getMinutes());
         }
         if (result.getErrorMessage() != null) {
             responder.error(result.getErrorMessage());
+        }
+        if (result.isDeleteSource()) {
+            responder.delete();
+        }
+        if (result.getTargetId() != null) {
+            for (String messageId : result.getDeleteMessageWithId()) {
+                responder.delete(messageId);
+            }
         }
     }
 }

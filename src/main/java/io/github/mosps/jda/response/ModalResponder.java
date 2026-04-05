@@ -48,21 +48,23 @@ public class ModalResponder implements Responder {
     }
 
     @Override
-    public void ephemeral(String message) {
+    public void ephemeral(String message, int seconds) {
         event.getHook().sendMessage(message)
                 .setEphemeral(true)
                 .queue(msg -> {
-                    msg.delete().queueAfter(5, TimeUnit.SECONDS);
+                    if (seconds != 0) msg.delete().queueAfter(seconds, TimeUnit.SECONDS);
                 });
     }
 
     @Override
-    public void ephemeral(RenderResult render) {
+    public void ephemeral(RenderResult render, int seconds) {
         event.getHook().sendMessage(
                 MessageCreateData.fromEditData(render.getMessageEditData())
         ).setComponents(
                 render.getComponents()
-        ).setEphemeral(true).queue();
+        ).setEphemeral(true).queue(msg -> {
+            if (seconds != 0) msg.delete().queueAfter(seconds, TimeUnit.SECONDS);
+        });
     }
 
     @Override
@@ -81,5 +83,15 @@ public class ModalResponder implements Responder {
                         msg.delete().queueAfter(5, TimeUnit.SECONDS);
                     });
         }
+    }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("ModalResponder cannot delete Message");
+    }
+
+    @Override
+    public void delete(String messageId) {
+        throw new UnsupportedOperationException("ModalResponder cannot delete Message");
     }
 }

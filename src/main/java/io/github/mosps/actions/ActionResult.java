@@ -3,6 +3,10 @@ package io.github.mosps.actions;
 import io.github.mosps.ui.render.RenderResult;
 import net.dv8tion.jda.api.modals.Modal;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 public class ActionResult {
 
     private RenderResult update;
@@ -11,7 +15,10 @@ public class ActionResult {
     private Modal modal;
     private String ephemeralMessage;
     private RenderResult ephemeralRender;
+    private int seconds;
     private String errorMessage;
+    private List<String> deleteMessageWithId = new ArrayList<>();
+    private boolean deleteSource;
 
     private ActionResult() {}
 
@@ -39,18 +46,30 @@ public class ActionResult {
         return this;
     }
 
-    public ActionResult withEphemeral(String message) {
+    public ActionResult withEphemeral(String message, int seconds) {
         this.ephemeralMessage = message;
+        this.seconds = seconds;
         return this;
     }
 
-    public ActionResult withEphemeral(RenderResult result) {
+    public ActionResult withEphemeral(RenderResult result, int seconds) {
         this.ephemeralRender = result;
+        this.seconds = seconds;
         return this;
     }
 
     public ActionResult error(String errorMessage) {
         this.errorMessage = errorMessage;
+        return this;
+    }
+
+    public ActionResult deleteSource() {
+        this.deleteSource = true;
+        return this;
+    }
+
+    public ActionResult deleteAll(String... messageIds) {
+        this.deleteMessageWithId.addAll(List.of(messageIds));
         return this;
     }
 
@@ -80,5 +99,17 @@ public class ActionResult {
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public boolean isDeleteSource() {
+        return deleteSource;
+    }
+
+    public List<String> getDeleteMessageWithId() {
+        return deleteMessageWithId;
     }
 }

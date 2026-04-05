@@ -8,7 +8,9 @@ public interface Responder {
     void update(RenderResult render);
     void reply(RenderResult render);
     void openModal(Modal modal);
-    void ephemeral(String message);
-    void ephemeral(RenderResult render);
+    void ephemeral(String messageId, int seconds);
+    void ephemeral(RenderResult render, int seconds);
     void error(String message);
+    void delete();
+    void delete(String messageId);
 }
