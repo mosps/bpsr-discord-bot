@@ -32,7 +32,7 @@ public class ResponseDispatcher {
         if (result.isDeleteSource()) {
             responder.delete();
         }
-        if (result.getTargetId() != null) {
+        if (result.getDeleteMessageWithId() != null) {
             for (String messageId : result.getDeleteMessageWithId()) {
                 responder.delete(messageId);
             }
