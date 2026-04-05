@@ -8,6 +8,7 @@ import io.github.mosps.model.party.Party;
 import io.github.mosps.model.party.PartyManager;
 import io.github.mosps.ui.render.MessageRenderer;
 import io.github.mosps.ui.render.RenderResult;
+import io.github.mosps.ui.views.party.setting.PartyDeleteView;
 import io.github.mosps.ui.views.party.setting.PartySettingView;
 
 public class PartyDeleteAction implements Action {
@@ -25,7 +26,7 @@ public class PartyDeleteAction implements Action {
                     .error("パーティ作成者ではありません。");
         }
 
-        PartySettingView view = ViewMapper.map(party, PartySettingView.class);
+        PartyDeleteView view = ViewMapper.map(party, PartyDeleteView.class);
         RenderResult render = MessageRenderer.render(view);
 
         return ActionResult.of().withEphemeral(render, 5 * 60);
