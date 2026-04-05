@@ -36,7 +36,6 @@ public class ProfileManager {
     }
 
     public static void saveProfile(Profile profile) {
-        profiles.put(profile.getUserId(), profile);
         ProfileStorage.save(profile);
     }
 
