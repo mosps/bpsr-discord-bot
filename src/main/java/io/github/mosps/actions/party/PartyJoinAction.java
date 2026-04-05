@@ -40,6 +40,7 @@ public class PartyJoinAction implements Action {
         }
 
         PartyManager.join(party, context.getUserId());
+        PartyManager.saveParty(party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);

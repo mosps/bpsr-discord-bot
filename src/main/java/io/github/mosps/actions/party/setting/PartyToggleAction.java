@@ -26,6 +26,7 @@ public class PartyToggleAction implements Action {
         }
 
         PartyManager.toggle(party);
+        PartyManager.saveParty(party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);

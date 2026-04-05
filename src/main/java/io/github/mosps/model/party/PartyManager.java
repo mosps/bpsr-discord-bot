@@ -1,5 +1,7 @@
 package io.github.mosps.model.party;
 
+import io.github.mosps.util.PartyStorage;
+
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -13,6 +15,14 @@ public class PartyManager {
 
     public static void register(String partyId, Party party) {
         PartyManager.parties.put(partyId, party);
+    }
+
+    public static void loadAll() {
+        parties.putAll(PartyStorage.loadAll());
+    }
+
+    public static void saveParty(Party party) {
+        PartyStorage.save(party);
     }
 
     public static void join(Party party, long userId) {
@@ -33,7 +43,6 @@ public class PartyManager {
 
     public static Party createParty(long ownerId) {
         Party party = new Party(ownerId);
-
         register(party.getPartyId(), party);
 
         return party;

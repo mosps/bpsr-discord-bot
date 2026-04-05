@@ -36,6 +36,7 @@ public class PartyEditConfirmAction implements Action {
         party.setDestination(data.get("destination"));
         party.setTime(data.get("time"));
         party.setNote(data.get("note"));
+        PartyManager.saveParty(party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);
