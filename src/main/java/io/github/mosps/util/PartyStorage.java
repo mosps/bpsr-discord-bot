@@ -33,6 +33,18 @@ public class PartyStorage {
         }
     }
 
+    public static void delete(Party party) {
+        try {
+            Path file = path.resolve(party.getPartyId() + ".json");
+
+            if (Files.exists(file)) {
+                Files.delete(path);
+            }
+        } catch (IOException e) {
+            logger.log(Level.WARNING, "Could not delete party to file", e);
+        }
+    }
+
     public static Party load(String partyId) {
         try {
             Path file = path.resolve(partyId + ".json");

@@ -21,9 +21,11 @@ public class PartyDeleteAcceptAction implements Action {
                     .error("パーティ作成者ではありません。");
         }
 
-        PartyManager.deleteParty(party.getPartyId());
+        String messageId = party.getMessageId();
+
+        PartyManager.deleteParty(party);
         PartyManager.saveParty(party);
 
-        return ActionResult.of().deleteSource().deleteAll(party.getMessageId()).withEphemeral("パーティを削除しました。", 5);
+        return ActionResult.of().deleteSource().deleteAll(messageId).withEphemeral("パーティを削除しました。", 5);
     }
 }
