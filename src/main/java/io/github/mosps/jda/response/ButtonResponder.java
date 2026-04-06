@@ -63,7 +63,9 @@ public class ButtonResponder implements Responder {
         event.getHook().sendMessage(message)
                 .setEphemeral(true)
                 .queue(msg -> {
-                    if (seconds != 0) msg.delete().queueAfter(seconds, TimeUnit.SECONDS);
+                    if (seconds != 0) msg.delete().queueAfter(seconds, TimeUnit.SECONDS,
+                            success -> {},
+                            error -> {});
                 });
     }
 
@@ -74,7 +76,9 @@ public class ButtonResponder implements Responder {
         ).setComponents(
                 render.getComponents()
         ).setEphemeral(true).queue(msg -> {
-            if (seconds != 0) msg.delete().queueAfter(seconds, TimeUnit.SECONDS);
+            if (seconds != 0) msg.delete().queueAfter(seconds, TimeUnit.SECONDS,
+                    success -> {},
+                    error -> {});
         });
     }
 
@@ -84,14 +88,18 @@ public class ButtonResponder implements Responder {
             event.reply(message)
                     .setEphemeral(true)
                     .queue(msg -> {
-                        msg.deleteOriginal().queueAfter(5, TimeUnit.SECONDS);
+                        msg.deleteOriginal().queueAfter(5, TimeUnit.SECONDS,
+                                success -> {},
+                                error -> {});
                     });
         } else {
             event.getHook()
                     .sendMessage(message)
                     .setEphemeral(true)
                     .queue(msg -> {
-                        msg.delete().queueAfter(5, TimeUnit.SECONDS);
+                        msg.delete().queueAfter(5, TimeUnit.SECONDS,
+                                success -> {},
+                                error -> {});
                     });
         }
     }
