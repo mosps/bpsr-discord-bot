@@ -12,28 +12,23 @@ public class PartyCreateAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        TextInput destination = TextInput.create("destination", TextInputStyle.SHORT)
-                .setPlaceholder("目的地")
-                .setRequired(true)
-                .build();
-
-        TextInput time = TextInput.create("time", TextInputStyle.SHORT)
-                .setPlaceholder("開始時刻")
-                .setRequired(true)
-                .build();
-
-        TextInput note = TextInput.create("note", TextInputStyle.PARAGRAPH)
-                .setPlaceholder("備考")
-                .setRequired(false)
-                .build();
+        TextInput.Builder destination = createTextInput(TextInputStyle.SHORT, "destination", "目的地", true);
+        TextInput.Builder time = createTextInput(TextInputStyle.SHORT, "time", "開始時刻", true);
+        TextInput.Builder note = createTextInput(TextInputStyle.PARAGRAPH, "note", "備考", false);
 
         Modal modal = Modal.create("party:create_confirm:" + context.getUserId(), "パーティ設定").
                 addComponents(
-                        Label.of("目的地", destination),
-                        Label.of("開始時刻", time),
-                        Label.of("備考", note)
+                        Label.of("目的地", destination.build()),
+                        Label.of("開始時刻", time.build()),
+                        Label.of("備考", note.build())
                 ).build();
 
         return ActionResult.of().withModal(modal);
+    }
+
+    private TextInput.Builder createTextInput(TextInputStyle style, String id, String text, boolean required) {
+        return TextInput.create(id, style)
+                .setPlaceholder(text)
+                .setRequired(required);
     }
 }
