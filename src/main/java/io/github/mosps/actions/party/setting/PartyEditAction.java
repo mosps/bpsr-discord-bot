@@ -30,28 +30,33 @@ public class PartyEditAction implements Action {
                     .error("パーティ作成者ではありません。");
         }
 
-        TextInput destination = TextInput.create("destination", TextInputStyle.SHORT)
-                .setPlaceholder("目的地")
-                .setRequired(true)
-                .build();
+        TextInput.Builder destination = createTextInput(TextInputStyle.SHORT, "destination", "目的地", true);
+        TextInput.Builder time = createTextInput(TextInputStyle.SHORT, "time", "開始時刻", true);
+        TextInput.Builder note = createTextInput(TextInputStyle.PARAGRAPH, "note", "備考", false);
 
-        TextInput time = TextInput.create("time", TextInputStyle.SHORT)
-                .setPlaceholder("開始時刻")
-                .setRequired(true)
-                .build();
-
-        TextInput note = TextInput.create("note", TextInputStyle.PARAGRAPH)
-                .setPlaceholder("備考")
-                .setRequired(false)
-                .build();
+        setIfPresent(destination, party.getDestination());
+        setIfPresent(time, party.getTime());
+        setIfPresent(note, party.getNote());
 
         Modal modal = Modal.create("party:edit_confirm:" + context.getCustomId().get("partyId"), "パーティ設定").
                 addComponents(
-                        Label.of("目的地", destination),
-                        Label.of("開始時刻", time),
-                        Label.of("備考", note)
+                        Label.of("目的地", destination.build()),
+                        Label.of("開始時刻", time.build()),
+                        Label.of("備考", note.build())
                 ).build();
 
         return ActionResult.of().withModal(modal);
+    }
+
+    private TextInput.Builder createTextInput(TextInputStyle style, String id, String text, boolean required) {
+        return TextInput.create(id, style)
+                .setPlaceholder(text)
+                .setRequired(required);
+    }
+
+    private void setIfPresent(TextInput.Builder builder, String value) {
+        if (!value.isBlank()) {
+            builder.setValue(value);
+        }
     }
 }
