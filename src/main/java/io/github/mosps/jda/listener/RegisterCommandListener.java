@@ -13,7 +13,6 @@ public class RegisterCommandListener extends ListenerAdapter {
                 guild.updateCommands().addCommands(
                         Commands.slash("party", "パーティ用コマンド")
                                 .addSubcommands(
-                                        new SubcommandData("create", "パーティを作成"),
                                         new SubcommandData("admin", "初期メッセージを送信")
                                 ),
                         Commands.slash("profile", "プロフィール用コマンド")
