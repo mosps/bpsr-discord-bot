@@ -11,7 +11,7 @@ public class ProfileAdminAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        if (context.getUserId() != 252823777493123072L) {
+        if (context.getUserId() != 252823777493123072L || context.getUserId() != 635395177946808321L) {
             return ActionResult.of()
                     .error("このコマンドを実行する権限がありません。");
         }
