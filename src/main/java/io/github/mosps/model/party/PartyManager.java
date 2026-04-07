@@ -45,8 +45,10 @@ public class PartyManager {
         }
     }
 
-    public static void leave(Party party, long userId) {
-        party.removeMembers(userId);
+    public static synchronized void leave(Party party, long userId) {
+        synchronized (party) {
+            party.removeMembers(userId);
+        }
     }
 
     public static void toggle(Party party) {
