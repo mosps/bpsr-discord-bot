@@ -1,5 +1,6 @@
 package io.github.mosps.model.party;
 
+import io.github.mosps.model.profile.Profile;
 import io.github.mosps.util.PartyStorage;
 
 import java.util.Map;
@@ -33,8 +34,15 @@ public class PartyManager {
         PartyStorage.save(party);
     }
 
-    public static void join(Party party, long userId) {
-        party.addMembers(userId);
+    public static synchronized boolean tryJoin(Party party, Profile profile, long userId) {
+        synchronized (party) {
+            if (!PartyRoleManager.canJoin(party.getPreset(), party, profile)) {
+                return false;
+            }
+
+            party.addMembers(userId);
+            return true;
+        }
     }
 
     public static void leave(Party party, long userId) {

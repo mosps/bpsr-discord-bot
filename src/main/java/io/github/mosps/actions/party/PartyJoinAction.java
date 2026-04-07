@@ -38,12 +38,10 @@ public class PartyJoinAction implements Action {
                     .error("メインクラスを設定してください。");
         }
 
-        if (!PartyRoleManager.canJoin(party.getPreset(), party, profile)) {
+        if (!PartyManager.tryJoin(party, profile, context.getUserId())) {
             return ActionResult.of()
                     .error("このパーティは満員です。");
         }
-
-        PartyManager.join(party, context.getUserId());
         PartyManager.saveParty(party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);
