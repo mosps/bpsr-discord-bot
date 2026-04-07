@@ -44,9 +44,9 @@ public class BPSRInviteManager {
 ・各Managerの責務を再確認
 ・海武器所持ボタン追加
 ・responder,delete()同様updateを複数メッセージに対してできるように。
-・modal前要素表示
 ・imaginesession時間経過削除
 ・Partyの期限切れ時メッセージ削除
+・ロール制限プリセット時全体制限の追加
 
 複数サーバー仕様　(未定）
 */
