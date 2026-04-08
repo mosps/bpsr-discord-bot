@@ -17,7 +17,7 @@ public class ImaginePageNextAction implements Action {
     public ActionResult execute(ActionContext context) {
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
 
-        if (PageManager.maxPage(session.getCurrentImagines().size()) > session.getPage()) {
+        if (PageManager.hasNext(session.getPage(), session.getAvailableImagines().size())) {
             session.nextPage();
         }
 

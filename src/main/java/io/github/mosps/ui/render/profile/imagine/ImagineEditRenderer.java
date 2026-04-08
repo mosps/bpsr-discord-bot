@@ -1,6 +1,7 @@
 package io.github.mosps.ui.render.profile.imagine;
 
 import io.github.mosps.model.data.Imagines;
+import io.github.mosps.model.party.PartyManager;
 import io.github.mosps.ui.render.BaseRenderer;
 import io.github.mosps.ui.render.RenderResult;
 import io.github.mosps.ui.render.util.PageManager;
@@ -64,7 +65,7 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
 
     private ActionRow createEntryRow(ImagineEditView view) {
         StringSelectMenu imagineEntry = StringSelectMenu.create("profile:imagine_edit:add|" + view.userId)
-                .setPlaceholder("登録するバトルイマジンを選択 (" + view.page + "/" + PageManager.maxPage(view.currentImagines.size()) + ")")
+                .setPlaceholder("登録するバトルイマジンを選択 (" + (view.page + 1) + "/" + PageManager.totalPage(view.availableImagines.size()) + ")")
                 .addOptions(buildImagineOptions(view))
                 .setMaxValues(25)
                 .build();
@@ -103,11 +104,11 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
         Button previous = Button.secondary("profile:imagine_prev:|" + view.userId, "⬅️前のページ");
         Button next = Button.secondary("profile:imagine_next:|" + view.userId, "次のページ➡️️");
 
-        if (view.page == 0) {
-            previous = previous.asDisabled();
-        }
-        if (view.page == PageManager.maxPage(view.currentImagines.size())) {
+        if (!PageManager.hasNext(view.page, view.availableImagines.size())) {
             next = next.asDisabled();
+        }
+        if (!PageManager.hasPrev(view.page)) {
+            previous = previous.asDisabled();
         }
 
         return ActionRow.of(previous, next);
@@ -120,11 +121,7 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
     }
 
     public static List<SelectOption> buildImagineOptions(ImagineEditView view) {
-        List<Imagines> list = Arrays.stream(Imagines.values())
-                .filter(v -> !view.currentImagines.containsKey(v))
-                .toList();
-
-        List<Imagines> current = PageManager.getPage(list, view.page);
+        List<Imagines> current = PageManager.getPage(view.availableImagines, view.page);
 
         return current.stream()
                 .map(v -> SelectOption.of(v.getName(), v.name() + ":" + view.tier)

@@ -8,6 +8,7 @@ import io.github.mosps.model.profile.imagine.ImagineEditManager;
 import io.github.mosps.model.profile.imagine.ImagineEditSession;
 import io.github.mosps.ui.render.MessageRenderer;
 import io.github.mosps.ui.render.RenderResult;
+import io.github.mosps.ui.render.util.PageManager;
 import io.github.mosps.ui.views.profile.imagine.ImagineEditView;
 
 public class ImaginePagePrevAction implements Action {
@@ -16,7 +17,7 @@ public class ImaginePagePrevAction implements Action {
     public ActionResult execute(ActionContext context) {
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
 
-        if (session.getPage() > 0) {
+        if (PageManager.hasPrev(session.getPage())) {
             session.prevPage();
         }
 
