@@ -40,13 +40,25 @@ public class BPSRInviteManager {
 }
 
 /*TODO
-・Party,Profileリスト作成..?
-・各Managerの責務を再確認
-・海武器所持ボタン追加
-・responder,delete()同様updateを複数メッセージに対してできるように。
-・imaginesession時間経過削除
-・Partyの期限切れ時メッセージ削除
-・ロール制限プリセット時全体制限の追加
+不具合修正
+・party close処理を同期化
+・ページ遷移機能の不具合を修正
 
-複数サーバー仕様　(未定）
+準不具合修正
+・ロール制限プリセット時全体制限の追加
+・imagineSession時間経過削除
+
+コード整理
+・各Managerの責務を再確認
+・絵文字をBOT内に保存
+
+機能追加
+・Party,Profileリスト作成..?
+・Partyの期限切れ時メッセージ削除
+・パーティ設定から手動で参加者を登録できるように。
+・海武器所持ボタン追加
+
+複数サーバー仕様
+・responder,delete()同様updateを複数メッセージに対してできるように。
+・プロフィールにギルドid、channelIdを登録
 */
