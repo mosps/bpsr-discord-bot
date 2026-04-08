@@ -12,6 +12,8 @@ public class ImagineMapper implements Mapper<ImagineEditSession, ImagineEditView
     public ImagineEditView map(ImagineEditSession session) {
         ImagineEditView view = new ImagineEditView();
 
+        view.availableImagines = session.getAvailableImagines();
+
         view.currentImagines = session.getCurrentImagines();
 
         view.addImagines = session.getAddImagines();

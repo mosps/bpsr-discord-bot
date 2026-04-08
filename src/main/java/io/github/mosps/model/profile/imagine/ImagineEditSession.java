@@ -2,16 +2,17 @@ package io.github.mosps.model.profile.imagine;
 
 import io.github.mosps.model.data.Imagines;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ImagineEditSession {
     private final long userId;
 
-    private final Map<Imagines, String> currentImagines = new HashMap<>();
+    private final List<Imagines> availableImagines;
 
-    private final Map<Imagines, String> addImagines = new HashMap<>();
-    private final Map<Imagines, String> removeImagines = new HashMap<>();
+    private final Map<Imagines, String> currentImagines;
+
+    private Map<Imagines, String> addImagines = new HashMap<>();
+    private Map<Imagines, String> removeImagines = new HashMap<>();
 
     private String tier;
 
@@ -19,7 +20,8 @@ public class ImagineEditSession {
 
     public ImagineEditSession(long userId, Map<Imagines, String> imagines) {
         this.userId = userId;
-        currentImagines.putAll(imagines);
+        this.currentImagines = imagines;
+        this.availableImagines = createAvailableImagines();
     }
 
     public void add(Imagines imagine, String tier) {
@@ -32,6 +34,16 @@ public class ImagineEditSession {
 
     public long getUserId() {
         return userId;
+    }
+
+    private List<Imagines> createAvailableImagines() {
+        return Arrays.stream(Imagines.values())
+                .filter(v -> !currentImagines.containsKey(v))
+                .toList();
+    }
+
+    public List<Imagines> getAvailableImagines() {
+        return availableImagines;
     }
 
     public Map<Imagines, String> getCurrentImagines() {
