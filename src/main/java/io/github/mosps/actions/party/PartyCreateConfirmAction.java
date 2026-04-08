@@ -19,10 +19,7 @@ public class PartyCreateConfirmAction implements Action {
 
         ModalData data = context.getData(ModalData.class);
 
-        party.setDestination(data.get("destination"));
-        party.setTime(data.get("time"));
-        party.setNote(data.get("note"));
-        PartyManager.saveParty(party);
+        PartyManager.setSettings(party, data.get("destination"),  data.get("time"), data.get("note"));
 
         PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);

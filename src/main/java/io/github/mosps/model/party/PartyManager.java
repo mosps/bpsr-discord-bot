@@ -51,6 +51,17 @@ public class PartyManager {
         }
     }
 
+    public static void setSettings(Party party, String dest, String time, String note) {
+        party.setDestination(dest);
+        party.setTime(time);
+        party.setNote(note);
+        saveParty(party);
+    }
+
+    public static void changePreset(Party party, PartyRolePreset preset) {
+        party.setPreset(preset);
+    }
+
     public static void toggle(Party party) {
         if (party.isClosed()) {
             party.open();
