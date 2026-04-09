@@ -10,9 +10,9 @@ public class ImagineEditManager {
 
     private static final Map<Long, ImagineEditSession> sessions = new ConcurrentHashMap<>();
 
-    public static ImagineEditSession get(long userId) {
+    public static ImagineEditSession get(long guildId, long userId) {
         return sessions.computeIfAbsent(userId, id -> {
-            Profile profile = ProfileManager.getProfile(id);
+            Profile profile = ProfileManager.getProfile(guildId, id);
 
             return new ImagineEditSession(id, profile.getImagines());
         });

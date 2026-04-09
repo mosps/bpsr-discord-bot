@@ -16,11 +16,11 @@ public class ProfileRegisterAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Profile profile = ProfileManager.getProfile(context.getUserId());
+        Profile profile = ProfileManager.getProfile(context.getGuildId(), context.getUserId());
 
         SelectMenuData data = context.getData(SelectMenuData.class);
 
-        profile.setName(context.getName());
+        profile.setName(context.getName());//これいる？
 
         ProfileField field = ProfileField.fromId(context.getCustomId().get("type"));
         if (field == null) {
@@ -30,7 +30,7 @@ public class ProfileRegisterAction implements Action {
         field.reset(profile);
         data.get().forEach(value -> field.apply(profile, value));
 
-        ProfileManager.saveProfile(profile);
+        ProfileManager.saveProfile(context.getGuildId(), profile);
 
         ProfileView view = ViewMapper.map(profile, ProfileView.class);
         RenderResult render = MessageRenderer.render(view);

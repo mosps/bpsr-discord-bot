@@ -16,15 +16,15 @@ public class ImagineConfirmAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Profile profile = ProfileManager.getProfile(context.getUserId());
-        ImagineEditSession session = ImagineEditManager.get(context.getUserId());
+        Profile profile = ProfileManager.getProfile(context.getGuildId(), context.getUserId());
+        ImagineEditSession session = ImagineEditManager.get(context.getGuildId(), context.getUserId());
 
         session.getAddImagines().forEach(profile::addImagine);
         session.getRemoveImagines().keySet().forEach(profile::removeImagine);
 
         ProfileManager.stillOwnedImagines(profile);
 
-        ProfileManager.saveProfile(profile);
+        ProfileManager.saveProfile(context.getGuildId(), profile);
         ImagineEditManager.remove(context.getUserId());
 
         ProfileView view = ViewMapper.map(profile, ProfileView.class);
