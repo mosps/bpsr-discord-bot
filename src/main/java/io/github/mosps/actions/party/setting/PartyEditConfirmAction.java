@@ -15,7 +15,7 @@ public class PartyEditConfirmAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
+        Party party = PartyManager.getParty(context.getGuildId(), context.getCustomId().getLong("partyId"));
         if (party == null) {
             return ActionResult.of()
                     .error("このパーティは期限切れです。");
@@ -34,6 +34,7 @@ public class PartyEditConfirmAction implements Action {
         ModalData data = context.getData(ModalData.class);
 
         PartyManager.setSettings(party, data.get("destination"),  data.get("time"), data.get("note"));
+        PartyManager.saveParty(context.getGuildId(), party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);

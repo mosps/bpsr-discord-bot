@@ -15,7 +15,7 @@ public class PartyLeaveAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
+        Party party = PartyManager.getParty(context.getGuildId(), context.getCustomId().getLong("partyId"));
         if (party == null) {
             return ActionResult.of()
                     .error("このパーティは期限切れです。");
@@ -37,7 +37,7 @@ public class PartyLeaveAction implements Action {
         }
 
         PartyManager.leave(party, context.getUserId());
-        PartyManager.saveParty(party);
+        PartyManager.saveParty(context.getGuildId(), party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);

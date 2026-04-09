@@ -10,7 +10,7 @@ public class PartyDeleteAcceptAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Party party = PartyManager.getParty(context.getCustomId().get("partyId"));
+        Party party = PartyManager.getParty(context.getGuildId(), context.getCustomId().getLong("partyId"));
         if (party == null) {
             return ActionResult.of()
                     .error("このパーティは期限切れです。");
@@ -23,7 +23,7 @@ public class PartyDeleteAcceptAction implements Action {
 
         String messageId = party.getMessageId();
 
-        PartyManager.deleteParty(party);
+        PartyManager.deleteParty(context.getGuildId(), party);
 
         return ActionResult.of().deleteSource().deleteAll(messageId).withEphemeral("パーティを削除しました。", 5);
     }

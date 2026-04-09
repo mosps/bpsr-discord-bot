@@ -15,11 +15,12 @@ public class PartyCreateConfirmAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Party party = PartyManager.createParty(context.getUserId());
+        Party party = PartyManager.createParty(context.getGuildId(), context.getUserId());
 
         ModalData data = context.getData(ModalData.class);
 
         PartyManager.setSettings(party, data.get("destination"),  data.get("time"), data.get("note"));
+        PartyManager.saveParty(context.getGuildId(), party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);
         RenderResult render = MessageRenderer.render(view);
@@ -27,7 +28,7 @@ public class PartyCreateConfirmAction implements Action {
         return ActionResult.of().withReply(render)
                 .afterReply(message -> {
                     party.setMessageId(message.getId());
-                    PartyManager.saveParty(party);
+                    PartyManager.saveParty(context.getGuildId(), party);
                 })
                 .withEphemeral("パーティを作成しました！", 5);
     }
