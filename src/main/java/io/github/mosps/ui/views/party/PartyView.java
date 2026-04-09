@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class PartyView {
     public long ownerId;
-    public String partyId;
+    public long partyId;
     public Set<Long> members;
     public Map<Role, Integer> role;
     public boolean closed;
