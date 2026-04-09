@@ -9,7 +9,7 @@ public class Party {
     private final long partyId;
     private final long createdTime = System.currentTimeMillis();
 
-    private final Set<Long> members = new HashSet<>();
+    private Set<Long> members = new HashSet<>();
 
     private String messageId;
 
