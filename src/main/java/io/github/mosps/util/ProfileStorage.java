@@ -16,15 +16,20 @@ import java.util.stream.Stream;
 public class ProfileStorage {
 
     private static final Gson gson = new Gson();
-    private static final Path path = Paths.get("profiles");
+    private static final Path basePath = Paths.get("data");
 
     private static final Logger logger = Logger.getLogger(ProfileStorage.class.getName());
 
-    public static void save(Profile profile) {
-        try {
-            Files.createDirectories(path);
+    private static Path getGuilDPath(long guildId) {
+        return basePath.resolve("guild_" + guildId).resolve("profiles");
+    }
 
-            Path file = path.resolve(profile.getUserId() + ".json");
+    public static void save(long guildId, Profile profile) {
+        try {
+            Path dir = getGuilDPath(guildId);
+            Files.createDirectories(dir);
+
+            Path file = dir.resolve(profile.getUserId() + ".json");
             String json = gson.toJson(profile);
 
             Files.writeString(file, json);
@@ -33,9 +38,10 @@ public class ProfileStorage {
         }
     }
 
-    public static Profile load(long userId) {
+    public static Profile load(long guildId, long userId) {
         try {
-            Path file = path.resolve(userId + ".json");
+            Path dir = getGuilDPath(guildId);
+            Path file = dir.resolve(userId + ".json");
 
             if (!Files.exists(file)) return null;
 
@@ -49,13 +55,17 @@ public class ProfileStorage {
         return null;
     }
 
-    public static Map<Long, Profile> loadAll() {
+    public static Map<Long, Profile> loadGuild(long guildId) {
         Map<Long, Profile> profiles = new HashMap<>();
 
-        try {
-            Files.createDirectories(path);
+        Path dir = getGuilDPath(guildId);
 
-            try (Stream<Path> paths = Files.list(path)) {
+        try {
+            if (!Files.exists(dir)) return profiles;
+
+            Files.createDirectories(dir);
+
+            try (Stream<Path> paths = Files.list(dir)) {
                 paths.forEach(file -> {
                     try {
                         String json = Files.readString(file);
