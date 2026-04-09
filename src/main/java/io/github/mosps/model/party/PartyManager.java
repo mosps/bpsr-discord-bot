@@ -4,34 +4,55 @@ import io.github.mosps.model.profile.Profile;
 import io.github.mosps.util.PartyStorage;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class PartyManager {
-    private static final Map<String, Party> parties = new ConcurrentHashMap<>();
+    private static Map<Long, Map<Long, Party>> partiesByGuild = new ConcurrentHashMap<>();
+    private static Set<Long> loadedGuilds = ConcurrentHashMap.newKeySet();
+
+    private static Map<Long, AtomicLong> counters = new ConcurrentHashMap<>();
 
     private static final ScheduledExecutorService cleaner = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> cleanerTask;
 
     private static final long TIMEOUT = TimeUnit.DAYS.toMillis(30);
 
-    public static void register(String partyId, Party party) {
-        PartyManager.parties.put(partyId, party);
+    private static void register(long guildId, long partyId, Party party) {
+        partiesByGuild.computeIfAbsent(guildId, k -> new ConcurrentHashMap<>())
+                .put(partyId, party);
     }
 
-    public static void loadAll() {
-        parties.putAll(PartyStorage.loadAll());
+    private static void ensureLoaded(long guildId) {
+        if (loadedGuilds.contains(guildId)) return;
+
+        synchronized (PartyManager.class) {
+            if (loadedGuilds.contains(guildId)) return;
+
+            Map<Long, Party> loaded = PartyStorage.loadGuild(guildId);
+            partiesByGuild.put(guildId, new ConcurrentHashMap<>(loaded));
+
+            initCounter(guildId);
+
+            loadedGuilds.add(guildId);
+        }
     }
 
-    public static void initCounter() {
-        int max = parties.keySet().stream()
-                .mapToInt(Integer::parseInt)
+    private static void initCounter(long guildId) {
+        long max = partiesByGuild.getOrDefault(guildId, Map.of()).keySet().stream()
+                .mapToLong(Long::longValue)
                 .max().orElse(0);
 
-        Party.setCounter(max);
+        counters.put(guildId, new AtomicLong(max));
     }
 
-    public static void saveParty(Party party) {
-        PartyStorage.save(party);
+    private static long generatePartyId(long guildId) {
+        return counters.computeIfAbsent(guildId, k -> new AtomicLong(0)).incrementAndGet();
+    }
+
+    public static void saveParty(long guildId, Party party) {
+        PartyStorage.save(guildId, party);
     }
 
     public static synchronized boolean tryJoin(Party party, Profile profile, long userId) {
@@ -55,7 +76,6 @@ public class PartyManager {
         party.setDestination(dest);
         party.setTime(time);
         party.setNote(note);
-        saveParty(party);
     }
 
     public static void changePreset(Party party, PartyRolePreset preset) {
@@ -70,20 +90,23 @@ public class PartyManager {
         }
     }
 
-    public static Party createParty(long ownerId) {
-        Party party = new Party(ownerId);
-        register(party.getPartyId(), party);
+    public static Party createParty(long guildId, long ownerId) {
+        ensureLoaded(guildId);
+
+        Party party = new Party(generatePartyId(guildId), ownerId);
+        register(guildId, party.getPartyId(), party);
 
         return party;
     }
 
-    public static Party getParty(String partyId) {
-        return parties.get(partyId);
+    public static Party getParty(long guildId, long partyId) {
+        ensureLoaded(guildId);
+        return partiesByGuild.getOrDefault(guildId, Map.of()).get(partyId);
     }
 
-    public static void deleteParty(Party party) {
-        parties.remove(party.getPartyId());
-        PartyStorage.delete(party);
+    public static void deleteParty(long guildId, Party party) {
+        partiesByGuild.get(guildId).remove(party.getPartyId());
+        PartyStorage.delete(guildId, party);
     }
 
     public static synchronized void startCleaner() {
@@ -92,11 +115,13 @@ public class PartyManager {
         cleanerTask = cleaner.scheduleAtFixedRate(() -> {
             long currentTime = System.currentTimeMillis();
 
-            parties.entrySet().removeIf(entry -> {
-                Party party = entry.getValue();
+            partiesByGuild.values().forEach(partyMap ->
+                    partyMap.entrySet().removeIf(entry -> {
+                        Party party = entry.getValue();
 
-                return currentTime - party.getCreatedTime() > TIMEOUT;
-            });
+                        return currentTime - party.getCreatedTime() > TIMEOUT;
+                    })
+            );
         }, 1, 1, TimeUnit.DAYS);
     }
 }
