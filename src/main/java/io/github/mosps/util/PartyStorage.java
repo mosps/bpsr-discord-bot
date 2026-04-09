@@ -16,15 +16,20 @@ import java.util.stream.Stream;
 public class PartyStorage {
 
     private static final Gson gson = new Gson();
-    private static final Path path = Paths.get("parties");
+    private static final Path basePath = Paths.get("data");
 
     private static final Logger logger = Logger.getLogger(PartyStorage.class.getName());
 
-    public static void save(Party party) {
-        try {
-            Files.createDirectories(path);
+    private static Path getGuildPath(long guildId) {
+        return basePath.resolve("guild_" + guildId).resolve("parties");
+    }
 
-            Path file = path.resolve(party.getPartyId() + ".json");
+    public static void save(long guildId, Party party) {
+        try {
+            Path dir = getGuildPath(guildId);
+            Files.createDirectories(dir);
+
+            Path file = dir.resolve(party.getPartyId() + ".json");
             String json = gson.toJson(party);
 
             Files.writeString(file, json);
@@ -33,9 +38,10 @@ public class PartyStorage {
         }
     }
 
-    public static void delete(Party party) {
+    public static void delete(long guildId, Party party) {
         try {
-            Path file = path.resolve(party.getPartyId() + ".json");
+            Path dir = getGuildPath(guildId);
+            Path file = dir.resolve(party.getPartyId() + ".json");
 
             if (Files.exists(file)) {
                 Files.delete(file);
@@ -45,9 +51,10 @@ public class PartyStorage {
         }
     }
 
-    public static Party load(String partyId) {
+    public static Party load(long guildId, long partyId) {
         try {
-            Path file = path.resolve(partyId + ".json");
+            Path dir = getGuildPath(guildId);
+            Path file = dir.resolve(partyId + ".json");
 
             if (!Files.exists(file)) return null;
 
@@ -61,13 +68,15 @@ public class PartyStorage {
         return null;
     }
 
-    public static Map<String, Party> loadAll() {
-        Map<String, Party> parties = new HashMap<>();
+    public static Map<Long, Party> loadGuild(long guildId) {
+        Map<Long, Party> parties = new HashMap<>();
+
+        Path dir = getGuildPath(guildId);
 
         try {
-            Files.createDirectories(path);
+            if (!Files.exists(dir)) return parties;
 
-            try (Stream<Path> paths = Files.list(path)) {
+            try (Stream<Path> paths = Files.list(dir)) {
                 paths.forEach(file -> {
                     try {
                         String json = Files.readString(file);
@@ -79,7 +88,7 @@ public class PartyStorage {
                 });
             }
         }  catch (IOException e) {
-            logger.log(Level.WARNING, "Could not load parties", e);
+            logger.log(Level.WARNING, "Could not load guild parties", e);
         }
 
         return parties;
