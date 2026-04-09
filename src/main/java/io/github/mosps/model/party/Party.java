@@ -5,10 +5,8 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Party {
-    private static final AtomicInteger counter = new AtomicInteger();
-
     private final long ownerId;
-    private final String partyId = String.valueOf(counter.incrementAndGet());
+    private final long partyId;
     private final long createdTime = System.currentTimeMillis();
 
     private final Set<Long> members = new HashSet<>();
@@ -23,12 +21,9 @@ public class Party {
 
     private boolean closed = false;
 
-    public Party(long ownerId) {
+    public Party(long partyId, long ownerId) {
+        this.partyId = partyId;
         this.ownerId = ownerId;
-    }
-
-    public static void setCounter(int counter) {
-        Party.counter.set(counter);
     }
 
     public void setMessageId(String messageId) {
@@ -91,7 +86,7 @@ public class Party {
         return ownerId;
     }
 
-    public String getPartyId() {
+    public long getPartyId() {
         return partyId;
     }
 
