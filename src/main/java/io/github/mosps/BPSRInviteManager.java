@@ -32,16 +32,14 @@ public class BPSRInviteManager {
                 .setRawEventsEnabled(true)
                 .build();
 
-        PartyManager.loadAll();
         ProfileManager.loadAll();
-
-        PartyManager.initCounter();
     }
 }
 
 /*TODO
 不具合修正
 ・party close処理を同期化
+    優先度:高
 
 準不具合修正
 ・imagineSession時間経過削除
@@ -53,22 +51,21 @@ public class BPSRInviteManager {
 
 機能追加
 ・Party,Profileリスト作成..?
-    優先度:高
-・Partyの期限切れ時メッセージ削除
     優先度:中
+・Partyの期限切れ時メッセージ削除
+    優先度:低
 ・パーティ設定から手動で参加者を登録できるように。
-    優先度:高
+    優先度:中
 ・海武器所持ボタン追加
     優先度:低
 
 複数サーバー仕様
 ・プロフィールにギルドid、channelIdを登録
+    優先度:高
 
 未定
-・responder,delete()同様updateを複数メッセージに対してできるように。
+・responderをdelete()同様updateを複数メッセージに対してできるように。
     サーバー単位設計で完全個別管理予定、今後必要がでたら公開パーティ等も考える
 ・ロール制限プリセット時全体制限の追加
     リファクタのリスク高め、エラーが出てからでも遅くない、現状パーティ操作の同期化をしたので発生リスクは低
-
-
 */
