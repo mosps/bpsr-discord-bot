@@ -1,9 +1,6 @@
 package io.github.mosps;
 
 import io.github.mosps.jda.listener.*;
-import io.github.mosps.model.party.PartyManager;
-import io.github.mosps.model.profile.ProfileManager;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -14,7 +11,7 @@ public class BPSRInviteManager {
     public void botStart(String[] args) {
         String token = args[0];
 
-        JDA jda = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS)
+        JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS)
                 .addEventListeners(
                         new SlashCommandListener(),
                         new MessageButtonListener(),
@@ -31,8 +28,6 @@ public class BPSRInviteManager {
                 .setActivity(Activity.playing("デバッグ中"))
                 .setRawEventsEnabled(true)
                 .build();
-
-        ProfileManager.loadAll();
     }
 }
 
@@ -60,7 +55,7 @@ public class BPSRInviteManager {
     優先度:低
 
 複数サーバー仕様
-・プロフィールにギルドid、channelIdを登録
+・プロフィールにギルドid、channelIdを登録(partyRenderer修正のみ）
     優先度:高
 
 未定
