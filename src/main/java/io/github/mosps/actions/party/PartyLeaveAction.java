@@ -31,11 +31,6 @@ public class PartyLeaveAction implements Action {
                     .error("パーティに参加していません。");
         }
 
-        if (ProfileManager.getProfile(context.getUserId()) == null) {
-            return ActionResult.of()
-                    .error("プロフィールを作成してください。");
-        }
-
         PartyManager.leave(party, context.getUserId());
         PartyManager.saveParty(context.getGuildId(), party);
 
