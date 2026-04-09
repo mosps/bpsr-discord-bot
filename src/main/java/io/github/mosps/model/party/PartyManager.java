@@ -12,7 +12,7 @@ public class PartyManager {
     private static final ScheduledExecutorService cleaner = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> cleanerTask;
 
-    private static final long TIMEOUT = TimeUnit.DAYS.toMillis(7);
+    private static final long TIMEOUT = TimeUnit.DAYS.toMillis(30);
 
     public static void register(String partyId, Party party) {
         PartyManager.parties.put(partyId, party);
