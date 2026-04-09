@@ -11,10 +11,11 @@ import io.github.mosps.jda.response.SelectMenuResponder;
 import io.github.mosps.util.customid.CustomId;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
 
-public class SelectMenuHandler {
+public class SelectMenuHandler extends Handler {
 
     public static void handle(StringSelectInteractionEvent event) {
         CustomId customId = CustomId.of(event.getComponentId());
+        long guildId = requireGuildId(event);
         String messageId = event.getMessageId();
         long userId = event.getUser().getIdLong();
         String name = event.getMember() == null
@@ -28,7 +29,7 @@ public class SelectMenuHandler {
             return;
         }
 
-        ActionContext context = new ActionContext(messageId, userId, name, customId, new SelectMenuData(event.getValues()));
+        ActionContext context = new ActionContext(guildId, messageId, userId, name, customId, new SelectMenuData(event.getValues()));
         Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);

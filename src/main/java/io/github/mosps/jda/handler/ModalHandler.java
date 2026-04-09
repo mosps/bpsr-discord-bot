@@ -15,10 +15,11 @@ import net.dv8tion.jda.api.interactions.modals.ModalMapping;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ModalHandler {
+public class ModalHandler extends Handler {
 
     public static void handle(ModalInteractionEvent event) {
         CustomId customId = CustomId.of(event.getModalId());
+        long guildId = requireGuildId(event);
         long userId = event.getUser().getIdLong();
         String name = event.getMember() == null
                 ? event.getUser().getEffectiveName()
@@ -30,7 +31,7 @@ public class ModalHandler {
                         ModalMapping::getAsString
                 ));
 
-        ActionContext context = new ActionContext(null, userId, name, customId, new ModalData(values));
+        ActionContext context = new ActionContext(guildId, null, userId, name, customId, new ModalData(values));
         Action action = ActionManager.get(customId.getKey());
 
         ActionResult result = action.execute(context);
