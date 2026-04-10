@@ -16,7 +16,7 @@ public class ImagineEditAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        ImagineEditSession session = ImagineEditManager.get(context.getGuildId(), context.getUserId());
+        ImagineEditSession session = ImagineEditManager.get(context.getUserId());
 
         SelectMenuData data = context.isEmptyData()
                 ? null

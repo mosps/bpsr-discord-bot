@@ -15,7 +15,7 @@ public class ImaginePageNextAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        ImagineEditSession session = ImagineEditManager.get(context.getGuildId(), context.getUserId());
+        ImagineEditSession session = ImagineEditManager.get(context.getUserId());
 
         if (PageManager.hasNext(session.getPage(), session.getAvailableImagines().size())) {
             session.nextPage();
