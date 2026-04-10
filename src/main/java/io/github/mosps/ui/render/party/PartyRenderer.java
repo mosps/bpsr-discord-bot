@@ -69,10 +69,8 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
         }
 
         Map<Role, Long> counts = view.members.stream()
-                .map(ProfileManager::getProfile)
-                .map(Profile::getMainClass)
                 .collect(Collectors.groupingBy(
-                        Classes::getRole,
+                        memberView -> memberView.role,
                         Collectors.counting()
                 ));
 
@@ -94,11 +92,10 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
     private String buildMembersString(PartyView view) {
         StringBuilder stringBuilder = new StringBuilder();
-        view.members.forEach(id -> {
-                    Profile profile = ProfileManager.getProfile(id);
-                    stringBuilder.append("<@").append(id).append("> ")
-                            .append(profile.getMainClass().getEmoji()).append(profile.getMainClass().getStyle()).append(" ")
-                            .append(getEquippedImaginesView(profile.getEquippedImagines())).append(" ")
+        view.members.forEach(memberView -> {
+                    stringBuilder.append("<@").append(memberView.userId).append("> ")
+                            .append(memberView.emoji).append(memberView.style).append(" ")
+                            .append(memberView.imagines).append(" ")
                             .append("\n");
                 }
         );
@@ -117,14 +114,6 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
     private Button createPartySettingButton(PartyView view) {
         return Button.secondary("party:setting:" + view.partyId, "⚙");
-    }
-
-    private String getEquippedImaginesView(Map<Imagines, String> equippedImagines) {
-       return equippedImagines.isEmpty()
-                ? ""
-                : equippedImagines.entrySet().stream()
-                .map(entry -> entry.getKey().getDisplay() + entry.getValue())
-                .collect(Collectors.joining(""));
     }
 
     private List<Button> disableIf(boolean condition, List<Button> buttons) {
