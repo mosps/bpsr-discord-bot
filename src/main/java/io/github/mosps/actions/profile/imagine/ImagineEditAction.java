@@ -17,6 +17,9 @@ public class ImagineEditAction implements Action {
     @Override
     public ActionResult execute(ActionContext context) {
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
+        if (session == null) {
+            return ActionResult.of().error("このセッションは期限切れです。");
+        }
 
         SelectMenuData data = context.isEmptyData()
                 ? null

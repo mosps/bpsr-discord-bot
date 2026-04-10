@@ -18,6 +18,9 @@ public class ImagineConfirmAction implements Action {
     public ActionResult execute(ActionContext context) {
         Profile profile = ProfileManager.getProfile(context.getUserId());
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
+        if (session == null) {
+            return ActionResult.of().error("このセッションは期限切れです。");
+        }
 
         session.getAddImagines().forEach(profile::addImagine);
         session.getRemoveImagines().keySet().forEach(profile::removeImagine);

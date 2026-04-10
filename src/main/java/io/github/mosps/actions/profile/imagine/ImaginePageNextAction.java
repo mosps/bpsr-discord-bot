@@ -16,6 +16,9 @@ public class ImaginePageNextAction implements Action {
     @Override
     public ActionResult execute(ActionContext context) {
         ImagineEditSession session = ImagineEditManager.get(context.getUserId());
+        if (session == null) {
+            return ActionResult.of().error("このセッションは期限切れです。");
+        }
 
         if (PageManager.hasNext(session.getPage(), session.getAvailableImagines().size())) {
             session.nextPage();

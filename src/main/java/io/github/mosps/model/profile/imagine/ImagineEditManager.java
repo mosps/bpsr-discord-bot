@@ -17,6 +17,9 @@ public class ImagineEditManager {
 
     public static ImagineEditSession get(long userId) {
         ImagineEditSession session = sessions.get(userId);
+        if (session == null) {
+            return null;
+        }
 
         session.updateTime();
 
