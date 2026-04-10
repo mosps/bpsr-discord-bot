@@ -1,4 +1,4 @@
-package io.github.mosps.util;
+package io.github.mosps.util.storage;
 
 import com.google.gson.Gson;
 import io.github.mosps.model.profile.Profile;
@@ -16,20 +16,15 @@ import java.util.stream.Stream;
 public class ProfileStorage {
 
     private static final Gson gson = new Gson();
-    private static final Path basePath = Paths.get("data");
+    private static final Path basePath = Paths.get("data").resolve("profiles");
 
     private static final Logger logger = Logger.getLogger(ProfileStorage.class.getName());
 
-    private static Path getGuilDPath(long guildId) {
-        return basePath.resolve("guild_" + guildId).resolve("profiles");
-    }
-
-    public static void save(long guildId, Profile profile) {
+    public static void save(Profile profile) {
         try {
-            Path dir = getGuilDPath(guildId);
-            Files.createDirectories(dir);
+            Files.createDirectories(basePath);
 
-            Path file = dir.resolve(profile.getUserId() + ".json");
+            Path file = basePath.resolve(profile.getUserId() + ".json");
             String json = gson.toJson(profile);
 
             Files.writeString(file, json);
@@ -38,10 +33,9 @@ public class ProfileStorage {
         }
     }
 
-    public static Profile load(long guildId, long userId) {
+    public static Profile load(long userId) {
         try {
-            Path dir = getGuilDPath(guildId);
-            Path file = dir.resolve(userId + ".json");
+            Path file = basePath.resolve(userId + ".json");
 
             if (!Files.exists(file)) return null;
 
@@ -55,17 +49,13 @@ public class ProfileStorage {
         return null;
     }
 
-    public static Map<Long, Profile> loadGuild(long guildId) {
+    public static Map<Long, Profile> loadAll() {
         Map<Long, Profile> profiles = new HashMap<>();
 
-        Path dir = getGuilDPath(guildId);
-
         try {
-            if (!Files.exists(dir)) return profiles;
+            Files.createDirectories(basePath);
 
-            Files.createDirectories(dir);
-
-            try (Stream<Path> paths = Files.list(dir)) {
+            try (Stream<Path> paths = Files.list(basePath)) {
                 paths.forEach(file -> {
                     try {
                         String json = Files.readString(file);

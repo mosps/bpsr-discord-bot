@@ -17,7 +17,7 @@ public class ProfileCreateAction implements Action {
         Profile profile = ProfileManager.getOrCreateProfile(context.getGuildId(), context.getUserId());
 
         profile.setName(context.getName());//これいる？
-        ProfileManager.saveProfile(context.getGuildId(), profile);
+        ProfileManager.saveProfile(profile);
 
         ProfileView view = ViewMapper.map(profile, ProfileView.class);
         RenderResult render = MessageRenderer.render(view);

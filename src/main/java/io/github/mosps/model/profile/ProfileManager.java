@@ -1,56 +1,56 @@
 package io.github.mosps.model.profile;
 
-import io.github.mosps.util.ProfileStorage;
+import io.github.mosps.util.storage.ProfileStorage;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ProfileManager {
 
-    private static Map<Long, Map<Long, Profile>> profilesByGuild = new ConcurrentHashMap<>();
-    private static Set<Long> loadedGuilds = ConcurrentHashMap.newKeySet();
+    private static Map<Long, Profile> profiles = new ConcurrentHashMap<>();
+    private static Map<Long, Set<Long>> guildMembers = new ConcurrentHashMap<>();
 
-    private static void ensureLoaded(long guildId) {
-        if (loadedGuilds.contains(guildId)) return;
+    public static void loadAll() {
+        profiles.putAll(ProfileStorage.loadAll());
+    }
+    
+    public static void registerGuildMember(long guildId, long userId) {
+        Set<Long> members = guildMembers.computeIfAbsent(guildId, k -> new HashSet<>());
 
-        synchronized (ProfileManager.class) {
-            if (loadedGuilds.contains(guildId)) return;
+        if (members.add(userId)) {
 
-            Map<Long, Profile> loaded = ProfileStorage.loadGuild(guildId);
-            profilesByGuild.put(guildId, new ConcurrentHashMap<>(loaded));
-
-            loadedGuilds.add(guildId);
         }
     }
 
+    public static List<Profile> getGuildProfiles(long guildId) {
+        return guildMembers.getOrDefault(guildId, Set.of()).stream()
+                .map(profiles::get)
+                .toList();
+    }
+
     public static Profile getProfile(long guildId, long userId) {
-        ensureLoaded(guildId);
-        return profilesByGuild.getOrDefault(guildId, Map.of()).get(userId);
+        registerGuildMember(guildId, userId);
+        return profiles.get(userId);
     }
 
     public static Profile getOrCreateProfile(long guildId, long userId) {
-        ensureLoaded(userId);
+        Profile profile = profiles.get(userId);
 
-        return profilesByGuild
-                .computeIfAbsent(guildId, k -> new ConcurrentHashMap<>())
-                .computeIfAbsent(userId, id -> {
-                    Profile profile = new Profile(userId);
-                    saveProfile(guildId, profile);
-                    return profile;
-                });
-    }
+        registerGuildMember(guildId, userId);
 
-    public static Profile createProfile(long guildId, long userId) {
-        Profile profile = new Profile(userId);
-        profilesByGuild.computeIfAbsent(guildId, k -> new ConcurrentHashMap<>())
-                .put(userId, profile);
+        if (profile == null) {
+            profile = new Profile(userId);
+            profiles.put(userId, profile);
+        }
 
         return profile;
     }
 
-    public static void saveProfile(long guildId, Profile profile) {
-        ProfileStorage.save(guildId, profile);
+    public static void saveProfile(Profile profile) {
+        ProfileStorage.save(profile);
     }
 
     public static void stillOwnedImagines(Profile profile) {

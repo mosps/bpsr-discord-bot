@@ -24,7 +24,7 @@ public class ImagineConfirmAction implements Action {
 
         ProfileManager.stillOwnedImagines(profile);
 
-        ProfileManager.saveProfile(context.getGuildId(), profile);
+        ProfileManager.saveProfile(profile);
         ImagineEditManager.remove(context.getUserId());
 
         ProfileView view = ViewMapper.map(profile, ProfileView.class);

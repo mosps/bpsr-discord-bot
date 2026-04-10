@@ -30,7 +30,7 @@ public class ProfileRegisterAction implements Action {
         field.reset(profile);
         data.get().forEach(value -> field.apply(profile, value));
 
-        ProfileManager.saveProfile(context.getGuildId(), profile);
+        ProfileManager.saveProfile(profile);
 
         ProfileView view = ViewMapper.map(profile, ProfileView.class);
         RenderResult render = MessageRenderer.render(view);
