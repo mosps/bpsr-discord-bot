@@ -21,7 +21,7 @@ public class PartyStorage {
     private static final Logger logger = Logger.getLogger(PartyStorage.class.getName());
 
     private static Path getGuildPath(long guildId) {
-        return basePath.resolve("guild_" + guildId).resolve("parties");
+        return basePath.resolve("parties").resolve("guild_" + guildId);
     }
 
     public static void save(long guildId, Party party) {
