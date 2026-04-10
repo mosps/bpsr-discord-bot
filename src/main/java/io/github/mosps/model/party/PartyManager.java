@@ -1,5 +1,8 @@
 package io.github.mosps.model.party;
 
+import io.github.mosps.actions.ActionResult;
+import io.github.mosps.model.party.result.JoinResult;
+import io.github.mosps.model.party.result.LeaveResult;
 import io.github.mosps.model.profile.Profile;
 import io.github.mosps.util.storage.PartyStorage;
 
@@ -55,20 +58,37 @@ public class PartyManager {
         PartyStorage.save(guildId, party);
     }
 
-    public static synchronized boolean tryJoin(Party party, Profile profile, long userId) {
+    public static JoinResult tryJoin(Party party, Profile profile, long userId) {
         synchronized (party) {
+            if (party.isClosed()) {
+                return JoinResult.CLOSED;
+            }
+            if (profile == null) {
+                return JoinResult.NONE_PROFILE;
+            }
+            if (profile.getMainClass() == null) {
+                return JoinResult.UNKNOWN_CLASS;
+            }
             if (!PartyRoleManager.canJoin(party.getPreset(), party, profile)) {
-                return false;
+                return JoinResult.FULL;
             }
 
             party.addMembers(userId);
-            return true;
+            return JoinResult.SUCCESS;
         }
     }
 
-    public static synchronized void leave(Party party, long userId) {
+    public static LeaveResult leave(Party party, long userId) {
         synchronized (party) {
+            if (party.isClosed()) {
+                return LeaveResult.CLOSED;
+            }
+            if (!party.getMembers().contains(userId)) {
+                return LeaveResult.NOT_JOINED;
+            }
+
             party.removeMembers(userId);
+            return LeaveResult.SUCCESS;
         }
     }
 

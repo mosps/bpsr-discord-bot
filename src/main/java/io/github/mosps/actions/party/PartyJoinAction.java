@@ -3,6 +3,7 @@ package io.github.mosps.actions.party;
 import io.github.mosps.actions.Action;
 import io.github.mosps.actions.ActionContext;
 import io.github.mosps.actions.ActionResult;
+import io.github.mosps.model.party.result.JoinResult;
 import io.github.mosps.ui.mapper.ViewMapper;
 import io.github.mosps.model.party.Party;
 import io.github.mosps.model.party.PartyManager;
@@ -23,26 +24,14 @@ public class PartyJoinAction implements Action {
                     .error("このパーティは期限切れです。");
         }
 
-        if (party.isClosed()) {
-            return ActionResult.of()
-                    .error("このパーティは締め切り済みです。");
-        }
-
         Profile profile = ProfileManager.getProfile(context.getUserId());
         ProfileManager.registerGuildMember(context.getGuildId(), context.getUserId());
-        if (profile == null) {
-            return ActionResult.of()
-                    .error("プロフィールを作成してください。");
-        }
-        if (profile.getMainClass() == null) {
-            return ActionResult.of()
-                    .error("メインクラスを設定してください。");
+
+        JoinResult result = PartyManager.tryJoin(party, profile, context.getUserId());
+        if (result != JoinResult.SUCCESS) {
+            return ActionResult.of().error(result.getMessage());
         }
 
-        if (!PartyManager.tryJoin(party, profile, context.getUserId())) {
-            return ActionResult.of()
-                    .error("このパーティは満員です。");
-        }
         PartyManager.saveParty(context.getGuildId(), party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);

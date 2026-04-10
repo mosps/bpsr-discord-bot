@@ -3,6 +3,7 @@ package io.github.mosps.actions.party;
 import io.github.mosps.actions.Action;
 import io.github.mosps.actions.ActionContext;
 import io.github.mosps.actions.ActionResult;
+import io.github.mosps.model.party.result.LeaveResult;
 import io.github.mosps.ui.mapper.ViewMapper;
 import io.github.mosps.model.party.Party;
 import io.github.mosps.model.party.PartyManager;
@@ -21,17 +22,11 @@ public class PartyLeaveAction implements Action {
                     .error("このパーティは期限切れです。");
         }
 
-        if (party.isClosed()) {
-            return ActionResult.of()
-                    .error("このパーティは締め切り済みです。");
+        LeaveResult result = PartyManager.leave(party, context.getUserId());
+        if (result != LeaveResult.SUCCESS) {
+            return ActionResult.of().error(result.getMessage());
         }
 
-        if (!party.getMembers().contains(context.getUserId())) {
-            return ActionResult.of()
-                    .error("パーティに参加していません。");
-        }
-
-        PartyManager.leave(party, context.getUserId());
         PartyManager.saveParty(context.getGuildId(), party);
 
         PartyView view = ViewMapper.map(party, PartyView.class);
