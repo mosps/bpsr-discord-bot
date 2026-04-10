@@ -34,21 +34,11 @@ public class CustomId {
     }
 
     public String get(String mapKey) {
-        String value = args.get(mapKey);
-
-        if (value == null) {
-            throw new IllegalArgumentException("Missing customId key: " + mapKey);
-        }
-
         return args.get(mapKey);
     }
 
     public long getLong(String mapKey) {
         String value = get(mapKey);
-
-        if (value == null) {
-            throw new IllegalArgumentException("Missing customId key: " + mapKey);
-        }
 
         try {
             return Long.parseLong(value);
