@@ -1,5 +1,6 @@
 package io.github.mosps.model.profile;
 
+import io.github.mosps.util.storage.GuildMemberStorage;
 import io.github.mosps.util.storage.ProfileStorage;
 
 import java.util.HashSet;
@@ -15,13 +16,14 @@ public class ProfileManager {
 
     public static void loadAll() {
         profiles.putAll(ProfileStorage.loadAll());
+        guildMembers.putAll(GuildMemberStorage.loadAll());
     }
     
     public static void registerGuildMember(long guildId, long userId) {
         Set<Long> members = guildMembers.computeIfAbsent(guildId, k -> new HashSet<>());
 
         if (members.add(userId)) {
-
+            GuildMemberStorage.save(guildMembers);
         }
     }
 
