@@ -7,10 +7,7 @@ import io.github.mosps.actions.party.setting.*;
 import io.github.mosps.actions.profile.ProfileAdminAction;
 import io.github.mosps.actions.profile.ProfileCreateAction;
 import io.github.mosps.actions.profile.ProfileRegisterAction;
-import io.github.mosps.actions.profile.imagine.ImagineConfirmAction;
-import io.github.mosps.actions.profile.imagine.ImagineEditAction;
-import io.github.mosps.actions.profile.imagine.ImaginePageNextAction;
-import io.github.mosps.actions.profile.imagine.ImaginePagePrevAction;
+import io.github.mosps.actions.profile.imagine.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +33,7 @@ public class ActionManager {
 
         register("profile:create", new ProfileCreateAction());
         register("profile:register", new ProfileRegisterAction());
+        register("profile:imagine_create", new ImagineCreateAction());
         register("profile:imagine_edit", new ImagineEditAction());
         register("profile:imagine_confirm", new ImagineConfirmAction());
         register("profile:imagine_next", new ImaginePageNextAction());
