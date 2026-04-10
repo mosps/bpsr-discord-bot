@@ -1,6 +1,7 @@
 package io.github.mosps;
 
 import io.github.mosps.jda.listener.*;
+import io.github.mosps.model.profile.ProfileManager;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -28,6 +29,8 @@ public class BPSRInviteManager {
                 .setActivity(Activity.playing("デバッグ中"))
                 .setRawEventsEnabled(true)
                 .build();
+
+        ProfileManager.loadAll();
     }
 }
 
