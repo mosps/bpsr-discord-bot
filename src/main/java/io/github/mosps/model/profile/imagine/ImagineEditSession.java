@@ -5,7 +5,7 @@ import io.github.mosps.model.data.Imagines;
 import java.util.*;
 
 public class ImagineEditSession {
-    private long lastTime;
+    private long lastTime = System.currentTimeMillis();
 
     private final long userId;
 
