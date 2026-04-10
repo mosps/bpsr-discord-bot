@@ -5,6 +5,8 @@ import io.github.mosps.model.data.Imagines;
 import java.util.*;
 
 public class ImagineEditSession {
+    private final long createdTime = System.currentTimeMillis();
+
     private final long userId;
 
     private final List<Imagines> availableImagines;
@@ -34,6 +36,10 @@ public class ImagineEditSession {
 
     public long getUserId() {
         return userId;
+    }
+
+    public long getCreatedTime() {
+        return createdTime;
     }
 
     private List<Imagines> createAvailableImagines() {
