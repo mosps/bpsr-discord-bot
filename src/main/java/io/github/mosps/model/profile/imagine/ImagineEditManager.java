@@ -12,7 +12,7 @@ public class ImagineEditManager {
 
     public static ImagineEditSession get(long guildId, long userId) {
         return sessions.computeIfAbsent(userId, id -> {
-            Profile profile = ProfileManager.getProfile(guildId, id);
+            Profile profile = ProfileManager.getProfile(id);
 
             return new ImagineEditSession(id, profile.getImagines());
         });

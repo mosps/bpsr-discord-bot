@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class PartyRoleManager {
 
-    public static boolean canJoin(long guildId, PartyRolePreset preset, Party party, Profile profile) {
+    public static boolean canJoin(PartyRolePreset preset, Party party, Profile profile) {
         Role role = profile.getMainClass().getRole();
         Map<Role, Integer> presetMap = preset.getValue();
 
@@ -23,7 +23,7 @@ public class PartyRoleManager {
             int limit = presetMap.get(role);
 
             long count = party.getMembers().stream()
-                    .map(id -> ProfileManager.getProfile(guildId, id))
+                    .map(ProfileManager::getProfile)
                     .map(Profile::getMainClass)
                     .filter(c -> c.getRole() == role)
                     .count();

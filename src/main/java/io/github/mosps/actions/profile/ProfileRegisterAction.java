@@ -16,7 +16,7 @@ public class ProfileRegisterAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Profile profile = ProfileManager.getProfile(context.getGuildId(), context.getUserId());
+        Profile profile = ProfileManager.getProfile(context.getUserId());
 
         SelectMenuData data = context.getData(SelectMenuData.class);
 

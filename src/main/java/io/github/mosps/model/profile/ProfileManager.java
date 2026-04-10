@@ -33,8 +33,7 @@ public class ProfileManager {
                 .toList();
     }
 
-    public static Profile getProfile(long guildId, long userId) {
-        registerGuildMember(guildId, userId);
+    public static Profile getProfile(long userId) {
         return profiles.get(userId);
     }
 

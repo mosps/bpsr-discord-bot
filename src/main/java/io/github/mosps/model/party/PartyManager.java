@@ -55,9 +55,9 @@ public class PartyManager {
         PartyStorage.save(guildId, party);
     }
 
-    public static synchronized boolean tryJoin(long guildId, Party party, Profile profile, long userId) {
+    public static synchronized boolean tryJoin(Party party, Profile profile, long userId) {
         synchronized (party) {
-            if (!PartyRoleManager.canJoin(guildId, party.getPreset(), party, profile)) {
+            if (!PartyRoleManager.canJoin(party.getPreset(), party, profile)) {
                 return false;
             }
 

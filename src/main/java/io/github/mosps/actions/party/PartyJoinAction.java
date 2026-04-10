@@ -28,7 +28,8 @@ public class PartyJoinAction implements Action {
                     .error("このパーティは締め切り済みです。");
         }
 
-        Profile profile = ProfileManager.getProfile(context.getGuildId(), context.getUserId());
+        Profile profile = ProfileManager.getProfile(context.getUserId());
+        ProfileManager.registerGuildMember(context.getGuildId(), context.getUserId());
         if (profile == null) {
             return ActionResult.of()
                     .error("プロフィールを作成してください。");
@@ -38,7 +39,7 @@ public class PartyJoinAction implements Action {
                     .error("メインクラスを設定してください。");
         }
 
-        if (!PartyManager.tryJoin(context.getGuildId(), party, profile, context.getUserId())) {
+        if (!PartyManager.tryJoin(party, profile, context.getUserId())) {
             return ActionResult.of()
                     .error("このパーティは満員です。");
         }

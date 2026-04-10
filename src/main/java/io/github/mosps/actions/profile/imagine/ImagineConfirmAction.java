@@ -16,7 +16,7 @@ public class ImagineConfirmAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
-        Profile profile = ProfileManager.getProfile(context.getGuildId(), context.getUserId());
+        Profile profile = ProfileManager.getProfile(context.getUserId());
         ImagineEditSession session = ImagineEditManager.get(context.getGuildId(), context.getUserId());
 
         session.getAddImagines().forEach(profile::addImagine);
