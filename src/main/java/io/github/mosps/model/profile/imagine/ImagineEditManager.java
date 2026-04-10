@@ -28,7 +28,11 @@ public class ImagineEditManager {
 
     public static ImagineEditSession createSession(long userId) {
         Profile profile = ProfileManager.getProfile(userId);
-        return new ImagineEditSession(userId, profile.getImagines());
+        ImagineEditSession session = new ImagineEditSession(userId, profile.getImagines());
+
+        sessions.put(userId, session);
+
+        return session;
     }
 
     public static void remove(long userId) {
