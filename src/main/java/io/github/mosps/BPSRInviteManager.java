@@ -44,10 +44,6 @@ public class BPSRInviteManager {
 ・パーティ削除の仕様を変更,UI削除後削除中フラグを付けるように。
     優先度:高
 
-準不具合修正
-・imagineSession時間経過削除
-    優先度:高
-
 コード整理
 ・各Managerの責務を再確認(PartyManager済)
     優先度:低
