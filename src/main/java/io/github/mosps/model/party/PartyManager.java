@@ -1,7 +1,7 @@
 package io.github.mosps.model.party;
 
 import io.github.mosps.model.profile.Profile;
-import io.github.mosps.util.PartyStorage;
+import io.github.mosps.util.storage.PartyStorage;
 
 import java.util.Map;
 import java.util.Set;

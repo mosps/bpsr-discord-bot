@@ -1,4 +1,4 @@
-package io.github.mosps.util;
+package io.github.mosps.util.storage;
 
 import com.google.gson.Gson;
 import io.github.mosps.model.party.Party;
