@@ -1,6 +1,7 @@
 package io.github.mosps;
 
 import io.github.mosps.jda.listener.*;
+import io.github.mosps.model.party.PartyManager;
 import io.github.mosps.model.profile.ProfileManager;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -31,6 +32,7 @@ public class BPSRInviteManager {
                 .build();
 
         ProfileManager.loadAll();
+        PartyManager.startCleaner();
     }
 }
 
