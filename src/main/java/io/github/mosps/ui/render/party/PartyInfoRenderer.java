@@ -24,46 +24,49 @@ public class PartyInfoRenderer extends BaseRenderer<PartyInfoView> {
         EmbedBuilder embedBuilder = baseEmbed();
 
         embedBuilder.setColor(Color.CYAN);
+        embedBuilder.setTitle("Party Info");
 
         return embedBuilder;
     }
 
     private void addMemberListField(PartyInfoView view, EmbedBuilder embedBuilder) {
-        List<String> members = buildMembersString(view);
-        if (members.isEmpty()) {
-            embedBuilder.addField("Party Info", " ", false);
+        List<MemberView> memberViews = view.members;
+        if (memberViews.isEmpty()) {
+            embedBuilder.addField("パーティメンバーが居ません...", " ", false);
             return;
         }
 
-        int total = members.size();
-        for (int i = 0; i < total; i += 5) {
-            List<String> chunk = members.subList(i, Math.min(i + 5, total));
-
-            String value = String.join("\n", chunk);
-
-            if (value.length() > 1024) {
-                value = value.substring(0, 1020) + "...";
-            }
-
-            String name = (i == 0)
-                    ? "Party Info"
-                    : "\u200B";
-
-            embedBuilder.addField(name, value, false);
-        }
+        memberViews.forEach(memberView -> embedBuilder.addField(buildMemberString(memberView), buildValueField(memberView), false));
     }
 
-    private List<String> buildMembersString(PartyInfoView view) {
-        return view.members.stream()
-                .map(memberView ->
-                            "- "+ memberView.name + " "
-                            + memberView.emoji + memberView.style + " "
-                            + "(<@" + memberView.userId + ">)"
-                            + buildImagineString(memberView)
-                ).toList();
+    private String buildMemberString(MemberView view) {
+        return """
+               %s %s%s
+               """.formatted(view.name, view.emoji, view.style);
+    }
+
+    private String buildValueField(MemberView view) {
+        String imagine = buildImagineString(view);
+        if (imagine.length() > 1024) {
+            imagine = imagine.substring(0, 980);
+
+            int lastStart = imagine.lastIndexOf("<");
+            int lastEnd = imagine.lastIndexOf(">");
+
+            if (lastStart > lastEnd) {
+                imagine = imagine.substring(0, lastStart);
+            }
+
+            imagine = imagine + "...";
+        }
+
+        return """
+               (<@%s>)
+               %s
+               """.formatted(view.userId, imagine);
     }
 
     private String buildImagineString(MemberView view) {
-        return view.imagines.isEmpty() ? "" : "\n" + view.imagines;
+        return view.imagines.isEmpty() ? "バトルイマジン未設定" : view.imagines;
     }
 }
