@@ -1,4 +1,4 @@
-package io.github.mosps.ui.mapper.party;
+package io.github.mosps.ui.mapper.party.setting;
 
 import io.github.mosps.model.party.Party;
 import io.github.mosps.ui.mapper.Mapper;
