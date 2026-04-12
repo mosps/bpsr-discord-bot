@@ -20,8 +20,8 @@ public class ImagineAddPagePrevAction implements Action {
             return ActionResult.of().error("このセッションは期限切れです。");
         }
 
-        if (PageManager.hasPrev(session.getPage())) {
-            session.prevPage();
+        if (PageManager.hasPrev(session.getAddImaginePage())) {
+            session.prevAddImaginePage();
         }
 
         ImagineEditView view = ViewMapper.map(session, ImagineEditView.class);

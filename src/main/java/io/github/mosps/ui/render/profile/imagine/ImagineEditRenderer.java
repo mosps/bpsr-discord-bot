@@ -1,7 +1,6 @@
 package io.github.mosps.ui.render.profile.imagine;
 
 import io.github.mosps.model.data.Imagines;
-import io.github.mosps.model.party.PartyManager;
 import io.github.mosps.ui.render.BaseRenderer;
 import io.github.mosps.ui.render.RenderResult;
 import io.github.mosps.ui.render.util.PageManager;
@@ -16,7 +15,6 @@ import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +26,10 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
 
         List<ActionRow> rows = new ArrayList<>();
         rows.add(createTierRow(view));
-        rows.add(createEntryRow(view));
-        rows.add(createPageButtonRow(view));
+        createEntryRow(view).ifPresent(rows::add);
+        createAddImaginePageButtonRow(view).ifPresent(rows::add);
         createRemoveRow(view).ifPresent(rows::add);
-        rows.add(createConfirmButtonRow(view));
+        rows.add(createLastButtonRow(view));
 
         return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);
     }
@@ -63,25 +61,24 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
         return embedBuilder;
     }
 
-    private ActionRow createEntryRow(ImagineEditView view) {
+    private Optional<ActionRow> createEntryRow(ImagineEditView view) {
+        if (view.availableImagines.isEmpty()) return Optional.empty();
+
         StringSelectMenu imagineEntry = StringSelectMenu.create("profile:imagine_edit:add|" + view.userId)
-                .setPlaceholder("登録するバトルイマジンを選択 (" + (view.page + 1) + "/" + PageManager.totalPage(view.availableImagines.size()) + ")")
-                .addOptions(buildImagineOptions(view))
+                .setPlaceholder("登録するバトルイマジンを選択 (" + (view.addImaginePage + 1) + "/" + PageManager.totalPage(view.availableImagines.size()) + ")")
+                .addOptions(buildAddImagineOptions(view))
                 .setMaxValues(25)
                 .build();
 
-        return ActionRow.of(imagineEntry);
+        return Optional.of(ActionRow.of(imagineEntry));
     }
 
     private Optional<ActionRow> createRemoveRow(ImagineEditView view) {
         if (view.currentImagines.isEmpty()) return Optional.empty();
 
         StringSelectMenu imagineRemove = StringSelectMenu.create("profile:imagine_edit:remove|" + view.userId)
-                .setPlaceholder("削除するバトルイマジンを選択")
-                .addOptions(view.currentImagines.entrySet().stream()
-                        .map(entry -> SelectOption.of(entry.getKey().getName(), entry.getKey().name() + ":" + entry.getValue())
-                                .withEmoji(Emoji.fromFormatted(entry.getKey().getEmoji())))
-                        .toList())
+                .setPlaceholder("削除するバトルイマジンを選択 (" + (view.removeImaginePage + 1) + "/" + PageManager.totalPage(view.currentImagines.size()) + ")")
+                .addOptions(buildRemoveImagineOptions(view))
                 .setMaxValues(25)
                 .build();
 
@@ -100,28 +97,64 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
         return ActionRow.of(numberBuilder.build());
     }
 
-    private ActionRow createPageButtonRow(ImagineEditView view) {
+    private Optional<ActionRow> createAddImaginePageButtonRow(ImagineEditView view) {
+        if (view.availableImagines.isEmpty()) return Optional.empty();
+
         Button previous = Button.secondary("profile:imagine_add_prev:|" + view.userId, "⬅️前のページ");
         Button next = Button.secondary("profile:imagine_add_next:|" + view.userId, "次のページ➡️️");
 
-        if (!PageManager.hasNext(view.page, view.availableImagines.size())) {
+        if (!PageManager.hasNext(view.addImaginePage, view.availableImagines.size())) {
             next = next.asDisabled();
         }
-        if (!PageManager.hasPrev(view.page)) {
+        if (!PageManager.hasPrev(view.addImaginePage)) {
             previous = previous.asDisabled();
         }
 
-        return ActionRow.of(previous, next);
+        return Optional.of(ActionRow.of(previous, next));
     }
 
-    private ActionRow createConfirmButtonRow(ImagineEditView view) {
+    private List<Button> createRemoveImaginePageButtonRow(ImagineEditView view) {
+        if (view.currentImagines.isEmpty()) return List.of();
+
+        Button previous = Button.secondary("profile:imagine_remove_prev:|" + view.userId, "⬅️前のページ");
+        Button next = Button.secondary("profile:imagine_remove_next:|" + view.userId, "次のページ➡️️");
+
+        if (!PageManager.hasNext(view.removeImaginePage, view.currentImagines.size())) {
+            next = next.asDisabled();
+        }
+        if (!PageManager.hasPrev(view.removeImaginePage)) {
+            previous = previous.asDisabled();
+        }
+
+        return List.of(previous, next);
+    }
+
+    private List<Button> createConfirmButtonRow(ImagineEditView view) {
         Button success = Button.success("profile:imagine_confirm:|" + view.userId, "✅確定");
 
-        return ActionRow.of(success);
+        return List.of(success);
     }
 
-    public static List<SelectOption> buildImagineOptions(ImagineEditView view) {
-        List<Imagines> current = PageManager.getPage(view.availableImagines, view.page);
+    private ActionRow createLastButtonRow(ImagineEditView view) {
+        List<Button> buttons = new ArrayList<>();
+
+        buttons.addAll(createRemoveImaginePageButtonRow(view));
+        buttons.addAll(createConfirmButtonRow(view));
+
+        return ActionRow.of(buttons);
+    }
+
+    public List<SelectOption> buildAddImagineOptions(ImagineEditView view) {
+        List<Imagines> current = PageManager.getPage(view.availableImagines, view.addImaginePage);
+
+        return current.stream()
+                .map(v -> SelectOption.of(v.getName(), v.name() + ":" + view.tier)
+                        .withEmoji(Emoji.fromFormatted(v.getEmoji())))
+                .toList();
+    }
+
+    public List<SelectOption> buildRemoveImagineOptions(ImagineEditView view) {
+        List<Imagines> current = PageManager.getPage(new ArrayList<>(view.currentImagines.keySet()), view.removeImaginePage);
 
         return current.stream()
                 .map(v -> SelectOption.of(v.getName(), v.name() + ":" + view.tier)

@@ -8,7 +8,8 @@ import java.util.Map;
 public class ImagineEditView {
     public long userId;
 
-    public int page;
+    public int addImaginePage;
+    public int removeImaginePage;
 
     public String add;
     public String remove;

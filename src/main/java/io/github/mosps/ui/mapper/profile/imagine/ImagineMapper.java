@@ -33,7 +33,8 @@ public class ImagineMapper implements Mapper<ImagineEditSession, ImagineEditView
         view.tier = session.getTier() == null
                 ? "0凸"
                 : session.getTier();
-        view.page = session.getPage();
+        view.addImaginePage = session.getAddImaginePage();
+        view.removeImaginePage = session.getRemoveImaginePage();
 
         return view;
     }
