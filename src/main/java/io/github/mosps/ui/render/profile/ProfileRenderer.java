@@ -30,7 +30,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
         rows.add(createMainClassRow(view));
         rows.add(createSubClassRow(view));
         createEquippedImaginesRow(view).ifPresent(rows::add);
-        rows.add(createPageButtonRow(view));
+        createPageButtonRow(view).ifPresent(rows::add);
         rows.add(createEditClassButtonRow(view));
 
         return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);
@@ -102,7 +102,9 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
         return Optional.of(ActionRow.of(imagines));
     }
 
-    private ActionRow createPageButtonRow(ProfileView view) {
+    private Optional<ActionRow> createPageButtonRow(ProfileView view) {
+        if (view.ownedImagines.isEmpty()) return Optional.empty();
+
         Button previous = Button.secondary("profile:prev:|" + view.userId, "⬅️前のページ");
         Button next = Button.secondary("profile:next:|" + view.userId, "次のページ➡️️");
 
@@ -113,7 +115,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
             previous = previous.asDisabled();
         }
 
-        return ActionRow.of(previous, next);
+        return Optional.of(ActionRow.of(previous, next));
     }
 
     private ActionRow createEditClassButtonRow(ProfileView view) {
