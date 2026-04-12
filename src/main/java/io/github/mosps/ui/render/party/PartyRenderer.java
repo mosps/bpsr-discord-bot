@@ -110,7 +110,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
     private List<String> buildMembersString(PartyView view) {
         return view.members.stream()
                 .map(memberView ->
-                                "- " + memberView.name + " "
+                                memberView.name + " "
                                 + memberView.emoji + memberView.style + " "
                                 + memberView.imagines
                 ).toList();
