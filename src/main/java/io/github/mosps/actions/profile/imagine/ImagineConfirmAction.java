@@ -26,6 +26,7 @@ public class ImagineConfirmAction implements Action {
         session.getRemoveImagines().keySet().forEach(profile::removeImagine);
 
         ProfileManager.stillOwnedImagines(profile);
+        profile.resetPage();
 
         ProfileManager.saveProfile(profile);
         ImagineEditManager.remove(context.getUserId());

@@ -1,9 +1,12 @@
 package io.github.mosps.ui.render.profile;
 
 import io.github.mosps.model.data.Classes;
+import io.github.mosps.model.data.Imagines;
 import io.github.mosps.ui.render.BaseRenderer;
 import io.github.mosps.ui.render.RenderResult;
+import io.github.mosps.ui.render.util.PageManager;
 import io.github.mosps.ui.views.profile.ProfileView;
+import io.github.mosps.ui.views.profile.imagine.ImagineEditView;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
@@ -13,10 +16,8 @@ import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 
 
 public class ProfileRenderer extends BaseRenderer<ProfileView> {
@@ -29,6 +30,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
         rows.add(createMainClassRow(view));
         rows.add(createSubClassRow(view));
         createEquippedImaginesRow(view).ifPresent(rows::add);
+        rows.add(createPageButtonRow(view));
         rows.add(createEditClassButtonRow(view));
 
         return build(MessageEditData.fromEmbeds(embedBuilder.build()), rows);
@@ -90,22 +92,42 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
     private Optional<ActionRow> createEquippedImaginesRow(ProfileView view) {
         if (view.ownedImagines.isEmpty()) return Optional.empty();
 
-        StringSelectMenu subClass = StringSelectMenu.create("profile:register:equipped_imagines|" + view.userId)
-                .setPlaceholder("装備するイマジンを選択")
-                .addOptions(view.ownedImagines.entrySet().stream()
-                        .map(entry -> SelectOption.of(entry.getKey().getName(), entry.getKey().name() + ":" + entry.getValue())
-                                .withEmoji(Emoji.fromFormatted(entry.getKey().getEmoji())))
-                        .toList())
+        StringSelectMenu imagines = StringSelectMenu.create("profile:register:equipped_imagines|" + view.userId)
+                .setPlaceholder("装備するイマジンを選択 (" + (view.page + 1) + "/" + PageManager.totalPage(view.ownedImagines.size()) + ")")
+                .addOptions(buildImagineOptions(view))
                 .setMinValues(0)
                 .setMaxValues(2)
                 .build();
 
-        return Optional.of(ActionRow.of(subClass));
+        return Optional.of(ActionRow.of(imagines));
+    }
+
+    private ActionRow createPageButtonRow(ProfileView view) {
+        Button previous = Button.secondary("profile:prev:|" + view.userId, "⬅️前のページ");
+        Button next = Button.secondary("profile:next:|" + view.userId, "次のページ➡️️");
+
+        if (!PageManager.hasNext(view.page, view.ownedImagines.size())) {
+            next = next.asDisabled();
+        }
+        if (!PageManager.hasPrev(view.page)) {
+            previous = previous.asDisabled();
+        }
+
+        return ActionRow.of(previous, next);
     }
 
     private ActionRow createEditClassButtonRow(ProfileView view) {
         Button edit = Button.secondary("profile:imagine_create:|" + view.userId, "イマジンを変更");
 
         return ActionRow.of(edit);
+    }
+
+    public List<SelectOption> buildImagineOptions(ProfileView view) {
+        List<Map.Entry<Imagines, String>> current = PageManager.getPage(new ArrayList<>(view.ownedImagines.entrySet()), view.page);
+
+        return current.stream()
+                .map(entry -> SelectOption.of(entry.getKey().getName(), entry.getKey().name() + ":" + entry.getValue())
+                        .withEmoji(Emoji.fromFormatted(entry.getKey().getEmoji())))
+                .toList();
     }
 }

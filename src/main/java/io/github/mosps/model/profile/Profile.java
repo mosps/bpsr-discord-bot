@@ -96,6 +96,10 @@ public class Profile {
     public void prevPage() {
         this.page--;
     }
+
+    public void resetPage() {
+        this.page = 0;
+    }
 }
 
 
