@@ -19,6 +19,8 @@ public class Profile {
     private Map<Imagines, String> equippedImagines = new HashMap<>();
     private Map<Imagines, String> imagines = new HashMap<>();
 
+    private int page = 0;
+
     public Profile(long userId) {
         this.userId = userId;
     }
@@ -82,4 +84,18 @@ public class Profile {
     public void resetImagines() {
         imagines.clear();
     }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void nextPage() {
+        this.page++;
+    }
+
+    public void prevPage() {
+        this.page--;
+    }
 }
+
+

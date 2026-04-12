@@ -8,6 +8,8 @@ public class ProfileView {
     public long userId;
     public String name;
 
+    public int page;
+
     public String mainClass;
     public String subClasses;
 
