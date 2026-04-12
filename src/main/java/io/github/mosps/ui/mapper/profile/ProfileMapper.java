@@ -43,7 +43,27 @@ public class ProfileMapper implements Mapper<Profile, ProfileView> {
                 : imagines.entrySet().stream()
                 .map(entry -> entry.getKey().getDisplay() + entry.getValue())
                 .collect(Collectors.joining(""));
+        view.imagines = trimImagineView(view.imagines);
+        view.page = profile.getPage();
 
         return view;
+    }
+
+    private String trimImagineView(String imagines) {
+        String imagineBefore = imagines;
+        if (imagineBefore.length() > 1024) {
+            imagineBefore = imagineBefore.substring(0, 980);
+
+            int lastStart = imagineBefore.lastIndexOf("<");
+            int lastEnd = imagineBefore.lastIndexOf(">");
+
+            if (lastStart > lastEnd) {
+                imagineBefore = imagineBefore.substring(0, lastStart);
+            }
+
+            imagineBefore = imagineBefore + "...";
+        }
+
+        return imagineBefore;
     }
 }
