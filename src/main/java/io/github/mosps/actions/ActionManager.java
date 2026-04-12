@@ -2,8 +2,6 @@ package io.github.mosps.actions;
 
 import io.github.mosps.actions.party.*;
 import io.github.mosps.actions.party.setting.*;
-import io.github.mosps.actions.party.*;
-import io.github.mosps.actions.party.setting.*;
 import io.github.mosps.actions.profile.ProfileAdminAction;
 import io.github.mosps.actions.profile.ProfileCreateAction;
 import io.github.mosps.actions.profile.ProfileRegisterAction;
@@ -37,8 +35,8 @@ public class ActionManager {
         register("profile:imagine_create", new ImagineCreateAction());
         register("profile:imagine_edit", new ImagineEditAction());
         register("profile:imagine_confirm", new ImagineConfirmAction());
-        register("profile:imagine_next", new ImaginePageNextAction());
-        register("profile:imagine_prev", new ImaginePagePrevAction());
+        register("profile:imagine_add_next", new ImagineAddPageNextAction());
+        register("profile:imagine_add_prev", new ImagineAddPagePrevAction());
         register("profile:admin", new ProfileAdminAction());
     }
 

@@ -101,8 +101,8 @@ public class ImagineEditRenderer extends BaseRenderer<ImagineEditView> {
     }
 
     private ActionRow createPageButtonRow(ImagineEditView view) {
-        Button previous = Button.secondary("profile:imagine_prev:|" + view.userId, "⬅️前のページ");
-        Button next = Button.secondary("profile:imagine_next:|" + view.userId, "次のページ➡️️");
+        Button previous = Button.secondary("profile:imagine_add_prev:|" + view.userId, "⬅️前のページ");
+        Button next = Button.secondary("profile:imagine_add_next:|" + view.userId, "次のページ➡️️");
 
         if (!PageManager.hasNext(view.page, view.availableImagines.size())) {
             next = next.asDisabled();

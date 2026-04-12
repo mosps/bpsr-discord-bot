@@ -11,7 +11,7 @@ import io.github.mosps.ui.render.RenderResult;
 import io.github.mosps.ui.render.util.PageManager;
 import io.github.mosps.ui.views.profile.imagine.ImagineEditView;
 
-public class ImaginePageNextAction implements Action {
+public class ImagineAddPagePrevAction implements Action {
 
     @Override
     public ActionResult execute(ActionContext context) {
@@ -20,8 +20,8 @@ public class ImaginePageNextAction implements Action {
             return ActionResult.of().error("このセッションは期限切れです。");
         }
 
-        if (PageManager.hasNext(session.getPage(), session.getAvailableImagines().size())) {
-            session.nextPage();
+        if (PageManager.hasPrev(session.getPage())) {
+            session.prevPage();
         }
 
         ImagineEditView view = ViewMapper.map(session, ImagineEditView.class);
