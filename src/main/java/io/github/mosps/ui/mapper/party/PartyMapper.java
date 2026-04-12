@@ -47,6 +47,7 @@ public class PartyMapper implements Mapper<Party, PartyView> {
                     MemberView memberView = new MemberView();
 
                     memberView.userId = id;
+                    memberView.name = profile.getName();
                     memberView.role = main.getRole();
                     memberView.emoji = main.getEmoji();
                     memberView.style = main.getStyle();
