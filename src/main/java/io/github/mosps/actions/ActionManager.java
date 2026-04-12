@@ -22,6 +22,7 @@ public class ActionManager {
         register("party:toggle", new PartyToggleAction());
         register("party:create", new PartyCreateAction());
         register("party:create_confirm", new PartyCreateConfirmAction());
+        register("party:info", new PartyInfoAction());
         register("party:setting", new PartySettingAction());
         register("party:edit", new PartyEditAction());
         register("party:edit_confirm", new PartyEditConfirmAction());

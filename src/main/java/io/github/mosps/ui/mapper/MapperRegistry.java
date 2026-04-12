@@ -3,11 +3,13 @@ package io.github.mosps.ui.mapper;
 import io.github.mosps.model.party.Party;
 import io.github.mosps.model.profile.Profile;
 import io.github.mosps.model.profile.imagine.ImagineEditSession;
+import io.github.mosps.ui.mapper.party.PartyInfoMapper;
 import io.github.mosps.ui.mapper.party.setting.PartyDeleteMapper;
 import io.github.mosps.ui.mapper.party.PartyMapper;
 import io.github.mosps.ui.mapper.party.setting.PartySettingMapper;
 import io.github.mosps.ui.mapper.profile.ProfileMapper;
 import io.github.mosps.ui.mapper.profile.imagine.ImagineMapper;
+import io.github.mosps.ui.views.party.PartyInfoView;
 import io.github.mosps.ui.views.party.PartyView;
 import io.github.mosps.ui.views.party.setting.PartyDeleteView;
 import io.github.mosps.ui.views.party.setting.PartySettingView;
@@ -23,6 +25,7 @@ public class MapperRegistry {
 
     static {
         register(Party.class, PartyView.class, new PartyMapper());
+        register(Party.class, PartyInfoView.class, new PartyInfoMapper());
         register(Party.class, PartySettingView.class, new PartySettingMapper());
         register(Party.class, PartyDeleteView.class, new PartyDeleteMapper());
         register(Profile.class, ProfileView.class, new ProfileMapper());
