@@ -56,11 +56,37 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
     }
 
     private void addMemberListField(PartyView view, EmbedBuilder embedBuilder) {
-        embedBuilder.addField(
-                buildMemberCap(view),
-                buildMembersString(view),
-                false
-        );
+        List<String> members = view.members.stream()
+                .map(memberView ->
+                        "<@" + memberView.userId + "> "
+                                + memberView.emoji + memberView.style + " "
+                                + memberView.imagines
+                )
+                .toList();
+
+        if (members.isEmpty()) {
+            embedBuilder.addField(buildMemberCap(view), " ", false);
+            return;
+        }
+
+        int chunkSize = 5;
+        int total = members.size();
+
+        for (int i = 0; i < total; i += chunkSize) {
+            List<String> chunk = members.subList(i, Math.min(i + chunkSize, total));
+
+            String value = String.join("\n", chunk);
+
+            if (value.length() > 1024) {
+                value = value.substring(0, 1020) + "...";
+            }
+
+            String name = (i == 0)
+                    ? buildMemberCap(view)
+                    : "\u200B";
+
+            embedBuilder.addField(name, value, false);
+        }
     }
 
     private String buildMemberCap(PartyView view) {
