@@ -56,24 +56,15 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
     }
 
     private void addMemberListField(PartyView view, EmbedBuilder embedBuilder) {
-        List<String> members = view.members.stream()
-                .map(memberView ->
-                        "<@" + memberView.userId + "> "
-                                + memberView.emoji + memberView.style + " "
-                                + memberView.imagines
-                )
-                .toList();
-
+        List<String> members = buildMembersString(view);
         if (members.isEmpty()) {
             embedBuilder.addField(buildMemberCap(view), " ", false);
             return;
         }
 
-        int chunkSize = 5;
         int total = members.size();
-
-        for (int i = 0; i < total; i += chunkSize) {
-            List<String> chunk = members.subList(i, Math.min(i + chunkSize, total));
+        for (int i = 0; i < total; i += 5) {
+            List<String> chunk = members.subList(i, Math.min(i + 5, total));
 
             String value = String.join("\n", chunk);
 
@@ -116,17 +107,13 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
         return stringBuilder.append("\n").toString();
     }
 
-    private String buildMembersString(PartyView view) {
-        StringBuilder stringBuilder = new StringBuilder();
-        view.members.forEach(memberView -> {
-                    stringBuilder.append("<@").append(memberView.userId).append("> ")
-                            .append(memberView.emoji).append(memberView.style).append(" ")
-                            .append(memberView.imagines).append(" ")
-                            .append("\n");
-                }
-        );
-
-        return stringBuilder.isEmpty() ? " " : stringBuilder.toString();
+    private List<String> buildMembersString(PartyView view) {
+        return view.members.stream()
+                .map(memberView ->
+                                "- " + memberView.name + " "
+                                + memberView.emoji + memberView.style + " "
+                                + memberView.imagines
+                ).toList();
     }
 
     private List<Button> createPartyAccessButton(PartyView view) {
@@ -134,6 +121,7 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
         buttons.add(Button.success("party:join:" + view.partyId, "🟢参加"));
         buttons.add(Button.danger("party:leave:" + view.partyId, "🔴退出"));
+        buttons.add(Button.secondary("party:info:" + view.partyId, "🔍詳細"));
 
         return buttons;
     }
