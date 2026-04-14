@@ -31,6 +31,7 @@ public class PartyMapper implements Mapper<Party, PartyView> {
 
         view.partyId = party.getPartyId();
         view.ownerId = party.getOwnerId();
+        view.ownerName = ProfileManager.getProfile(view.ownerId).getName();
         view.members = getMemberView(party);
         view.role = party.getPreset().getValue();
         view.closed = party.isClosed();

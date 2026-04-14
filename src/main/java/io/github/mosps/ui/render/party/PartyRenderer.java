@@ -43,13 +43,14 @@ public class PartyRenderer extends BaseRenderer<PartyView> {
 
         embedBuilder.setDescription(
                 """
+                **募集者**: %s
                 ID: `%s`
                 -----------------------------------
-                **目的地:** %s
-                **時間:** %s
-                **備考:** %s
+                **目的地**: %s
+                **時間**: %s
+                **備考**: %s
                 -----------------------------------
-                """.formatted(view.partyId, view.destination, view.time, view.note)
+                """.formatted(view.ownerName, view.partyId, view.destination, view.time, view.note)
         );
 
         return embedBuilder;

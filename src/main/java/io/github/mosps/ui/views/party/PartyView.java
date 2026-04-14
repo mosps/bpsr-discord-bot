@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class PartyView {
     public long ownerId;
+    public String ownerName;
     public long partyId;
     public List<MemberView> members;
     public Map<Role, Integer> role;
