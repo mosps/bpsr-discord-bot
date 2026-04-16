@@ -1,10 +1,13 @@
 package io.github.mosps.ui.render.party.setting;
 
+import io.github.mosps.model.profile.Profile;
 import io.github.mosps.ui.render.BaseRenderer;
 import io.github.mosps.ui.render.RenderResult;
+import io.github.mosps.ui.render.util.PageManager;
 import io.github.mosps.ui.views.party.setting.PartySettingView;
 import net.dv8tion.jda.api.components.actionrow.ActionRow;
 import net.dv8tion.jda.api.components.buttons.Button;
+import net.dv8tion.jda.api.components.selections.SelectOption;
 import net.dv8tion.jda.api.components.selections.StringSelectMenu;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
@@ -18,6 +21,7 @@ public class PartySettingRenderer extends BaseRenderer<PartySettingView> {
         String content = "パーティ設定";
 
         List<ActionRow> rows = new ArrayList<>();
+        rows.add(createAddMemberRow(view));
         rows.add(createRoleRow(view));
         rows.add(createSettingButtonRow(view));
 
@@ -36,11 +40,30 @@ public class PartySettingRenderer extends BaseRenderer<PartySettingView> {
         return ActionRow.of(role);
     }
 
+    private ActionRow createAddMemberRow(PartySettingView view) {
+        StringSelectMenu addMember = StringSelectMenu.create("party:add:" + view.partyId)
+                .setPlaceholder("パーティメンバーを手動追加")
+                .addOptions(buildAddMemberOptions(view))
+                .build();
+
+        return ActionRow.of(addMember);
+    }
+
     private ActionRow createSettingButtonRow(PartySettingView view) {
         Button edit = Button.secondary("party:edit:" + view.partyId, "編集");
         Button close = Button.secondary("party:toggle:" + view.partyId, "募集終了 | 募集再開");
         Button delete = Button.danger("party:delete:" + view.partyId, "削除");
 
         return ActionRow.of(edit, close, delete);
+    }
+
+    private List<SelectOption> buildAddMemberOptions(PartySettingView view) {
+        List<Profile> member = PageManager.getPage(view.members, view.page);
+
+        return member.stream()
+                .map(v ->
+                        SelectOption.of(v.getName() + " (" + v.getMainClass().getTextDisplay() + ")",
+                                String.valueOf(v.getUserId())))
+                .toList();
     }
 }
