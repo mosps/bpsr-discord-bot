@@ -13,7 +13,7 @@ public class ImagineEditManager {
     private static final ScheduledExecutorService cleaner = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> cleanerTask;
 
-    private static final long TIMEOUT = TimeUnit.MINUTES.toMillis(10);
+    private static final long TIMEOUT = TimeUnit.MINUTES.toMillis(60);
 
     public static ImagineEditSession get(long userId) {
         ImagineEditSession session = sessions.get(userId);
