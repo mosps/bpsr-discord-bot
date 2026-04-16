@@ -23,14 +23,14 @@ public enum CustomIdDomain {
     PROFILE("profile") {
         public String build(String action, Map<String, String> args) {
             return prefix + ":" + action + ":" +
-                    args.get("type") + "|" + args.get("ownerId");
+                    args.get("type") + "|" + args.get("userId");
         }
 
         @Override
         public Map<String, String> parse(String[] args) {
             Map<String, String> map = new HashMap<>();
             map.put("type", args[0]);
-            map.put("ownerId", args[1]);
+            map.put("userId", args[1]);
             return map;
         }
     };
