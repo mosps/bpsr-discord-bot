@@ -1,9 +1,6 @@
 package io.github.mosps.jda.handler;
 
-import io.github.mosps.actions.Action;
-import io.github.mosps.actions.ActionContext;
-import io.github.mosps.actions.ActionManager;
-import io.github.mosps.actions.ActionResult;
+import io.github.mosps.actions.*;
 import io.github.mosps.actions.data.EmptyData;
 import io.github.mosps.jda.response.CommandResponder;
 import io.github.mosps.jda.response.Responder;
@@ -22,9 +19,8 @@ public class CommandHandler extends Handler {
                 : event.getMember().getEffectiveName();
 
         ActionContext context = new ActionContext(guildId, null, userId, name, customId, new EmptyData());
-        Action action = ActionManager.get(customId.getKey());
 
-        ActionResult result = action.execute(context);
+        ActionResult result = ActionExecutor.execute(context);
 
         Responder responder = new CommandResponder(event);
         ResponseDispatcher.dispatch(responder, result);

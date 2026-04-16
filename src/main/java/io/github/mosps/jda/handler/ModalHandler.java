@@ -1,9 +1,6 @@
 package io.github.mosps.jda.handler;
 
-import io.github.mosps.actions.Action;
-import io.github.mosps.actions.ActionContext;
-import io.github.mosps.actions.ActionManager;
-import io.github.mosps.actions.ActionResult;
+import io.github.mosps.actions.*;
 import io.github.mosps.actions.data.ModalData;
 import io.github.mosps.jda.response.ModalResponder;
 import io.github.mosps.jda.response.Responder;
@@ -32,9 +29,8 @@ public class ModalHandler extends Handler {
                 ));
 
         ActionContext context = new ActionContext(guildId, null, userId, name, customId, new ModalData(values));
-        Action action = ActionManager.get(customId.getKey());
 
-        ActionResult result = action.execute(context);
+        ActionResult result = ActionExecutor.execute(context);
 
         Responder responder = new ModalResponder(event);
         ResponseDispatcher.dispatch(responder, result);

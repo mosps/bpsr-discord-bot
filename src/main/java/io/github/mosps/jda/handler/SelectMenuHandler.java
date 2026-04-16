@@ -1,9 +1,6 @@
 package io.github.mosps.jda.handler;
 
-import io.github.mosps.actions.Action;
-import io.github.mosps.actions.ActionContext;
-import io.github.mosps.actions.ActionManager;
-import io.github.mosps.actions.ActionResult;
+import io.github.mosps.actions.*;
 import io.github.mosps.actions.data.SelectMenuData;
 import io.github.mosps.jda.response.Responder;
 import io.github.mosps.jda.response.ResponseDispatcher;
@@ -30,9 +27,8 @@ public class SelectMenuHandler extends Handler {
         }
 
         ActionContext context = new ActionContext(guildId, messageId, userId, name, customId, new SelectMenuData(event.getValues()));
-        Action action = ActionManager.get(customId.getKey());
 
-        ActionResult result = action.execute(context);
+        ActionResult result = ActionExecutor.execute(context);
 
         Responder responder = new SelectMenuResponder(event);
         ResponseDispatcher.dispatch(responder, result);
