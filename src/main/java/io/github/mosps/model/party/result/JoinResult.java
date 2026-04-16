@@ -1,7 +1,7 @@
 package io.github.mosps.model.party.result;
 
 public enum JoinResult {
-    EXPIRED("このパーティは期限切れです"),
+    EXPIRED("存在しないパーティです。\n再度パーティを作り直してください。"),
     CLOSED("このパーティは締め切り済みです"),
     NONE_PROFILE("プロフィールを作成してください"),
     UNKNOWN_CLASS("メインクラスを設定してください"),
