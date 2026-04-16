@@ -7,7 +7,7 @@ import io.github.mosps.actions.data.SelectMenuData;
 import io.github.mosps.ui.mapper.ViewMapper;
 import io.github.mosps.model.party.Party;
 import io.github.mosps.model.party.PartyManager;
-import io.github.mosps.model.party.PartyRolePreset;
+import io.github.mosps.model.party.setting.PartyRolePreset;
 import io.github.mosps.ui.render.MessageRenderer;
 import io.github.mosps.ui.render.RenderResult;
 import io.github.mosps.ui.views.party.PartyView;

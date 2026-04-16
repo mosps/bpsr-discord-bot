@@ -7,7 +7,6 @@ import io.github.mosps.model.party.result.JoinResult;
 import io.github.mosps.ui.mapper.ViewMapper;
 import io.github.mosps.model.party.Party;
 import io.github.mosps.model.party.PartyManager;
-import io.github.mosps.model.party.PartyRoleManager;
 import io.github.mosps.model.profile.Profile;
 import io.github.mosps.model.profile.ProfileManager;
 import io.github.mosps.ui.render.MessageRenderer;

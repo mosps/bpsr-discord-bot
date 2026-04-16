@@ -1,6 +1,7 @@
-package io.github.mosps.model.party;
+package io.github.mosps.model.party.setting;
 
 import io.github.mosps.model.data.Role;
+import io.github.mosps.model.party.Party;
 import io.github.mosps.model.profile.Profile;
 import io.github.mosps.model.profile.ProfileManager;
 

@@ -1,4 +1,4 @@
-package io.github.mosps.model.party;
+package io.github.mosps.model.party.setting;
 
 import io.github.mosps.model.data.Role;
 

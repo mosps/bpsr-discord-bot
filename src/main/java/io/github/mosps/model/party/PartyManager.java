@@ -1,8 +1,9 @@
 package io.github.mosps.model.party;
 
-import io.github.mosps.actions.ActionResult;
 import io.github.mosps.model.party.result.JoinResult;
 import io.github.mosps.model.party.result.LeaveResult;
+import io.github.mosps.model.party.setting.PartyRoleManager;
+import io.github.mosps.model.party.setting.PartyRolePreset;
 import io.github.mosps.model.profile.Profile;
 import io.github.mosps.util.storage.PartyStorage;
 
@@ -113,7 +114,7 @@ public class PartyManager {
     public static Party createParty(long guildId, long ownerId) {
         ensureLoaded(guildId);
 
-        Party party = new Party(generatePartyId(guildId), ownerId);
+        Party party = new Party(guildId, generatePartyId(guildId), ownerId);
         register(guildId, party.getPartyId(), party);
 
         return party;
