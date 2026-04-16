@@ -23,7 +23,7 @@ public class ActionDetailMapper {
             case "party:admin" -> "パーティ管理メッセージ生成";
 
             // ===== Profile =====
-            case "profile:create" -> "プロフィール作成画面表示";
+            case "profile:create" -> "プロフィール表示";
             case "profile:register" -> "プロフィール登録/更新";
             case "profile:next" -> "プロフィールページ送り";
             case "profile:prev" -> "プロフィールページ戻し";
