@@ -1,10 +1,12 @@
 package io.github.mosps.model.party;
 
+import io.github.mosps.model.party.setting.PartyRolePreset;
+
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Party {
+    private final long guildId;
     private final long ownerId;
     private final long partyId;
     private final long createdTime = System.currentTimeMillis();
@@ -21,7 +23,8 @@ public class Party {
 
     private boolean closed = false;
 
-    public Party(long partyId, long ownerId) {
+    public Party(long guildId, long partyId, long ownerId) {
+        this.guildId = guildId;
         this.partyId = partyId;
         this.ownerId = ownerId;
     }
@@ -80,6 +83,10 @@ public class Party {
 
     public long getCreatedTime() {
         return createdTime;
+    }
+
+    public long getGuildId() {
+        return guildId;
     }
 
     public long getOwnerId() {
