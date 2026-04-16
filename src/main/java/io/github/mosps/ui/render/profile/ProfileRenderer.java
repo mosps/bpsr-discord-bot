@@ -119,7 +119,7 @@ public class ProfileRenderer extends BaseRenderer<ProfileView> {
     }
 
     private ActionRow createEditClassButtonRow(ProfileView view) {
-        Button edit = Button.secondary("profile:imagine_create:|" + view.userId, "イマジンを変更");
+        Button edit = Button.secondary("profile:imagine_create:|" + view.userId, "イマジンを登録");
 
         return ActionRow.of(edit);
     }
