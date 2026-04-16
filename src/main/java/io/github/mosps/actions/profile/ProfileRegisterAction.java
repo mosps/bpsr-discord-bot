@@ -19,12 +19,9 @@ public class ProfileRegisterAction implements Action {
         Profile profile = ProfileManager.getProfile(context.getUserId());
 
         SelectMenuData data = context.getData(SelectMenuData.class);
-
-        profile.setName(context.getName());//これいる？
-
         ProfileField field = ProfileField.fromId(context.getCustomId().get("type"));
         if (field == null) {
-            return ActionResult.of();
+            return ActionResult.of().error("不明な変更です。");
         }
 
         field.reset(profile);
