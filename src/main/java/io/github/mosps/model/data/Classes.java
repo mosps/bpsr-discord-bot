@@ -50,4 +50,8 @@ public enum Classes {
     public String getDisplay() {
         return emoji + name + " " + style;
     }
+
+    public String getTextDisplay() {
+        return name + " " + style;
+    }
 }
